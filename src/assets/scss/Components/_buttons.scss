@@ -1,0 +1,252 @@
+.btn {
+  line-height: 1.5;
+  font-size: 1rem;
+  padding: 0.975rem 2rem;
+  font-weight: $font-regular;
+  border-radius: 0.5rem;
+  transition: 0.2s ease-in-out;
+  white-space: nowrap;
+  @include screen-sm-down {
+    font-size: 0.9375rem;
+    padding: 0.875rem 1.8rem;
+  }
+  &-sm {
+    padding: 0.675rem 1.8rem;
+    border-radius: 0.575rem;
+    line-height: 1.5;
+    font-size: 0.935rem;
+    &.btn-width {
+      min-width: 8.75rem;
+    }
+  }
+  &-width {
+    min-width: 11rem;
+  }
+  &-icon-item {
+    display: flex;
+    align-items: center;
+    .btn__icon__img {
+      margin-right: 0.575rem;
+    }
+  }
+  &-primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled):focus {
+      background-color: darken($color-primary, 4%);
+      border-color: darken($color-primary, 4%);
+    }
+    &:not(:disabled):not(.disabled).active:focus,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba($color-primary, 0.4);
+      &.btn-sm {
+        box-shadow: 0 0 0 0.24rem rgba($color-primary, 0.4);
+      }
+    }
+    &:hover {
+      background-color: darken($color-primary, 2%);
+      border-color: darken($color-primary, 2%);
+    }
+  }
+  &-light {
+    background-color: darken($color-graylight, 4%);
+    border-color: darken($color-graylight, 4%);
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled):focus {
+      background-color: darken($color-graylight, 10%);
+      border-color: darken($color-graylight, 10%);
+    }
+    &:not(:disabled):not(.disabled).active:focus,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba($color-graylight, 0.4);
+      &.btn-sm {
+        box-shadow: 0 0 0 0.24rem rgba($color-graylight, 0.4);
+      }
+    }
+    &:hover {
+      background-color: darken($color-graylight, 6%);
+      border-color: darken($color-graylight, 6%);
+    }
+    &danger {
+      background-color: rgba($color-primary, 0.1);
+      border-color: rgba($color-primary, 0.1);
+      &:not(:disabled):not(.disabled):active,
+      &:not(:disabled):not(.disabled):active:focus,
+      &:not(:disabled):not(.disabled):focus {
+        background-color: rgba($color-primary, 0.25);
+        border-color: rgba($color-primary, 0.25);
+      }
+      &:not(:disabled):not(.disabled).active:focus,
+      &:not(:disabled):not(.disabled):active:focus,
+      &:focus {
+        box-shadow: 0 0 0 0.3rem rgba($color-primary, 0.2);
+        &.btn-sm {
+          box-shadow: 0 0 0 0.24rem rgba($color-primary, 0.2);
+        }
+      }
+      &:hover {
+        background-color: rgba($color-primary, 0.15);
+        border-color: rgba($color-primary, 0.15);
+      }
+    }
+  }
+  &-light-hover {
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled):focus {
+      background-color: darken($color-graylight, 5%);
+      border-color: darken($color-graylight, 5%);
+    }
+    &:not(:disabled):not(.disabled).active:focus,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba($color-graylight, 0.4);
+      &.btn-sm {
+        box-shadow: 0 0 0 0.24rem rgba($color-graylight, 0.4);
+      }
+    }
+    &:hover {
+      background-color: $color-graylight;
+      border-color: $color-graylight;
+    }
+    &danger {
+      background-color: rgba($color-primary, 0.1);
+      border-color: rgba($color-primary, 0.1);
+      &:not(:disabled):not(.disabled):active,
+      &:not(:disabled):not(.disabled):active:focus,
+      &:not(:disabled):not(.disabled):focus {
+        background-color: rgba($color-primary, 0.25);
+        border-color: rgba($color-primary, 0.25);
+      }
+      &:not(:disabled):not(.disabled).active:focus,
+      &:not(:disabled):not(.disabled):active:focus,
+      &:focus {
+        box-shadow: 0 0 0 0.3rem rgba($color-primary, 0.2);
+        &.btn-sm {
+          box-shadow: 0 0 0 0.24rem rgba($color-primary, 0.2);
+        }
+      }
+      &:hover {
+        background-color: rgba($color-primary, 0.15);
+        border-color: rgba($color-primary, 0.15);
+      }
+    }
+  }
+  &-outline-primary {
+    color: $color-primary;
+    border-color: $color-primary;
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled):focus {
+      background-color: darken($color-primary, 4%);
+      border-color: darken($color-primary, 4%);
+      color: $color-white;
+    }
+    &:not(:disabled):not(.disabled).active:focus,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba($color-primary, 0.4);
+      &.btn-sm {
+        box-shadow: 0 0 0 0.24rem rgba($color-primary, 0.4);
+      }
+    }
+    &:hover {
+      background-color: darken($color-primary, 2%);
+      border-color: darken($color-primary, 2%);
+      color: $color-white;
+    }
+  }
+  &-outline-light {
+    color: darken($color-light, 40%);
+    border-color: darken($color-light, 5%);
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled):focus {
+      background-color: darken($color-light, 4%);
+      border-color: darken($color-light, 4%);
+      color: darken($color-light, 50%);
+    }
+    &:not(:disabled):not(.disabled).active:focus,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba($color-light, 0.4);
+      &.btn-sm {
+        box-shadow: 0 0 0 0.24rem rgba($color-light, 0.4);
+      }
+    }
+    &:hover {
+      background-color: $color-light;
+      color: darken($color-light, 50%);
+      border-color: $color-light;
+    }
+  }
+  &-lightblue {
+    background-color: rgba($color-blue, 0.1);
+    border-color: rgba($color-blue, 0.1);
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled):focus {
+      background-color: rgba($color-blue, 0.25);
+      border-color: rgba($color-blue, 0.25);
+    }
+    &:not(:disabled):not(.disabled).active:focus,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba($color-blue, 0.2);
+      &.btn-sm {
+        box-shadow: 0 0 0 0.24rem rgba($color-blue, 0.2);
+      }
+    }
+    &:hover {
+      background-color: rgba($color-blue, 0.15);
+      border-color: rgba($color-blue, 0.15);
+    }
+  }
+  &-secondary {
+    background-color: $color-blue;
+    border-color: $color-blue;
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled):focus {
+      background-color: darken($color-blue, 4%);
+      border-color: darken($color-blue, 4%);
+    }
+    &:not(:disabled):not(.disabled).active:focus,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba($color-blue, 0.4);
+    }
+    &:hover {
+      background-color: darken($color-blue, 2%);
+      border-color: darken($color-blue, 2%);
+    }
+  }
+}
+.btn-rounded {
+  padding: 0;
+  &.btn-sm {
+    width: 2.575rem;
+    height: 2.575rem;
+    @extend %basic-flex;
+    .btn-img {
+      width: 0.9375rem;
+      height: 0.9375rem;
+      object-fit: contain;
+    }
+  }
+  &.btn-xs {
+    width: 2.175rem;
+    height: 2.175rem;
+    @extend %basic-flex;
+    .btn-img {
+      width: 0.675rem;
+      height: 0.675rem;
+      object-fit: contain;
+    }
+  }
+}

@@ -1,0 +1,64 @@
+:root {
+  font-size: 16px;
+  @include screen-xxl-down {
+    font-size: 15px;
+  }
+  @include screen-xl-down {
+    font-size: 14px;
+  }
+  @include screen-md-down {
+    font-size: 13px;
+  }
+}
+body {
+  line-height: 1.5;
+  font-size: 16px;
+  background-color: $color-graybg;
+  overflow-x: hidden;
+}
+a {
+  margin: 0;
+  text-decoration: none;
+  outline: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: $color-gray;
+  font-size: 1rem;
+}
+
+hr {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: $color-black;
+}
+.section {
+  display: inline-block;
+  width: 100%;
+}
+label {
+  margin-bottom: 0;
+}
+img {
+  max-width: 100%;
+}

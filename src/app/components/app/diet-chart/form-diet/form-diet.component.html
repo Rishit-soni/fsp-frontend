@@ -1,0 +1,630 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a [routerLink]=" url ? url : '/diet-chart/chart'" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            /> </a
+          >{{
+            editId ? 'Edit Diet Plan' : viewId ? 'Diet Plan' : 'Add Diet Plan'
+          }}
+        </h4>
+      </div>
+    </div>
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <fieldset [disabled]="viewId">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group mt-2">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input floating__input"
+                      placeholder="Diet Name"
+                      [(ngModel)]="model.diet_name"
+                      name="diet"
+                      required
+                    />
+                    <span class="floating__label">Diet Name *</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      aria-placeholder="Category"
+                      [items]="categories"
+                      [disabled]="viewId"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.category"
+                      name="category"
+                      [searchable]="false"
+                      [clearable]="false"
+                      #category="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && category.invalid
+                      }"
+                      required
+                    ></ng-select>
+                    <span class="floating__label">Category *</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <div style="display: flex">
+                      <input
+                        type="number"
+                        class="form-control floating__input floating__input"
+                        style="width: 30%"
+                        placeholder="Duration"
+                        [(ngModel)]="model.duration"
+                        name="duration"
+                        min="0"
+                        required
+                        numbersOnly
+                      />
+                      <span class="floating__label">Duration *</span>
+                      <ng-select
+                        class="form-control floating__input custom"
+                        aria-placeholder="Duration Spec"
+                        style="width: 70%"
+                        [disabled]="viewId"
+                        [items]="durationSpec"
+                        bindLabel="name"
+                        bindValue="value"
+                        [(ngModel)]="model.duration_spec"
+                        name="duration_spec"
+                        [searchable]="false"
+                        [clearable]="false"
+                        #duration_spec="ngModel"
+                        [ngClass]="{
+                          'is-invalid': f.submitted && duration_spec.invalid
+                        }"
+                        required
+                      ></ng-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group mb-0 mt-2">
+                  <div class="floating__block">
+                    <textarea
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Diet Description"
+                      rows="3"
+                      [(ngModel)]="model.diet_desc"
+                      name="desc"
+                    ></textarea>
+                    <span class="floating__label">Diet Description</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center !important;
+                margin-bottom: 10px;
+              "
+            >
+              <h5 class="h5 fw-semibold" style="margin-bottom: 0">
+                Select your days
+              </h5>
+             
+              <h6>{{ 'Total Kcal: ' + model.total_kcal }}</h6>
+             
+              <div class="right_block">
+                
+                <button
+                  type="button"
+                  (click)="addRow()"
+                  class="btn btn-sm btn-primary btn-icon-item"
+                >
+                  <img
+                    src="assets/images/plus-white.svg"
+                    alt=""
+                    class="btn__icon__img"
+                  />
+                  <span class="btn__text">Add New</span>
+                </button>
+                <a
+                  style="display: hidden"
+                  id="add-time-modal"
+                  data-toggle="modal"
+                  data-target="#modal-edit-time-2"
+                  class="btn btn-sm btn-rounded rounded-circle day__edit day__edit--top-right scale__btn__item"
+                >
+                  <img
+                    src="assets/images/pencil-black.svg"
+                    alt=""
+                    class="btn-img"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-gray text-md table-bordered" style="margin-bottom: 30px;">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th class="pl-0">Monday</th>
+                    <th class="pl-0">Tuesday</th>
+                    <th class="pl-0">Wednesday</th>
+                    <th class="pl-0">Thursday</th>
+                    <th class="pl-0">Friday</th>
+                    <th class="pl-0">Saturday</th>
+                    <th class="pl-0">Sunday</th>
+                    <th class="pl-0">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let item of model.diet_array;
+                      let root = index;
+                      let lst_row = last
+                    "
+                  >
+                    <td class="pl-0">
+                      <div class="day__dataItem text-nowrap scale__btn__parent">
+                        <p class="text-lg day__title text-black fw-semibold">
+                          {{
+                            item.diet_time_slot
+                              ? item.diet_time_slot
+                              : 'Select Time Slot'
+                          }}
+                        </p>
+                        <p class="text-sm day__time text-secondary fw-semibold">
+                          {{
+                            item.diet_start_time
+                              ? (item.diet_start_time | time) + ' -'
+                              : ''
+                          }}
+                          {{
+                            item.diet_end_time
+                              ? (item.diet_end_time | time)
+                              : ''
+                          }}
+                        </p>
+                        <a
+                          (click)="editTimeModal(root)"
+                          data-toggle="modal"
+                          data-target="#modal-edit-time"
+                          class="btn btn-sm btn-rounded rounded-circle day__edit day__edit--top-right scale__btn__item"
+                        >
+                          <img
+                            src="assets/images/pencil-black.svg"
+                            alt=""
+                            class="btn-img"
+                          />
+                        </a>
+                      </div>
+                    </td>
+                    <td
+                      *ngFor="let day of days; let i = index"
+                      class="position-relative scale__btn__parent"
+                    >
+                      <span
+                        *ngFor="let inner of item[day]['diet']; let lst = last"
+                        style="padding: auto 5px"
+                        >{{ lst ? inner.name : inner.name + ', ' }}</span
+                      >
+                      <span
+                        class="row"
+                        style="margin: 5px 0 0 0"
+                        *ngIf="item[day].total_cal != 0"
+                        >Kcal : {{ item[day].total_cal }}</span
+                      >
+                      <span class="day_content">
+                        <a
+                          (click)="addDietToDay(root, day, i, item.diet_time_slot)"
+                          data-toggle="modal"
+                          data-target="#modal-diet-add"
+                          class="btn btn-primary btn-rounded shadow-sm rounded-circle btn-sm day__edit--top-right scale__btn__item"
+                        >
+                          <img
+                            src="assets/images/pencil-white.svg"
+                            alt=""
+                            class="btn-img"
+                          />
+                        </a>
+                      </span>
+                      <span
+                        style="position: absolute; bottom: -30px"
+                        *ngIf="lst_row"
+                        >Total Kcal: {{ kcal_array[i] }}</span
+                      >
+                    </td>
+                    <td>
+                      <button
+                        (click)="removeRow(root)"
+                        type="button"
+                        class="btn btn-rounded btn-xs btn-lightdanger rounded-circle mt-2"
+                      >
+                        <img
+                          src="assets/images/cross-red.svg"
+                          alt=""
+                          class="btn-img"
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="button-row left">
+              <button
+                type="button"
+                [routerLink]=" url ? url : '/diet-chart/chart'"
+                class="btn btn-sm btn-outline-primary btn-item btn-width"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="btn btn-sm btn-primary btn-item btn-width"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<div
+  id="modal-diet-add"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-body pb-4">
+          <h6>{{tempTimeSlot}}</h6>
+          <div class="form-group small">
+            <div class="row mb-4" *ngFor="let item of dietInnerArray; let i = index">
+              <div class="col-4">
+                <input
+                  type="text"
+                  class="form-control floating__input"
+                  placeholder="Name"
+                  [(ngModel)]="item.name"
+                  [name]="'name_' + i"
+                  #name="ngModel"
+                />
+                <span class="floating__label">Name *</span>
+              </div>
+              <div class="col">
+                <input
+                  type="number"
+                  class="form-control floating__input"
+                  placeholder="Qty"
+                  [(ngModel)]="item.qty"
+                  [name]="'qty_' + i"
+                  numbersOnly
+                />
+                <span class="floating__label">Qty</span>
+              </div>
+              <div class="col">
+                  <ng-select
+                  class="form-control custom"
+                  [name]="'unit'+ i"
+                  [(ngModel)]="item.unit"
+                  placeholder="Select Unit"
+                  [items]="unit"
+                  bindValue="value"
+                  bindLabel="name"
+                  [searchFn]="searchFun"
+                  [clearable]="false"
+                >
+                </ng-select>
+                
+              </div>
+              <div class="col">
+                <input
+                  type="number"
+                  class="form-control floating__input"
+                  placeholder="Kcal"
+                  [(ngModel)]="item.kcal"
+                  [name]="'kcal_' + root + '_' +i"
+                  numbersOnly
+                />
+                <span class="floating__label">Kcal</span>
+              </div>
+              <div class="col small-col">
+                <div class="button-row left mt-2 d-flex">
+                  <button
+                    type="button"
+                    (click)="removeRowFromInner(i)"
+                    class="btn-item btn btn-rounded btn-xs btn-lightdanger rounded-circle"
+                  >
+                    <img
+                      src="assets/images/cross-red.svg"
+                      alt=""
+                      class="btn-img"
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    (click)="addRowToInner()"
+                    style="margin-left: 5px !important"
+                    class="btn-item btn btn-rounded btn-xs btn-lightblue rounded-circle"
+                  >
+                    <img
+                      src="assets/images/plus-blue.svg"
+                      alt=""
+                      class="btn-img"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="showCheckbox">
+              <div
+                class="form-group"
+                style="
+                  display: flex;
+                "
+              >
+                <div class="col mt-3" *ngFor="let d of sort_days; let i = index">
+                  <input
+                    type="checkbox"
+                    class="form-control form-control-lightblue px-0 text-center checkbox-input"
+                    (change)="changeCheckbox(i, $event)"
+                    [disabled]="tempDay == d"
+                    [checked]="tempDay == d"
+                    [name]="d"
+                  />
+                  <label class="checkbox-label mt-2">{{ d }}</label>
+                </div>
+  
+                <div class="col" style="visibility: hidden">
+                  <input
+                    type="text"
+                    class="form-control form-control-lightblue px-0 text-center"
+                    value="Sun"
+                    readonly
+                  />
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="button-row center w-100 m-0">
+            <button
+              type="button"
+              class="btn btn-sm btn-width btn-item btn-outline-primary"
+              data-dismiss="modal"
+              id="close-modal-button"
+            >
+              Close
+            </button>
+            <button
+              class="btn btn-sm btn-width btn-item btn-primary"
+              (click)="addDietToModel()"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="modal-edit-time"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body pb-1">
+        <h6>{{ timeModel.diet_time_slot }}</h6>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label class="label">Select</label>
+              <ng-select
+                class="form-control form-control-light custom"
+                name="diet_time_slot"
+                [(ngModel)]="timeModel.diet_time_slot"
+                placeholder="Select Time"
+                [items]="dietTimeArray"
+                bindValue="value"
+                bindLabel="name"
+                [searchable]="false"
+                [clearable]="false"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="label">Start Time</label>
+              <div class="input__control__block input__rightIcon">
+                <input
+                  type="time"
+                  class="form-control form-control-lightblue"
+                  [(ngModel)]="timeModel.diet_start_time"
+                  name="diet_start_time"
+                  placeholder="6:00 AM"
+                />
+                <!--   <span class="input__icon__block">
+                  <img
+                    src="assets/images/clock-gray.svg"
+                    alt=""
+                    class="input__icon__item"
+                  />
+                </span> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="label">End Time</label>
+              <div class="input__control__block input__rightIcon">
+                <input
+                  type="time"
+                  class="form-control form-control-lightblue"
+                  [(ngModel)]="timeModel.diet_end_time"
+                  name="diet_end_time"
+                  placeholder="7:00 AM"
+                />
+                <!--  <span class="input__icon__block">
+                  <img
+                    src="assets/images/clock-gray.svg"
+                    alt=""
+                    class="input__icon__item"
+                  />
+                </span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="button-row center w-100 m-0">
+          <button
+            type="button"
+            class="btn btn-sm btn-width btn-item btn-outline-primary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <a
+            class="btn btn-sm btn-width btn-item btn-primary"
+            (click)="updateTimeModal()"
+            data-dismiss="modal"
+            >Done</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="modal-edit-time-2"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body pb-1">
+        <h6>{{ timeModel.diet_time_slot }}</h6>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label class="label">Select</label>
+              <ng-select
+                class="form-control form-control-light custom"
+                name="diet_time_slot"
+                [(ngModel)]="timeModel.diet_time_slot"
+                placeholder="Select Time"
+                [items]="dietTimeArray"
+                bindValue="value"
+                bindLabel="name"
+                [searchable]="false"
+                [clearable]="false"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="label">Start Time</label>
+              <div class="input__control__block input__rightIcon">
+                <input
+                  type="time"
+                  class="form-control form-control-lightblue"
+                  [(ngModel)]="timeModel.diet_start_time"
+                  name="diet_start_time"
+                  placeholder="6:00 AM"
+                />
+                <!--   <span class="input__icon__block">
+                  <img
+                    src="assets/images/clock-gray.svg"
+                    alt=""
+                    class="input__icon__item"
+                  />
+                </span> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="label">End Time</label>
+              <div class="input__control__block input__rightIcon">
+                <input
+                  type="time"
+                  class="form-control form-control-lightblue"
+                  [(ngModel)]="timeModel.diet_end_time"
+                  name="diet_end_time"
+                  placeholder="7:00 AM"
+                />
+                <!--  <span class="input__icon__block">
+                  <img
+                    src="assets/images/clock-gray.svg"
+                    alt=""
+                    class="input__icon__item"
+                  />
+                </span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="button-row center w-100 m-0">
+          <button
+            type="button"
+            class="btn btn-sm btn-width btn-item btn-outline-primary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <a
+            class="btn btn-sm btn-width btn-item btn-primary"
+            (click)="addTimeModal()"
+            data-dismiss="modal"
+            >Done</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

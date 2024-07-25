@@ -1,0 +1,439 @@
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/inquiry" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            />
+          </a>
+          Add Inquiry
+        </h4>
+      </div>
+    </div>
+
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="row row-lg">
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="First Name"
+                      [(ngModel)]="model.first_name"
+                      name="first_name"
+                      #first_name="ngModel"
+                      placeholder="First Name"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && first_name.invalid
+                      }"
+                      required
+                    />
+                    <span class="floating__label">First Name *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && first_name.invalid"
+                  >
+                    <p *ngIf="first_name.errors.required">
+                      First Name is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="Last Name"
+                      [(ngModel)]="model.last_name"
+                      name="last_name"
+                      #last_name="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && last_name.invalid
+                      }"
+                      required
+                    />
+                    <span class="floating__label">Last Name *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && last_name.invalid"
+                  >
+                    <p *ngIf="last_name.errors.required">
+                      Last Name is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="Mobile No."
+                      [(ngModel)]="model.mobile_no"
+                      name="mobile_no"
+                      #mobile_no="ngModel"
+                      maxlength="10"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && mobile_no.invalid
+                      }"
+                      required
+                    />
+                    <span class="floating__label">Mobile No. *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && mobile_no.invalid"
+                  >
+                    <p *ngIf="mobile_no.errors.required">
+                      Mobile No is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="Email Id"
+                      [(ngModel)]="model.email"
+                      pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                      name="email"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && email.invalid
+                      }"
+                      #email="ngModel"
+                      required
+                    />
+                    <span class="floating__label">Email Id *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && email.invalid"
+                  >
+                    <p *ngIf="email.errors.required">Email is required</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="gender_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.gender"
+                      name="gender"
+                      #gender="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      [ngClass]="{
+                        'is-invalid': f.submitted && gender.invalid
+                      }"
+                      required
+                    ></ng-select>
+                    <span class="floating__label">Gender *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && gender.invalid"
+                  >
+                    <p *ngIf="gender.errors.required">Gender is required</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="promotional_source_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.promotional_source"
+                      name="promotional_source"
+                      #promotional_source="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                    ></ng-select>
+                    <span class="floating__label">Promotional Source</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="fitness_goal_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.fitness_goal"
+                      name="fitness_goal"
+                      #fitness_goal="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      [multiple]="true"
+                    ></ng-select>
+                    <span class="floating__label">Fitness Goal </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      [(ngModel)]="model.reffered_by"
+                      name="reffered_by"
+                      #reffered_by="ngModel"
+                      placeholder="Reffered By"
+                    />
+                    <span class="floating__label">Reffered By</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      [(ngModel)]="model.sales_representative"
+                      name="sales_representative"
+                      #sales_representative="ngModel"
+                      placeholder="Sales Representative"
+                    />
+                    <span class="floating__label">Sales Representative</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      [(ngModel)]="model.prospect_reply"
+                      name="prospect_reply"
+                      #prospect_reply="ngModel"
+                      placeholder="Prospect Reply"
+                    />
+                    <span class="floating__label">Prospect Reply</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Inquiry Date"
+                      bsDatepicker
+                      [bsConfig]="{
+                        containerClass: 'theme-red',
+                        isAnimated: true,
+                        dateInputFormat: 'DD-MM-YYYY',
+                        adaptivePosition: true
+                      }"
+                      placement="bottom"
+                      #dp="bsDatepicker"
+                      [(ngModel)]="model.inquiry_date"
+                      name="inquiry_date"
+                      #inquiry_date="ngModel"
+                      readonly
+                    />
+                    <span class="floating__label">Inquiry Date</span>
+                    <span class="floating__icon floating__icon--right">
+                      <img
+                        src="assets/images/calendar.svg"
+                        alt=""
+                        class="floating__icon--img"
+                        type="button"
+                        (click)="dp.toggle()"
+                        [attr.aria-expanded]="dp.isOpen"
+                        type="button"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Trial Date"
+                      bsDatepicker
+                      [bsConfig]="{
+                        containerClass: 'theme-red',
+                        isAnimated: true,
+                        dateInputFormat: 'DD-MM-YYYY',
+                        adaptivePosition: true
+                      }"
+                      placement="bottom"
+                      #dp="bsDatepicker"
+                      [(ngModel)]="model.trial_date"
+                      name="trial_date"
+                      #trial_date="ngModel"
+                    />
+                    <span class="floating__label">Trial Date</span>
+                    <span class="floating__icon floating__icon--right">
+                      <img
+                        src="assets/images/calendar.svg"
+                        alt=""
+                        class="floating__icon--img"
+                        type="button"
+                        (click)="dp.toggle()"
+                        [attr.aria-expanded]="dp.isOpen"
+                        type="button"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="time"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Trial Time"
+                      [(ngModel)]="model.trial_time"
+                      #trial_time="ngModel"
+                      name="trial_time"
+                      [disabled]="!model.trial_date"
+                    />
+                    <span class="floating__label">Trial Time</span>
+                    <!-- <span class="floating__icon floating__icon--right">
+                      <img
+                        src="assets/images/calendar.svg"
+                        type="button"
+                      />
+                    </span> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Follow Up Date"
+                      bsDatepicker
+                      [bsConfig]="{
+                        containerClass: 'theme-red',
+                        isAnimated: true,
+                        dateInputFormat: 'DD-MM-YYYY',
+                        adaptivePosition: true
+                      }"
+                      placement="bottom"
+                      #dp="bsDatepicker"
+                      [(ngModel)]="model.followup_date"
+                      name="followup_date"
+                      #followup_date="ngModel"
+                    />
+                    <span class="floating__label">Follow Up Date</span>
+                    <span class="floating__icon floating__icon--right">
+                      <img
+                        src="assets/images/calendar.svg"
+                        alt=""
+                        class="floating__icon--img"
+                        type="button"
+                        (click)="dp.toggle()"
+                        [attr.aria-expanded]="dp.isOpen"
+                        type="button"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="status_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.status"
+                      name="status"
+                      #status="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                    ></ng-select>
+                    <span class="floating__label">Status</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="stage_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.stage"
+                      name="stage"
+                      #stage="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                    ></ng-select>
+                    <span class="floating__label">Stage</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button class="btn btn-primary btn-width" type="submit">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

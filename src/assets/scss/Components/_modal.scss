@@ -1,0 +1,67 @@
+.modal {
+  &-dialog {
+    max-width: 540px;
+    @include screen-md-down {
+      max-width: 100%;
+      margin: 0;
+      min-height: 100%;
+      .modal-content {
+        max-height: 100%;
+        height: 100%;
+        min-height: 100vh;
+      }
+    }
+  }
+  &-sm {
+    max-width: 300px;
+  }
+  &-lg {
+    max-width: 800px;
+  }
+  &-xl {
+    max-width: 1140px;
+  }
+  &-content {
+    border: none;
+    @include screen-md-down {
+      border-radius: 0;
+    }
+  }
+  &-header,
+  &-body,
+  &-footer {
+    padding: 1.8rem 1.875rem;
+    @include screen-lg-down {
+      padding: 1.4rem 1.375rem;
+    }
+    @include screen-md-down {
+      padding: 1.1rem 1.075rem;
+    }
+    @include screen-xs-down {
+      padding: 0.975rem 0.875rem;
+    }
+  }
+  &-body {
+    padding-top: 2.8rem;
+    padding-bottom: 2.8rem;
+    @include screen-lg-down {
+      padding-top: 2.2rem;
+      padding-bottom: 2.2rem;
+    }
+    @include screen-md-down {
+      padding-top: 1.8rem;
+      padding-bottom: 1.8rem;
+    }
+    @include screen-xs-down {
+      padding-top: 1.2rem;
+      padding-bottom: 1.2rem;
+    }
+    @include scrollbars(0.775rem, $color-graydark, $color-graylight2);
+  }
+  &-footer {
+    border-top-color: darken($color-graylight, 3%);
+    > * {
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,105 @@
+
+  <ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  name="captcha"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white">Waiting for Captcha...</p>
+</ngx-spinner>
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  name="otp"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white">Sending OTP...</p>
+</ngx-spinner>
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  name="verify"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white">Verifying OTP...</p>
+</ngx-spinner>
+<div class="page__wrapper">
+  <div class="login__wrapper">
+    <div class="left__block">
+      <img
+        src="assets/images/signup-bg.png"
+        alt=""
+        class="left__blockImg left__blockImg--fixed"
+      />
+    </div>
+    <div class="right__block right__block--spacing right__block--center">
+      <div class="login__logo__block">
+        <img src="assets/images/logo.png" alt="" class="login__logo__img" />
+      </div>
+      <form (ngSubmit)="f.form.valid && sendLoginCode()" #f="ngForm">
+        <div class="form__group__block--width">
+          <div class="form-list form__group__block">
+            <div class="form-group">
+              <div class="floating__block">
+                <input
+                  [(ngModel)]="model.mobile_no"
+                  name="mobile_no"
+                  type="text"
+                  maxlength="10"
+                  class="form-control floating__input"
+                  placeholder="Mobile Number"
+                  #mobile_no="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && mobile_no.invalid
+                  }"
+                  disabled
+                />
+                <span class="floating__label">Mobile Number</span>
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="f.submitted && mobile_no.invalid"
+              >
+                <p *ngIf="mobile_no.errors.required">Mobile No is required</p>
+              </div>
+            </div>
+            <div class="form-group" id="recaptcha-container"></div>
+            <div class="form-group" *ngIf="windowRef.confirmationResult">
+              <div class="floating__block">
+                <input
+                  type="text"
+                  class="form-control floating__input"
+                  placeholder="OTP"
+                  maxLength="6"
+                  [(ngModel)]="verificationCode"
+                  name="verificationCode"
+                  numbersOnly
+                />
+                <span class="floating__label">OTP</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!windowRef.confirmationResult">
+            <button (click)="sendLoginCode()" class="btn btn-primary btn-block" [disabled]="!send_otp">
+              Send OTP
+            </button>
+          </div>
+          <div *ngIf="windowRef.confirmationResult">
+            <button
+              (click)="verifyLoginCode()"
+              [disabled]="verificationCode.length != 6"
+              class="btn btn-primary btn-block"
+            >
+              Verify and Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

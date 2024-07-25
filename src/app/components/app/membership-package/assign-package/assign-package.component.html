@@ -1,0 +1,541 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+    <div class="container-fluid">
+      <div class="page__header">
+        <div class="page__header__left">
+          <h4 class="h4 form__title">
+            <a [routerLink]="url" class="form__title__icon__block">
+              <img
+                src="assets/images/arrow-left.svg"
+                alt=""
+                class="form__title__icon"
+              />
+            </a>
+           Assign Membership Package {{ member_name ? (' To ' + member_name) : '' }}
+          </h4>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+           
+              <div class="tab-pane active">
+                <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                  <div class="form-group double">
+                    <div class="row">
+                      <div class="col-sm-6 col-lg-4" *ngIf="!package">
+                        <div
+                          class="package__item package__item--border cursor-pointer"
+                          data-toggle="modal"
+                          data-target="#modal-select-package"
+                        >
+                          <p class="text-gray mb-0 fw-semibold">
+                            Click here to select package
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-xxl-4 col-lg-5" *ngIf="package">
+                        <div
+                          class="package__item package__item--border cursor-pointer package__item--orange"
+                        >
+                          <div class="table-responsive">
+                            <table class="table">
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <span class="d-block text-graydark text-sm">
+                                      Package Name
+                                    </span>
+                                    <span class="d-block text-black text-md">
+                                      {{ selectedPackage.package_name }}
+                                    </span>
+                                  </td>
+                                  <td>
+                                    <span class="d-block text-graydark text-sm">
+                                      Type
+                                    </span>
+                                    <span class="d-block text-black text-md">
+                                      {{ getMembershipType(selectedPackage.membership_type) }} ({{ selectedPackage.total_member }})
+                                    </span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <span class="d-block text-graydark text-sm">
+                                      Duration
+                                    </span>
+                                    <span class="d-block text-black text-md">
+                                      {{
+                                        selectedPackage.offer_duration_spec
+                                          ? selectedPackage.offer_duration_spec == selectedPackage.duration_spec
+                                            ? '(' +
+                                            selectedPackage.duration +
+                                              '+' +
+                                              selectedPackage.offer_duration +
+                                              ') ' +
+                                              selectedPackage.duration_spec
+                                            : selectedPackage.total_duration
+                                          : selectedPackage.total_duration
+                                      }}
+                                    </span>
+                                
+                                  </td>
+                                  <td colspan="2">
+                                    <span class="d-block text-graydark text-sm">
+                                      Price
+                                    </span>
+                                    <span class="d-block text-black text-md">
+                                      ₹
+                                      {{
+                                        selectedPackage.total_amount
+                                          | number: '1.2-2'
+                                      }}
+                                    </span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <a
+                        *ngIf="param?.type == 'member'"
+                          href="#modal-select-package"
+                          data-toggle="modal"
+                          class="text-primary select__packageLabel d-inline-block fw-semibold"
+                        >
+                          <img
+                            src="assets/images/pencil-orange.svg"
+                            alt=""
+                            class="icon-sm mr-1"
+                          />
+                          <span class="text-md">Select Again</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row row-lg">
+                      <div class="col-sm-6 col-lg-4" *ngIf="param?.type == 'member-package'">
+                          <div class="form-group">
+                            <div class="input__control__block input__rightIcon btn-item">
+                              <ng-select class="form-control floating__input custom" aria-placeholder="member"
+                                [items]="member_list" bindLabel="name" bindValue="value" [(ngModel)]="model.member_id"
+                                name="member" [searchable]="true" [clearable]="false" required
+                                #member_id="ngModel"
+                                [ngClass]="{
+                                  'is-invalid': f.submitted && member_id.invalid
+                                }"
+                                >
+                              </ng-select>
+                            </div>
+                          </div>
+                        </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            class="form-control floating__input floating__input--rightIcon"
+                            bsDatepicker
+                            [bsConfig]="{
+                              containerClass: 'theme-red',
+                              isAnimated: true,
+                              dateInputFormat: 'DD-MM-YYYY',
+                              adaptivePosition: true
+                            }"
+                            placement="bottom"
+                            #ps="bsDatepicker"
+                            placeholder="Package Start Date"
+                            [(ngModel)]="model.package_start_date"
+                            (ngModelChange)="changeStartDate()"
+                            name="package_start_date"
+                            #package_start_date="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                f.submitted && package_start_date.invalid
+                            }"
+                            [required]="package"
+                            [disabled]="!package"
+                          />
+                          <span class="floating__label"
+                            >Package Start Date *</span
+                          >
+                          <span class="floating__icon floating__icon--right">
+                            <img
+                              src="assets/images/calendar.svg"
+                              alt=""
+                              class="floating__icon--img"
+                              (click)="ps.toggle()"
+                              [attr.aria-expanded]="ps.isOpen"
+                              type="button"
+                            />
+                          </span>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && package_start_date.invalid"
+                        >
+                          <p *ngIf="package_start_date.errors.required">
+                            Package Start Date is required
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            class="form-control floating__input floating__input--rightIcon"
+                            bsDatepicker
+                            [bsConfig]="{
+                              containerClass: 'theme-red',
+                              isAnimated: true,
+                              dateInputFormat: 'DD-MM-YYYY',
+                              adaptivePosition: true
+                            }"
+                            placement="place"
+                            #pe="bsDatepicker"
+                            placeholder="Package End Date"
+                            [(ngModel)]="model.package_end_date"
+                            (ngModelChange)="changeEndDate()"
+                            name="package_end_date"
+                            #package_end_date="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                f.submitted && package_end_date.invalid
+                            }"
+                            [required]="package"
+                            [disabled]="!package"
+                          />
+                          <span class="floating__label">Package End Date *</span>
+                          <span class="floating__icon floating__icon--right">
+                            <img
+                              src="assets/images/calendar.svg"
+                              alt=""
+                              class="floating__icon--img"
+                              (click)="pe.toggle()"
+                              [attr.aria-expanded]="pe.isOpen"
+                              type="button"
+                            />
+                          </span>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && package_end_date.invalid"
+                        >
+                          <p *ngIf="package_end_date.errors.required">
+                            Package End Date is required
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <div
+                            type="text"
+                            class="form-control form-control-primarylight"
+                          >
+                            <span class="fw-semibold text-gray">Session</span>
+                            <span class="fw-semibold text-primary ml-2">{{
+                              model.session
+                                ? model.session + ' Days'
+                                : ''
+                            }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <div
+                            type="text"
+                            class="form-control form-control-primarylight"
+                          >
+                            <span class="fw-semibold text-gray"
+                              >Total Amount</span
+                            >
+                            <span class="fw-semibold text-primary ml-2"
+                              >₹ {{ model.total_amount | number: '1.2-2' }}</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="number"
+                            numbersOnly
+                            class="form-control floating__input"
+                            placeholder="Paid Amount"
+                            [(ngModel)]="model.paid_amount"
+                            (change)="changePaidAmount()"
+                            name="paid_amount"
+                            #paid_amount="ngModel"
+                            [required]="package"
+                            [disabled]="!package"
+                            [ngClass]="{
+                              'is-invalid':
+                                f.submitted && paid_amount.invalid
+                            }"
+                          />
+                          <span class="floating__label">Paid Amount *</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <div
+                            type="text"
+                            class="form-control form-control-primarylight"
+                          >
+                            <span class="fw-semibold text-gray"
+                              >Pending Amount</span
+                            >
+                            <span class="fw-semibold text-primary ml-2"
+                              >₹
+                              {{ model.pending_amount | number: '1.2-2' }}</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group double">
+                        <div class="floating__block">
+                          <input
+                            bsDatepicker
+                            [bsConfig]="{
+                              containerClass: 'theme-red',
+                              isAnimated: true,
+                              dateInputFormat: 'DD-MM-YYYY',
+                              adaptivePosition: true
+                            }"
+                            placement="place"
+                            #np="bsDatepicker"
+                            class="form-control floating__input floating__input--rightIcon"
+                            placeholder="Next Payment Date"
+                            [(ngModel)]="model.next_payment_date"
+                            #next_payment_date="ngModel"
+                            name="next_payment_date"
+                            [disabled]="!package"
+                            [required]="package && model.pending_amount != 0"
+                            [ngClass]="{
+                              'is-invalid':
+                                f.submitted && next_payment_date.invalid
+                            }"
+                          />
+                          <span
+                            *ngIf="model.pending_amount == 0"
+                            class="floating__label"
+                            >Next Payment Date</span
+                          >
+                          <span
+                            *ngIf="model.pending_amount != 0"
+                            class="floating__label"
+                            >Next Payment Date *</span
+                          >
+                          <a
+                            href="#!"
+                            class="floating__icon floating__icon--right"
+                          >
+                            <img
+                              src="assets/images/calendar.svg"
+                              alt=""
+                              class="floating__icon--img"
+                              (click)="np.toggle()"
+                              [attr.aria-expanded]="np.isOpen"
+                              type="button"
+                            />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="text"
+                            class="form-control floating__input"
+                            placeholder="Reference Number"
+                            [(ngModel)]="model.referance_no"
+                            name="referance_no"
+                            [disabled]="!package"
+                          />
+                          <span class="floating__label">Reference Number</span>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <ng-select
+                            class="form-control floating__input custom"
+                            id="custom-select"
+                            [items]="payment_method_array"
+                            bindLabel="name"
+                            bindValue="value"
+                            [(ngModel)]="model.payment_method"
+                            name="payment_method"
+                            #payment_method="ngModel"
+                            [searchable]="false"
+                            [clearable]="false"
+                            loadingText="Loading...."
+                            [ngClass]="{
+                              'is-invalid': f.submitted && payment_method.invalid
+                            }"
+                            required
+                          ></ng-select>
+                          <span class="floating__label">Payment Method *</span>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && payment_method.invalid"
+                        >
+                          <p *ngIf="payment_method.errors.required">
+                            Payment Method is required
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="col-12">
+                      <div class="button-row left">
+                        <button
+                          class="btn-item btn btn-primary btn-width"
+                          type="submit"
+                          [disabled]="!package"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+         
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div
+    id="modal-select-package"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-body pb-0">
+          <h6>Select Package</h6>
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <div
+                  *ngFor="
+                    let package of memberships;
+                    let i = index;
+                    let lst = last
+                  "
+                >
+                  <tr>
+                    <td rowspan="2" class="px-2">
+                      <label
+                        class="custom-control custom-radio custom-control-only"
+                      >
+                        <input
+                          type="radio"
+                          class="custom-control-input"
+                          name="radio"
+                          (change)="changePackageRadio(i, $event)"
+                        />
+                        <span class="custom-control-label"></span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="d-block text-graydark text-sm">
+                        Package Name
+                      </span>
+                      <span class="d-block text-black text-md">
+                        {{ package.package_name }}
+                      </span>
+                    </td>
+                    <td>
+                      <span class="d-block text-graydark text-sm"> Type </span>
+                      <span class="d-block text-black text-md">
+                        {{ package.membership_type }} ({{ package.total_member }})
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="d-block text-graydark text-sm">
+                        Duration
+                      </span>
+                      <span
+                        class="d-block text-black text-md"
+                        style="text-transform: capitalize"
+                      >
+                        {{
+                          package.offer_duration_spec
+                            ? package.offer_duration_spec == package.duration_spec
+                              ? '(' +
+                                package.duration +
+                                '+' +
+                                package.offer_duration +
+                                ') ' +
+                                package.duration_spec
+                              : package.total_duration
+                            : package.total_duration
+                        }}
+                      </span>
+                      <!-- <span class="d-block text-graydark text-sm lh-1">
+                        {{ package.session }} Sessions
+                      </span> -->
+                    </td>
+                    <td colspan="2" class="pr-0">
+                      <span class="d-block text-graydark text-sm"> Price </span>
+                      <span class="d-block text-black text-md">
+                        ₹ {{ package.total_amount | number: '1.2-2' }}
+                      </span>
+                    </td>
+                  </tr>
+                  <hr *ngIf="!lst" />
+                </div>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="button-row center w-100 m-0">
+            <button
+              class="btn btn-sm btn-width btn-item btn-outline-primary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <a
+              class="btn btn-sm btn-width btn-item btn-primary"
+              (click)="selectPackage()"
+              data-dismiss="modal"
+              >Done</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

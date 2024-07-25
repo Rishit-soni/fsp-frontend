@@ -1,0 +1,49 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#FC4E34" type="ball-clip-rotate-multiple">
+    <p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+    <div class="container-fluid">
+        <div class="page__header mb-2-sm">
+            <div class="page__header__left">
+                <h4 class="h4 form__title"> <a routerLink="/user-list" class="form__title__icon__block">
+                        <img src="assets/images/arrow-left.svg" alt="" class="form__title__icon" /> </a>Gym List</h4>
+            </div>
+        </div>
+        <div class="tab-content tab-content-sm">
+            <div class="tab-pane active" id="membershipPackage">
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <div class="table-responsive">
+                            <table class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Gym Name</th>
+                                        <th>Gym Mobile No</th>
+                                        <th>Gym Email</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let gym of gymList">
+                                        <td><a
+                                                [routerLink]="'/gym-list/'+ param?.user_id + '/details/' + gym.id">{{ gym.gym_name }}</a>
+                                        </td>
+                                        <td>{{ gym.gym_mobile_no }}</td>
+                                        <td>{{ gym.gym_email }}</td>
+                                        <td class="py-2">
+                                            <a
+                                                class="action__item btn-rounded btn btn-sm rounded-circle btn-light-hover">
+                                                <img src="assets/images/three-dot-vertical.svg" alt=""
+                                                    class="btn-img" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="large"
+color="#FC4E34"
+type="ball-clip-rotate-multiple"
+>
+<p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+<div class="page__wrapper">
+  <div class="login__wrapper">
+    <div class="left__block bg-primary">
+      <img
+        src="assets/images/login-bg-1.png"
+        alt=""
+        class="left__blockImg left__blockImg--fixed"
+      />
+    </div>
+    <div class="right__block right__block--spacing right__block--center">
+      <div class="login__logo__block">
+        <img src="assets/images/logo.png" alt="" class="login__logo__img" />
+      </div>
+      <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="form__group__block--width">
+        <div class="form-list form__group__block">
+          <div class="form-group">
+            <div class="floating__block">
+              <input
+                type="text"
+                class="form-control floating__input"
+                placeholder="Email Address"
+                [(ngModel)]="model.email"
+                name="email"
+                required
+              />
+              <span class="floating__label">Email Address</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="floating__block">
+              <input
+                type="password"
+                class="form-control floating__input"
+                placeholder="Password"
+                [(ngModel)]="model.password"
+                name="password"
+                required
+              />
+              <span class="floating__label">Password</span>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <div class="abs__bottom">
+          <p class="text-md text-center mb-0">
+            Don't Have an Account?
+            <a routerLink="/create-account" class="text-primary">Sign Up</a>
+          </p>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

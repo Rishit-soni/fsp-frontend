@@ -1,0 +1,486 @@
+<div class="sidebar__wrapper">
+  <div class="sidebar__block sidebar__block--fixed">
+    <ul class="sidebar__menu">
+      <li class="sidebar__menuItem">
+        <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        class="sidebar__menuItemLink"
+        >
+          <span class="menuLink__icon__block">
+            <svg
+              width="21"
+              height="21"
+              viewBox="0 0 21 21"
+              fill="none"
+              class="menuLink__iconSVG"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0)">
+                <path
+                  d="M3.9375 4.59375V0.65625H19.6875V20.3438H13.7812"
+                  stroke="#202020"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4.59375 13.7812H7.875M1.3125 4.59375H13.7812V20.3438H1.3125V4.59375ZM4.59375 7.875H10.5H4.59375ZM4.59375 11.1562H10.5H4.59375Z"
+                  stroke="#202020"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0">
+                  <rect width="21" height="21" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+          <span class="menuLink__text">Dashboard</span>
+        </a>
+      </li>
+      <li  class="sidebar__menuItem sidebar__dropdown"
+      *ngIf="this.currentUser.is_active">
+        <a
+        href="#register_collapse"
+        data-toggle="collapse"
+        class="sidebar__menuItemLink"
+        
+        >
+          <span class="menuLink__icon__block">
+            <svg
+              width="21"
+              height="21"
+              viewBox="0 0 21 21"
+              fill="none"
+              class="menuLink__iconSVG"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0)">
+                <path
+                  d="M3.9375 4.59375V0.65625H19.6875V20.3438H13.7812"
+                  stroke="#202020"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4.59375 13.7812H7.875M1.3125 4.59375H13.7812V20.3438H1.3125V4.59375ZM4.59375 7.875H10.5H4.59375ZM4.59375 11.1562H10.5H4.59375Z"
+                  stroke="#202020"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0">
+                  <rect width="21" height="21" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+          <span class="menuLink__text">Register</span>
+        </a>
+        <ul class="collapse hide sidebar__menu" id="register_collapse">
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/register"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Member</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/inquiry"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Inquiry</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+            <a
+            routerLink="/employee"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Employee</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="sidebar__menuItem" *ngIf="this.currentUser.is_active">
+        <a
+          routerLink="/membership-package"
+          class="sidebar__menuItemLink"
+          routerLinkActive="active"
+        >
+          <span class="menuLink__icon__block">
+            <svg
+              class="menuLink__iconSVG"
+              width="19"
+              height="19"
+              viewBox="0 0 19 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0)">
+                <path
+                  d="M0.59375 5.9375V16.625H18.4062V5.9375M0.59375 2.375H18.4062V5.9375H0.59375V2.375Z"
+                  stroke="#202020"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2.375 4.45312C2.53896 4.45312 2.67188 4.32021 2.67188 4.15625C2.67188 3.99229 2.53896 3.85938 2.375 3.85938C2.21104 3.85938 2.07812 3.99229 2.07812 4.15625C2.07812 4.32021 2.21104 4.45312 2.375 4.45312Z"
+                  stroke="#202020"
+                  stroke-width="0.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4.45312 4.45312C4.61708 4.45312 4.75 4.32021 4.75 4.15625C4.75 3.99229 4.61708 3.85938 4.45312 3.85938C4.28917 3.85938 4.15625 3.99229 4.15625 4.15625C4.15625 4.32021 4.28917 4.45312 4.45312 4.45312Z"
+                  stroke="#202020"
+                  stroke-width="0.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M6.53125 4.45312C6.69521 4.45312 6.82812 4.32021 6.82812 4.15625C6.82812 3.99229 6.69521 3.85938 6.53125 3.85938C6.36729 3.85938 6.23438 3.99229 6.23438 4.15625C6.23438 4.32021 6.36729 4.45312 6.53125 4.45312Z"
+                  stroke="#202020"
+                  stroke-width="0.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0">
+                  <rect width="19" height="19" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+          <span class="menuLink__text">Membership Package</span>
+        </a>
+      </li>
+      <li
+        class="sidebar__menuItem sidebar__dropdown"
+        *ngIf="this.currentUser.is_active"
+      >
+        <a
+          href="#workout_collapse"
+          data-toggle="collapse"
+          class="sidebar__menuItemLink"
+        >
+          <span class="menuLink__icon__block">
+            <svg
+              class="menuLink__iconSVG"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0)">
+                <path
+                  d="M12.0499 1.95143L12.4035 2.30507L12.7571 1.95137L13.7291 0.978979L15.0164 2.26629L14.044 3.2383L13.6904 3.59186L14.044 3.94548L15.367 5.26853C15.5379 5.4394 15.5379 5.71642 15.367 5.88725C15.1962 6.05805 14.9192 6.05811 14.7483 5.88725C14.7483 5.88724 14.7483 5.88723 14.7483 5.88722L10.108 1.24684L10.1079 1.24682C9.93705 1.07595 9.93707 0.798972 10.1079 0.628154L10.1079 0.628139C10.2788 0.457281 10.5558 0.4573 10.7267 0.628116C10.7267 0.628119 10.7267 0.628121 10.7267 0.628124L12.0499 1.95143ZM13.7071 0.956926C13.707 0.956899 13.707 0.956871 13.707 0.956844L13.7071 0.956926ZM15.0388 2.24396L15.0386 2.24408C15.0387 2.24404 15.0387 2.244 15.0388 2.24396Z"
+                  stroke="black"
+                />
+                <path
+                  d="M5.89211 14.7529L5.89208 14.7529L1.25176 10.1125C1.25175 10.1125 1.25174 10.1125 1.25173 10.1125C1.08084 9.94168 0.803916 9.94167 0.63302 10.1125C0.633 10.1125 0.63298 10.1125 0.632959 10.1125M5.89211 14.7529L0.279436 11.0848C-0.086658 10.7187 -0.086658 10.1251 0.279436 9.75895L0.632959 10.1125M5.89211 14.7529C6.06295 14.9237 6.06299 15.2007 5.89208 15.3716C5.72121 15.5425 5.4442 15.5425 5.27338 15.3717L5.89211 14.7529ZM0.632959 10.1125C0.462131 10.2835 0.462194 10.5604 0.63299 10.7312L1.95627 12.0545L2.3099 12.4081L1.9562 12.7617L0.98577 13.7317M0.632959 10.1125L0.98577 13.7317M0.98577 13.7317L0.963557 13.7095C0.969304 13.7153 0.972718 13.7234 0.972718 13.7317C0.972718 13.7401 0.969268 13.7482 0.963615 13.7539M0.98577 13.7317L0.963615 13.7539M0.98577 13.7317L2.27311 15.0186M0.98577 13.7317L5.27337 15.3716L3.95031 14.0486L3.59676 13.695L3.2432 14.0486L2.27311 15.0186M0.963615 13.7539L0.941468 13.7317L0.941414 13.7317L0.941409 13.7317L0.610062 13.4003L0.941333 13.7317L0.941342 13.7317L0.941346 13.7317L0.963543 13.7539L0.963615 13.7539ZM2.27311 15.0186L2.25095 15.0408C2.25332 15.0384 2.25702 15.0359 2.26147 15.034C2.26562 15.0324 2.26956 15.0317 2.2731 15.0317C2.27664 15.0317 2.28058 15.0324 2.28475 15.0341C2.28914 15.0358 2.2928 15.0384 2.29518 15.0407L2.27311 15.0186Z"
+                  stroke="black"
+                />
+                <path
+                  d="M7.571 9.85622L6.14794 8.43315L8.42904 6.14429L9.8521 7.5673L7.571 9.85622Z"
+                  stroke="black"
+                  stroke-width="0.8"
+                />
+                <path
+                  d="M14.112 8.60996L14.1119 8.60997C13.902 8.81988 13.5617 8.81986 13.3518 8.60998L7.38558 2.64375C7.17563 2.4338 7.17563 2.09353 7.38558 1.88359C7.59546 1.6737 7.93582 1.6737 8.14571 1.88359L14.1119 7.84982C14.3219 8.05978 14.3219 8.40009 14.112 8.60996Z"
+                  stroke="black"
+                  stroke-width="0.8"
+                />
+                <path
+                  d="M8.61449 13.3557L8.61451 13.3557C8.82444 13.5656 8.82443 13.9059 8.61452 14.1158L8.61451 14.1158C8.40458 14.3257 8.06424 14.3257 7.85436 14.1158L1.88813 8.1496L1.88811 8.14958C1.6782 7.93971 1.67817 7.59941 1.88813 7.38944C2.09801 7.17956 2.43834 7.17956 2.64823 7.38944L8.61449 13.3557Z"
+                  stroke="black"
+                  stroke-width="0.8"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0">
+                  <rect width="16" height="16" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+          <span class="menuLink__text">Workout & Nutrition</span>
+        </a>
+        <ul class="collapse hide sidebar__menu" id="workout_collapse">
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/workout"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Workout</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/exercise"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Exercise</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="diet-chart"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Diet-Chart</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/measurement"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Measurement</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="sidebar__menuItem sidebar__dropdown" *ngIf="this.currentUser.is_active">
+        <a
+        href="#store_collapse"
+        data-toggle="collapse"
+        class="sidebar__menuItemLink"
+      >
+          <span class="menuLink__icon__block">
+            <svg
+              class="menuLink__iconSVG"
+              width="21"
+              height="21"
+              viewBox="0 0 21 21"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0)">
+                <path
+                  d="M0.65625 1.96875H3.9375L7.21875 15.0938H17.7188L20.3438 7.21875H5.25"
+                  stroke="#202020"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M7.54688 19.0312C8.27175 19.0312 8.85938 18.4436 8.85938 17.7188C8.85938 16.9939 8.27175 16.4062 7.54688 16.4062C6.822 16.4062 6.23438 16.9939 6.23438 17.7188C6.23438 18.4436 6.822 19.0312 7.54688 19.0312Z"
+                  stroke="#202020"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M16.0781 19.0312C16.803 19.0312 17.3906 18.4436 17.3906 17.7188C17.3906 16.9939 16.803 16.4062 16.0781 16.4062C15.3533 16.4062 14.7656 16.9939 14.7656 17.7188C14.7656 18.4436 15.3533 19.0312 16.0781 19.0312Z"
+                  stroke="#202020"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0">
+                  <rect width="21" height="21" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+          <span class="menuLink__text">Store & Product</span>
+        </a>
+        <ul class="collapse hide sidebar__menu" id="store_collapse">
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/product"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Product</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/expense"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Expense</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/purchase"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Purchase</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/sales"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Sales</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="sidebar__menuItem sidebar__dropdown" *ngIf="this.currentUser.is_active">
+      <a
+        href="#report_collapse"
+        data-toggle="collapse"
+        class="sidebar__menuItemLink"
+      >
+          <span class="menuLink__icon__block">
+            <svg
+              class="menuLink__iconSVG"
+              width="19"
+              height="21"
+              viewBox="0 0 19 21"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 1V20H18V6.06667L11.8182 1H1Z"
+                stroke="#202020"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 1.5V7H18"
+                stroke="#202020"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M5 8.5625V16.4375H12"
+                stroke="#202020"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M5 14.6875L7.69231 11.9531L9.30769 13.293L12 10.3125"
+                stroke="#202020"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span class="menuLink__text">Report</span>
+        </a>
+        <ul class="collapse hide sidebar__menu" id="report_collapse">
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/attendance"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Attendance</span>
+            </a>
+          </li>
+          <li class="sidebar__menuItem">
+              <a
+                routerLink="/pending-payment"
+                routerLinkActive="active"
+                class="sidebar__menuItemLink"
+              >
+                <span class="menuLink__text">Payment</span>
+              </a>
+            </li>
+            <li class="sidebar__menuItem">
+              <a
+                routerLink="/report-sales"
+                routerLinkActive="active"
+                class="sidebar__menuItemLink"
+              >
+                <span class="menuLink__text">Sales</span>
+              </a>
+            </li>
+        </ul>
+      </li>
+      <li class="sidebar__menuItem sidebar__dropdown">
+        <a
+          href="#setting_collapse"
+          data-toggle="collapse"
+          class="sidebar__menuItemLink"
+        >
+          <span class="menuLink__icon__block">
+            <svg
+              class="menuLink__iconSVG"
+              width="19"
+              height="20"
+              viewBox="0 0 19 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.5 13.7656C11.6315 13.7656 13.3594 12.0377 13.3594 9.90625C13.3594 7.77478 11.6315 6.04688 9.5 6.04688C7.36853 6.04688 5.64062 7.77478 5.64062 9.90625C5.64062 12.0377 7.36853 13.7656 9.5 13.7656Z"
+                stroke="#202020"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M16.2465 10.9625C16.3553 10.2625 16.3553 9.54995 16.2465 8.84997L17.7644 7.38281C17.851 7.29915 17.9071 7.18897 17.9238 7.06976C17.9405 6.95056 17.9169 6.82919 17.8567 6.72494L16.389 4.1828C16.3288 4.07852 16.2355 3.99736 16.1239 3.95222C16.0122 3.90709 15.8887 3.90058 15.773 3.93372L13.7011 4.52747C13.1642 4.10727 12.5672 3.77002 11.9302 3.527L11.4 1.4088C11.3709 1.29221 11.3036 1.18869 11.209 1.11464C11.1143 1.04059 10.9977 1.00024 10.8775 1H7.94201C7.82163 0.99998 7.7047 1.0402 7.60981 1.11428C7.51492 1.18835 7.44752 1.29202 7.41832 1.4088L6.86969 3.60389C6.28838 3.84711 5.74358 4.16972 5.25083 4.5625L3.04683 3.93194C2.93108 3.8988 2.80757 3.90531 2.69595 3.95044C2.58433 3.99557 2.491 4.07674 2.43082 4.18102L0.963068 6.72434C0.902707 6.82862 0.878975 6.9501 0.895654 7.06943C0.912332 7.18876 0.96846 7.29908 1.0551 7.38281L2.73304 9.00494C2.65154 9.60335 2.65154 10.21 2.73304 10.8085L1.0551 12.4297C0.968552 12.5133 0.912455 12.6235 0.895726 12.7427C0.878996 12.8619 0.902595 12.9833 0.962771 13.0876L2.43052 15.6297C2.49071 15.734 2.58403 15.8151 2.69565 15.8603C2.80728 15.9054 2.93079 15.9119 3.04654 15.8788L5.25083 15.25C5.74361 15.6431 6.28852 15.966 6.86999 16.2095L7.41861 18.4046C7.44797 18.5212 7.5154 18.6246 7.61022 18.6985C7.70503 18.7724 7.8218 18.8125 7.94201 18.8125H10.8775C10.9977 18.8123 11.1143 18.7719 11.209 18.6979C11.3036 18.6238 11.3709 18.5203 11.4 18.4037L11.929 16.2876C12.5661 16.0445 13.163 15.7071 13.6999 15.2868L15.7718 15.8806C15.8875 15.9137 16.011 15.9072 16.1227 15.8621C16.2343 15.8169 16.3276 15.7358 16.3878 15.6315L17.8556 13.0893C17.9157 12.9851 17.9393 12.8637 17.9226 12.7445C17.9059 12.6253 17.8498 12.5151 17.7632 12.4315L16.2465 10.9625Z"
+                stroke="#202020"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span class="menuLink__text">Settings</span>
+        </a>
+        <ul class="collapse hide sidebar__menu" id="setting_collapse">
+          <li class="sidebar__menuItem">
+            <a
+              routerLink="/settings/gym-list"
+              routerLinkActive="active"
+              class="sidebar__menuItemLink"
+            >
+              <span class="menuLink__text">Gym Setting</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

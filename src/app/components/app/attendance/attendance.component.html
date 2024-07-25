@@ -1,0 +1,273 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header mb-2-sm">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">Attendance</h4>
+      </div>
+    </div>
+    <div class="tab-content tab-content-sm">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <div
+              class="table-header"
+              style="
+                display: flex;
+                justify-content: flex-start;
+                align-items: center !important;
+                flex-direction: column;
+  
+              "
+            >
+              <div class="row-lg" style=" width: 100%;">
+                <div class="p-radio d-flex align-items-center justify-content-between pb-4">
+                  <div style="display: flex; align-items: center">
+                  <p>
+                    <input
+                      type="radio"
+                      name="member_radio"
+                      id="member_radio"
+                      [(ngModel)]="att_radio"
+                      (click)="attRadioChange('member')"
+                      value="member"
+                    />
+                    <label for="member_radio">By Member</label>
+                  </p>
+                  <p>
+                    <input
+                      type="radio"
+                      name="date_radio"
+                      id="date_radio"
+                      [(ngModel)]="att_radio"
+                      (click)="attRadioChange('date')"
+                      value="date"
+                    />
+                    <label for="date_radio">By Date</label>
+                  </p>
+                </div>
+                
+                  <p>
+                    <button
+                    (click)="downloadPdf()"
+                    class="btn btn-sm btn-primary btn-item btn-width"
+                  >
+                    Download
+                  </button>
+                  </p>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-start;
+                  width: 100%;
+                "
+              >
+                <div class="input__control__block input__rightIcon btn-item">
+                  <ng-select
+                    class="form-control floating__input custom"
+                    aria-placeholder="member"
+                    [items]="member_list"
+                    bindLabel="name"
+                    bindValue="value"
+                    [(ngModel)]="member_id"
+                    (ngModelChange)="changeMember()"
+                    [disabled]="att_radio == 'date'"
+                    name="member"
+                    [searchable]="true"
+                    [clearable]="false"
+                    #member="ngModel"
+                  >
+                  </ng-select>
+                </div>
+
+                <div class="floating__block" >
+                  <input
+                    class="form-control floating__input floating__input--rightIcon"
+                    #drp="bsDaterangepicker"
+                    bsDaterangepicker
+                    [(ngModel)]="bsRangeValue"
+                    placeholder="Select Date Range"
+                    (ngModelChange)="changeDateInterval()"
+                    [disabled]="!member_id"
+                    [bsConfig]="{
+                      containerClass: 'theme-dark-blue',
+                      isAnimated: true,
+                      rangeInputFormat: 'DD/MM/YYYY'
+                    }"
+                  />
+                  <span class="floating__label">Select Date Range*</span>
+                  <span class="floating__icon floating__icon--right">
+                    <img
+                      class="fa fa-caret-down ml-2"
+                      src="assets/images/calendar.svg"
+                      (click)="drp.toggle()"
+                      [attr.aria-expanded]="drp.isOpen"
+                      style="align-self: center"
+                    />
+                  </span>
+                </div>
+
+                <div class="floating__block" style="margin-left: 50px;">
+                  <input
+                    class="form-control floating__input floating__input--rightIcon"
+                    bsDatepicker
+                    [bsConfig]="{
+                      containerClass: 'theme-red',
+                      isAnimated: true,
+                      dateInputFormat: 'DD-MM-YYYY',
+                      adaptivePosition: true
+                    }"
+                    placement="place"
+                    #pe="bsDatepicker"
+                    placeholder="Select Date"
+                    [(ngModel)]="date"
+                    [disabled]="att_radio == 'member'"
+                    (ngModelChange)="changeDate()"
+                    name="date"
+                  />
+                  <span class="floating__label">Select Date *</span>
+                  <span class="floating__icon floating__icon--right">
+                    <img
+                      src="assets/images/calendar.svg"
+                      alt=""
+                      class="floating__icon--img"
+                      (click)="pe.toggle()"
+                      [attr.aria-expanded]="pe.isOpen"
+                      type="button"
+                    />
+                  </span>
+                </div>
+               
+              </div>
+            </div>
+            <div class="row-lg" style=" width: 100%; display: flex" *ngIf="att_radio == 'member' && attendance_list.length > 0">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <div
+                      type="text"
+                      class="form-control form-control-primarylight"
+                    >
+                      <span class="fw-semibold text-gray">Present Days:</span>
+                      <span class="fw-semibold text-primary ml-1">{{
+                        present_day
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <div
+                      type="text"
+                      class="form-control form-control-primarylight"
+                    >
+                      <span class="fw-semibold text-gray">Absent Days:</span>
+                      <span class="fw-semibold text-primary ml-1">{{
+                        absent_day
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <div
+                      type="text"
+                      class="form-control form-control-primarylight"
+                    >
+                      <span class="fw-semibold text-gray">Avg Time Spent:</span>
+                      <span class="fw-semibold text-primary ml-1">{{
+                        avg_time
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive" *ngIf="memberResult">
+              <table
+                class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>In Time</th>
+                    <th>Out Time</th>
+                    <th>Time Spend</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let attendance of attendance_list">
+                    <td>{{ attendance.date | date }}</td>
+                    <td>{{ attendance.in_time }}</td>
+                    <td>{{ attendance.out_time }}</td>
+                    <td>{{ attendance.time_spend }}</td>
+                    <td class="py-2">
+                      <a
+                        class="action__item btn-rounded btn btn-sm rounded-circle btn-light-hover"
+                      >
+                        <img
+                          src="assets/images/three-dot-vertical.svg"
+                          alt=""
+                          class="btn-img"
+                        />
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-responsive" *ngIf="dateResult">
+              <table
+                class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>In Time</th>
+                    <th>Out Time</th>
+                    <th>Time Spend</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let member of attendance_list">
+                    <td>{{ member.first_name }} {{ member.last_name }}</td>
+                    <td>{{ member.in_time }}</td>
+                    <td>{{ member.out_time }}</td>
+                    <td>{{ member.time_spend }}</td>
+                    <td class="py-2">
+                      <a
+                        class="action__item btn-rounded btn btn-sm rounded-circle btn-light-hover"
+                      >
+                        <img
+                          src="assets/images/three-dot-vertical.svg"
+                          alt=""
+                          class="btn-img"
+                        />
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

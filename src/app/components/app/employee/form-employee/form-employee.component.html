@@ -1,0 +1,421 @@
+<div class="rightSide__wrapper--spacing">
+    <div class="container-fluid">
+      <div class="page__header">
+        <div class="page__header__left">
+          <h4 class="h4 form__title">
+            <a routerLink="/register" class="form__title__icon__block">
+              <img
+                src="assets/images/arrow-left.svg"
+                alt=""
+                class="form__title__icon"
+              />
+            </a>
+            Add User/Customer
+          </h4>
+        </div>
+        <div class="page__header__right">
+          <p class="text-sm text-gray text-center mb-0 input__profileLabel">
+            <a style="color: #fc4e34 !important">Already registered with FSP?</a>
+          </p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="tab-content">
+              <div class="tab-pane active">
+                <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+                  <div class="form-group double">
+                    <div class="d-inline-block">
+                      <label class="input__profileBlock">
+                        <input type="file" class="input__file" />
+                        <img
+                          src="assets/images/input-file.svg"
+                          alt=""
+                          class="input__fileIcon"
+                        />
+                      </label>
+                      <p
+                        class="text-sm text-gray text-center mb-0 input__profileLabel"
+                      >
+                        Photo Here
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row row-lg">
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="text"
+                            class="form-control floating__input"
+                            placeholder="Mobile No."
+                            [(ngModel)]="model.mobile_no"
+                            name="mobile_no"
+                            #mobile_no="ngModel"
+                            maxlength="10"
+                            (focusout)="checkContact($event)"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && mobile_no.invalid
+                            }"
+                            required
+                          />
+                          <span class="floating__label">Mobile No. *</span>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && mobile_no.invalid"
+                        >
+                          <p *ngIf="mobile_no.errors.required">
+                            Mobile No is required
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row row-lg">
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="text"
+                            class="form-control floating__input"
+                            placeholder="First Name"
+                            [(ngModel)]="model.first_name"
+                            name="first_name"
+                            #first_name="ngModel"
+                            placeholder="First Name"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && first_name.invalid
+                            }"
+                            [disabled]="checkMemberExits"
+                            required
+                          />
+                          <span class="floating__label">First Name *</span>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && first_name.invalid"
+                        >
+                          <p *ngIf="first_name.errors.required">
+                            First Name is required
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="text"
+                            class="form-control floating__input"
+                            placeholder="Last Name"
+                            [(ngModel)]="model.last_name"
+                            name="last_name"
+                            #last_name="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && last_name.invalid
+                            }"
+                            [disabled]="checkMemberExits"
+                            required
+                          />
+                          <span class="floating__label">Last Name *</span>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && last_name.invalid"
+                        >
+                          <p *ngIf="last_name.errors.required">
+                            Last Name is required
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="text"
+                            class="form-control floating__input"
+                            placeholder="Email Id"
+                            [(ngModel)]="model.email"
+                            pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                            name="email"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && email.invalid
+                            }"
+                            [disabled]="checkMemberExits"
+                            #email="ngModel"
+                            required
+                          />
+                          <span class="floating__label">Email Id *</span>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && email.invalid"
+                        >
+                          <p *ngIf="email.errors.required">Email is required</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <ng-select
+                            class="form-control floating__input custom"
+                            id="custom-select"
+                            [items]="gender_array"
+                            bindLabel="name"
+                            bindValue="value"
+                            [(ngModel)]="model.gender"
+                            name="gender"
+                            #gender="ngModel"
+                            [searchable]="false"
+                            [clearable]="false"
+                            loadingText="Loading...."
+                            [ngClass]="{
+                              'is-invalid': f.submitted && gender.invalid
+                            }"
+                            [disabled]="checkMemberExits"
+                            required
+                          ></ng-select>
+                          <span class="floating__label">Gender *</span>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && gender.invalid"
+                        >
+                          <p *ngIf="gender.errors.required">Gender is required</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="text"
+                            class="form-control floating__input floating__input--rightIcon"
+                            placeholder="Gym Address"
+                            [(ngModel)]="model.address"
+                            name="address"
+                            #address="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && address.invalid
+                            }"
+                            [disabled]="checkMemberExits"
+                            required
+                          />
+                          <span class="floating__label">Address *</span>
+                          <a class="floating__icon floating__icon--right">
+                            <img
+                              src="assets/images/location-mark.svg"
+                              alt=""
+                              class="floating__icon--img"
+                            />
+                          </a>
+                        </div>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="f.submitted && address.invalid"
+                        >
+                          <p *ngIf="address.errors.required">
+                            Address is required
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <ng-select
+                              class="form-control floating__input custom"
+                              id="custom-select"
+                              [items]="role_array"
+                              bindLabel="name"
+                              bindValue="value"
+                              [(ngModel)]="model.role"
+                              name="role"
+                              #role="ngModel"
+                              [searchable]="false"
+                              [clearable]="false"
+                              loadingText="Loading...."
+                              [ngClass]="{
+                                'is-invalid': f.submitted && role.invalid
+                              }"
+                              [disabled]="checkMemberExits"
+                              required
+                            ></ng-select>
+                            <span class="floating__label">Designation *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && role.invalid"
+                          >
+                            <p *ngIf="role.errors.required">
+                              Designation is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    
+              
+            
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <ng-select
+                              class="form-control floating__input custom"
+                              id="custom-select"
+                              [items]="reporting_array"
+                              bindLabel="name"
+                              bindValue="value"
+                              [(ngModel)]="model.reporting_to"
+                              name="reporting_to"
+                              #reporting_to="ngModel"
+                              [searchable]="false"
+                              [clearable]="false"
+                              loadingText="Loading...."
+                              
+                              [ngClass]="{
+                                'is-invalid': f.submitted && reporting_to.invalid
+                              }"
+                              [disabled]="checkMemberExits"
+                              required
+                            ></ng-select>
+                            <span class="floating__label">Reporting To *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && reporting_to.invalid"
+                          >
+                            <p *ngIf="reporting_to.errors.required">
+                              Reporting To is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input floating__input--rightIcon"
+                              placeholder="Birth Date"
+                              bsDatepicker
+                              [bsConfig]="{
+                                containerClass: 'theme-red',
+                                isAnimated: true,
+                                dateInputFormat: 'DD-MM-YYYY',
+                                adaptivePosition: true
+                              }"
+                              placement="bottom"
+                              #dp="bsDatepicker"
+                              [(ngModel)]="model.birth_date"
+                              name="birth_date"
+                              #birth_date="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && birth_date.invalid
+                              }"
+                              [disabled]="checkMemberExits"
+                            />
+                            <span class="floating__label">Birth Date</span>
+                            <span class="floating__icon floating__icon--right">
+                              <img
+                                src="assets/images/calendar.svg"
+                                alt=""
+                                class="floating__icon--img"
+                                type="button"
+                                (click)="dp.toggle()"
+                                [attr.aria-expanded]="dp.isOpen"
+                                type="button"
+                              />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                
+         
+                 
+
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="text"
+                            class="form-control floating__input"
+                            placeholder="Years in Industry"
+                            [(ngModel)]="model.years"
+                            name="years"
+                            [disabled]="checkMemberExits"
+                          />
+                          <span class="floating__label">Years in Industry</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            type="text"
+                            class="form-control floating__input"
+                            placeholder="Specialization"
+                            [(ngModel)]="model.specialization"
+                            name="specialization"
+                            [disabled]="checkMemberExits"
+                          />
+                          <span class="floating__label">Specialization</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <ng-select
+                              class="form-control floating__input custom"
+                              id="custom-select"
+                              [items]="client_type_array"
+                              bindLabel="name"
+                              bindValue="value"
+                              [(ngModel)]="model.client_type"
+                              name="client_type"
+                              #client_type="ngModel"
+                              [searchable]="false"
+                              [clearable]="false"
+                              loadingText="Loading...."
+                              
+                              [ngClass]="{
+                                'is-invalid': f.submitted && client_type.invalid
+                              }"
+                              [disabled]="checkMemberExits"
+                              required
+                            ></ng-select>
+                            <span class="floating__label">Prferred Client Type *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && client_type.invalid"
+                          >
+                            <p *ngIf="client_type.errors.required">
+                              Prferred Client Type  is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+  
+                    <div class="col-12">
+                      <button class="btn btn-primary btn-width" type="submit">
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

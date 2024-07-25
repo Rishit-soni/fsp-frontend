@@ -1,0 +1,106 @@
+.p-radio p {
+  margin-right: 30px;
+}
+
+.small-heading h2,
+.small-heading h2 span {
+  font-size: 16px;
+}
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+
+[type="radio"]:checked + label {
+  color: #0b0d16 !important;
+}
+
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #92959e;
+}
+
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: solid 1px #dfe5fc;
+  background-color: #f6f7fb;
+}
+
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #fc4e34;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+[type="radio"]:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+}
+
+[type="radio"]:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.purchase-table input {
+  border: none !important;
+  border-bottom: solid 1px transparent !important;
+  background-color: transparent !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: 1.7 !important;
+  letter-spacing: normal !important;
+  color: #0b0d16 !important;
+  padding: 0px !important;
+  transition: all 0.6s ease-in-out;
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 0 !important;
+}
+.purchase-table input:focus {
+  border-bottom: solid 1px #1a68ff !important;
+}
+
+.modal-backdrop.show {
+  z-index: 0 !important;
+}

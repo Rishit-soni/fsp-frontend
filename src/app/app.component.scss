@@ -1,0 +1,25 @@
+@import '../assets/scss/Abstract/mixins';
+@import '../assets/scss/Abstract/variables';
+
+@import '../assets/scss/Base/typography';
+@import '../assets/scss/Base/reset';
+@import '../assets/scss/Base/utilities';
+
+@import '../assets/scss/Components/buttons';
+@import '../assets/scss/Components/card';
+@import '../assets/scss/Components/checkbox';
+@import '../assets/scss/Components/inputs';
+@import '../assets/scss/Components/modal';
+@import '../assets/scss/Components/tabs';
+@import '../assets/scss/Components/table';
+
+@import '../assets/scss/Layout/layout';
+@import '../assets/scss/Layout/header';
+@import '../assets/scss/Layout/sidebar';
+
+@import '../assets/scss/Pages/login';
+@import '../assets/scss/Pages/addGym';
+@import '../assets/scss/Pages/addCustomer';
+@import '../assets/scss/Pages/addMeasurement';
+
+

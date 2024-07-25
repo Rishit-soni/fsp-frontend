@@ -1,0 +1,242 @@
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/product" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            />
+          </a>
+          Add Product
+        </h4>
+      </div>
+    </div>
+
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="row row-lg">
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="Product Name"
+                      [(ngModel)]="model.product_name"
+                      name="product_name"
+                      #product_name="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && product_name.invalid
+                      }"
+                      required
+                    />
+                    <span class="floating__label">Product Name *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && product_name.invalid"
+                  >
+                    <p *ngIf="product_name.errors.required">
+                      Product Name is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="HSN Code"
+                      [(ngModel)]="model.hsn_code"
+                      name="hsn_code"
+                      #hsn_code="ngModel"
+                    />
+                    <span class="floating__label">HSN Code</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      numbersOnly
+                      class="form-control floating__input"
+                      placeholder="Product Qty"
+                      [(ngModel)]="model.product_qty_on_hand"
+                      name="product_qty_on_hand"
+                      #product_qty_on_hand="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && product_qty_on_hand.invalid
+                      }"
+                      required
+                    />
+                    <span class="floating__label">Product Qty *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && product_qty_on_hand.invalid"
+                  >
+                    <p *ngIf="product_qty_on_hand.errors.required">
+                      Product Qty is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <textarea
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Product Description"
+                      rows="3"
+                      [(ngModel)]="model.product_desc"
+                      name="product_desc"
+                    ></textarea>
+                    <span class="floating__label">Product Description</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="product_unit_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.product_unit"
+                      name="product_unit"
+                      #product_unit="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                    ></ng-select>
+                    <span class="floating__label">Product Unit *</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      numbersOnly
+                      class="form-control floating__input"
+                      placeholder="Product Low Stock Alert"
+                      [(ngModel)]="model.product_low_stock_alert"
+                      name="product_low_stock_alert"
+                      #product_low_stock_alert="ngModel"
+                    />
+                    <span class="floating__label">Product Low Stock Alert</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="Purchase Price"
+                      [(ngModel)]="model.purchase_price"
+                      name="purchase_price"
+                      #purchase_price="ngModel"
+                      
+                    />
+                    <span class="floating__label">Purchase Price</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      numbersOnly
+                      class="form-control floating__input"
+                      placeholder="GST Purchase"
+                      [(ngModel)]="model.gst_purchase"
+                      name="gst_purchase"
+                      #gst_purchase="ngModel"
+                    />
+                    <span class="floating__label">GST Purchase(%)</span>
+                  </div>
+                </div>
+              </div>
+
+             
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="Sales Price"
+                      [(ngModel)]="model.sales_price"
+                      name="sales_price"
+                      #sales_price="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && sales_price.invalid
+                      }"
+                      required
+                    />
+                    <span class="floating__label">Sales Price *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && sales_price.invalid"
+                  >
+                    <p *ngIf="sales_price.errors.required">
+                      Sales Price is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      numbersOnly
+                      class="form-control floating__input"
+                      placeholder="GST Sales"
+                      [(ngModel)]="model.gst_sales"
+                      name="gst_sales"
+                      #gst_sales="ngModel"
+                    />
+                    <span class="floating__label">GST Sales(%)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button class="btn btn-primary btn-width" type="submit">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

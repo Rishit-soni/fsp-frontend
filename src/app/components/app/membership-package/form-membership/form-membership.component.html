@@ -1,0 +1,463 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header mb-2-sm">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/membership-package" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            />
+          </a>
+          {{
+            editId
+              ? 'Edit Membership Package'
+              : viewId
+              ? 'Membership Package'
+              : 'Add Membership Package'
+          }}
+        </h4>
+      </div>
+    </div>
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <fieldset [disabled]="viewId">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-9">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="text"
+                          class="form-control floating__input"
+                          placeholder="Package Name"
+                          [(ngModel)]="model.package_name"
+                          name="package_name"
+                          #package_name="ngModel"
+                          required
+                          [ngClass]="{
+                            'is-invalid': f.submitted && membership_type.invalid
+                          }"
+                        />
+                        <span class="floating__label">Package Name *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && package_name.invalid"
+                      >
+                        <p *ngIf="package_name.errors.required">
+                          Package Name is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <ng-select
+                          class="form-control floating__input custom"
+                          id="duration_sepc"
+                          [items]="membership_array"
+                          bindLabel="name"
+                          bindValue="value"
+                          [(ngModel)]="model.membership_type"
+                          (ngModelChange)="changeMembership()"
+                          [disabled]="viewId"
+                          name="membership_type"
+                          #membership_type="ngModel"
+                          [searchable]="false"
+                          [clearable]="false"
+                          loadingText="Loading...."
+                          [ngClass]="{
+                            'is-invalid': f.submitted && membership_type.invalid
+                          }"
+                          required
+                        >
+                        </ng-select>
+                        <span class="floating__label">Membership Type *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && membership_type.invalid"
+                      >
+                        <p *ngIf="membership_type.errors.required">
+                          Membership Type is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      numbersOnly
+                      class="form-control floating__input"
+                      placeholder="Total Member"
+                      [(ngModel)]="model.total_member"
+                      name="total_member"
+                      #total_member="ngModel"
+                      required
+                      [disabled]="total_member_disabled"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && total_member.invalid
+                      }"
+                    />
+                    <span class="floating__label">Total Member *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && total_member.invalid"
+                  >
+                    <p *ngIf="total_member.errors.required">
+                      Total Member is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-5">
+                <div class="row no-gutters">
+                  <div class="col-9">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <div style="display: flex">
+                          <input
+                            type="number"
+                            numbersOnly
+                            class="form-control floating__input floating__input"
+                            style="width: 30%"
+                            placeholder="Duration"
+                            [(ngModel)]="model.duration"
+                            name="duration"
+                            (change)="changeDuration()"
+                            required
+                          />
+
+                          <ng-select
+                            class="form-control floating__input custom"
+                            id="duration_spec"
+                            [items]="duration_array"
+                            bindLabel="name"
+                            bindValue="value"
+                            [(ngModel)]="model.duration_spec"
+                            [disabled]="viewId"
+                            name="duration_spec"
+                            #duration_spec="ngModel"
+                            [searchable]="false"
+                            [clearable]="false"
+                            loadingText="Loading...."
+                            (ngModelChange)="changeDuration()"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && duration_spec.invalid
+                            }"
+                            required
+                          ></ng-select>
+                          <span class="floating__label">Duration *</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3 pl-4">
+                    <div class="form-group">
+                      <label class="custom-control custom-checkbox mt-3">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          name="userRole"
+                          [checked]="model.is_offer"
+                          (change)="changeOffer($event)"
+                         
+                        />
+                        <span class="custom-control-label">Offer</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <div style="display: flex">
+                          <input
+                            type="number"
+                            numbersOnly
+                            class="form-control floating__input floating__input"
+                            style="width: 30%"
+                            placeholder="Offer Duration"
+                            [(ngModel)]="model.offer_duration"
+                            name="offer_duration"
+                            [required]="model.is_offer"
+                            [disabled]="!model.is_offer"
+                            (change)="changeDuration()"
+                          />
+                          <ng-select
+                            class="form-control floating__input custom"
+                            id="offer_duration_spec"
+                            [items]="duration_array"
+                            bindLabel="name"
+                            bindValue="value"
+                            [(ngModel)]="model.offer_duration_spec"
+                            name="offer_duration_spec"
+                            #offer_duration_spec="ngModel"
+                            [searchable]="false"
+                            [clearable]="false"
+                            loadingText="Loading...."
+                            (ngModelChange)="changeDuration()"
+                            [ngClass]="{
+                              'is-invalid':
+                                f.submitted && offer_duration_spec.invalid
+                            }"
+                            [required]="model.is_offer"
+                            [disabled]="!model.is_offer || viewId"
+                          ></ng-select>
+                          <span class="floating__label">As Offer Duration</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <div
+                          type="text"
+                          class="form-control form-control-primarylight"
+                        >
+                          <span class="fw-semibold text-gray">Total:</span>
+                          <span class="fw-semibold text-primary ml-1">{{
+                            model.total_duration
+                          }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="transferable"
+                      [items]="boolean_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.transferable"
+                      name="transferable"
+                      #transferable="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      [ngClass]="{
+                        'is-invalid': f.submitted && transferable.invalid
+                      }"
+                      [disabled]="viewId"
+                    >
+                    </ng-select>
+                    <span class="floating__label">Transferable</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="freezable"
+                      [items]="boolean_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.freezable"
+                      (ngModelChange)="changeFreezable()"
+                      [disabled]="viewId"
+                      name="freezable"
+                      #freezable="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      [ngClass]="{
+                        'is-invalid': f.submitted && freezable.invalid
+                      }"
+                    >
+                    </ng-select>
+                    <span class="floating__label">Freezable</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-7">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="text"
+                          numbersOnly
+                          class="form-control floating__input"
+                          placeholder="No. of Freezable Days"
+                          [(ngModel)]="model.freezable_days"
+                          #freezable_days="ngModel"
+                          name="freezable_days"
+                          [disabled]="!model.freezable"
+                          [required]="model.freezable"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && freezable_days.invalid
+                          }"
+                        />
+                        <span class="floating__label"
+                          >No. of Freezable Days
+                          <span *ngIf="model.freezable">*</span></span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="text"
+                          numbersOnly
+                          class="form-control floating__input"
+                          placeholder="No. of Times Freezable Allowed"
+                          [(ngModel)]="model.freezable_allowed"
+                          name="freezable_allowed"
+                          #freezable_allowed="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && freezable_days.invalid
+                          }"
+                          [disabled]="!model.freezable"
+                          [required]="model.freezable"
+                        />
+                        <span class="floating__label"
+                          >No. of Times Freezable Allowed
+                          <span *ngIf="model.freezable">*</span></span
+                        >
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>-->
+              <div class="col-xl-5 col-lg-8">
+                <div class="row no-gutters">
+                  <div class="col-9">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="number"
+                          numbersOnly
+                          class="form-control floating__input"
+                          placeholder="Amount"
+                          [(ngModel)]="model.amount"
+                          name="amount"
+                          (keyup)="changeAmount()"
+                          #amount="ngModel"
+                          required
+                          [ngClass]="{
+                            'is-invalid': f.submitted && amount.invalid
+                          }"
+                        />
+                        <span class="floating__label">Amount</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && amount.invalid"
+                      >
+                        <p *ngIf="amount.errors.required">Amount is required</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3 pl-4">
+                    <div class="form-group">
+                      <label class="custom-control custom-checkbox mt-3">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          (change)="changeTax($event)"
+                          [checked]="model.is_tax"
+                        />
+                        <span class="custom-control-label">Tax</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      numbersOnly
+                      class="form-control floating__input"
+                      placeholder="Percentage/Amount"
+                      [(ngModel)]="model.tax"
+                      name="tax"
+                      #tax="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && tax.invalid
+                      }"
+                      (keyup)="changeAmount()"
+                      [required]="model.is_tax"
+                      [disabled]="!model.is_tax"
+                    />
+                    <span class="floating__label">Percentage/Amount</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && tax.invalid"
+                  >
+                    <p *ngIf="tax.errors.required">Tax is required</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <div
+                      type="text"
+                      class="form-control form-control-primarylight"
+                    >
+                      <span class="fw-semibold text-gray">Total:</span>
+                      <span class="fw-semibold text-primary ml-1">{{
+                        model.total_amount | number: '1.2-2'
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="button-row left text-right">
+                  <button
+                    class="btn-item btn btn-primary btn-width"
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    class="btn-item btn btn-outline-light btn-width"
+                    type="button"
+                    (click)="reset()"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

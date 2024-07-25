@@ -1,0 +1,97 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#FC4E34" type="ball-clip-rotate-multiple">
+  <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+</ngx-spinner>
+<div class="page__wrapper">
+  <div class="login__wrapper">
+    <div class="left__block">
+      <img src="assets/images/signup-bg.png" alt="" class="left__blockImg left__blockImg--fixed" />
+    </div>
+    <div class="right__block right__block--spacing right__block--center">
+      <div class="login__logo__block">
+        <img src="assets/images/logo.png" alt="" class="login__logo__img" />
+      </div>
+      <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+        <div class="form__group__block--width">
+          <div class="form-list form__group__block">
+            <div class="form-group">
+              <div class="floating__block">
+                <input type="text" [(ngModel)]="model.first_name" name="first_name" class="form-control floating__input"
+                  #first_name="ngModel" placeholder="First Name" [ngClass]="{
+                    'is-invalid': f.submitted && first_name.invalid
+                  }" required />
+                <span class="floating__label">First Name</span>
+              </div>
+              <div class="invalid-feedback" *ngIf="f.submitted && first_name.invalid">
+                <p *ngIf="first_name.errors.required">First Name is required</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="floating__block">
+                <input type="text" [(ngModel)]="model.last_name" name="last_name" class="form-control floating__input"
+                  placeholder="Last Name" #last_name="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && last_name.invalid }" required />
+                <span class="floating__label">Last Name</span>
+              </div>
+              <div class="invalid-feedback" *ngIf="f.submitted && last_name.invalid">
+                <p *ngIf="last_name.errors.required">Last Name is required</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="floating__block">
+                <input type="text" [(ngModel)]="model.username" name="username" #username="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && username.invalid }" class="form-control floating__input"
+                  placeholder="Username" required />
+                <span class="floating__label">Username</span>
+              </div>
+              <div class="invalid-feedback" *ngIf="f.submitted && username.invalid">
+                <p *ngIf="username.errors.required">Username is required</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="floating__block">
+                <input type="email" [(ngModel)]="model.email" name="email" class="form-control floating__input"
+                  placeholder="Email Id" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" #email="ngModel"
+                  required />
+                <span class="floating__label">Email Id</span>
+              </div>
+              <div class="invalid-feedback" *ngIf="f.submitted && email.invalid">
+                <p *ngIf="email.errors.required">Email is required</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="floating__block">
+                <input [(ngModel)]="model.mobile_no" name="mobile_no" type="text" maxlength="10"
+                  class="form-control floating__input" placeholder="Mobile Number" #mobile_no="ngModel" [ngClass]="{
+                    'is-invalid': f.submitted && mobile_no.invalid
+                  }" required numbersOnly />
+                <span class="floating__label">Mobile Number</span>
+              </div>
+              <div class="invalid-feedback" *ngIf="f.submitted && mobile_no.invalid">
+                <p *ngIf="mobile_no.errors.required">Mobile No is required</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="floating__block">
+                <input type="text" [(ngModel)]="model.promo_code" name="promo_code" class="form-control floating__input"
+                  placeholder="Promo/Referral Code" />
+                <span class="floating__label">Promo/Referral Code</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="floating__block">
+                <input type="password" [(ngModel)]="model.password" name="password" #password="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" class="form-control floating__input"
+                  placeholder="Password" required />
+                <span class="floating__label">Password</span>
+              </div>
+              <div class="invalid-feedback" *ngIf="f.submitted && password.invalid">
+                <p *ngIf="password.errors.required">Password is required</p>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Next</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

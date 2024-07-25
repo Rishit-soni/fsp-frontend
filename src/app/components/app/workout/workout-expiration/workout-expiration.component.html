@@ -1,0 +1,137 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="large"
+color="#FC4E34"
+type="ball-clip-rotate-multiple"
+>
+<p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+  <div class="rightSide__wrapper--spacing">
+    <div class="container-fluid">
+      <div class="page__header mb-2-sm">
+        <div class="page__header__left">
+          <h4 class="h4 form__title">Workout Expiration</h4>
+        </div>
+        <!--         <div class="page__header__right">
+          <span class="text-md text-black fw-semibold"> (2019-2020) </span>
+        </div> -->
+      </div>
+      <div class="tab_header_row direction-column-md">
+        <ul class="nav nav-tabs border-0 nav-tabs-space">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" routerLink="/workout"
+              >Workout</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              data-toggle="tab"
+              routerLink="/workout/expiration"
+              >Workout Expiration</a
+            >
+          </li>
+        </ul>
+        <div class="right_block" style="visibility: hidden">
+          <button class="btn btn-sm btn-primary btn-icon-item">
+            <img
+              src="assets/images/plus-white.svg"
+              alt=""
+              class="btn__icon__img"
+            />
+            <span class="btn__text">Add New</span>
+          </button>
+        </div>
+      </div>
+      <div class="tab-content tab-content-sm">
+        <div class="tab-pane active" id="packageExpiration">
+          <div class="card">
+            <div class="card-body pb-0">
+              <div class="table-header">
+                <div class="button-row left">
+                  <div class="input__control__block input__rightIcon btn-item">
+                    <input
+                      type="text"
+                      class="form-control form-control-light form-control-sm w-auto"
+                      placeholder="Search here"
+                      (keyup)="search($event)"
+                    />
+                    <img
+                      src="assets/images/search.svg"
+                      class="input__icon__block"
+                    />
+                  </div>
+                  <button
+                    class="btn btn-item btn-sm btn-rounded rounded-circle btn-light-hover"
+                  >
+                    <img
+                      src="assets/images/filter.svg"
+                      alt=""
+                      class="btn-img"
+                    />
+                  </button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table
+                  class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap"
+                >
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Workout</th>
+                      <th>Joining Date</th>
+                      <th>Expiring Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of expiration_list">
+                      <td>{{ item.first_name }} {{ item.last_name }}</td>
+                      <td>{{ item.workout_name }}</td>
+                      <td>{{ item.workout_start_date | date}}</td>
+                      <td>{{ item.workout_end_date | date}}</td>
+                      <td class="py-2">
+                        <a
+                      class="action__item btn-rounded btn btn-sm rounded-circle btn-light-hover"
+                      id="dropaction"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                        
+                      >
+                        <img
+                          src="assets/images/three-dot-vertical.svg"
+                          alt=""
+                          class="btn-img"
+                        />
+                      </a>
+                      <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropaction"
+                    >
+                      <button
+                        class="dropdown-item"
+                        (click)="savePath()"
+                        [routerLink]="['/workout/assign-workout/member/'+ item.id]"
+                      >
+                        Assign Workout
+                      </button>
+                      <!-- <button
+                        class="dropdown-item"
+                      >
+                        Remove
+                      </button> -->
+                    </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

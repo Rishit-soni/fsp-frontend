@@ -1,0 +1,24 @@
+.package__item {
+  border-radius: 0.5rem;
+  min-height: 10rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &--border {
+    border: 2px dashed lighten($color-gray, 26%);
+  }
+  &--orange {
+    border-color: darken($color-primarylight, 4%);
+    border-style: solid;
+    background-color: $color-primarylight;
+  }
+}
+.select__packageLabel {
+  margin-top: 1rem;
+}
+.icon-sm {
+  width: 0.775rem;
+  height: 0.775rem;
+  object-fit: contain;
+}

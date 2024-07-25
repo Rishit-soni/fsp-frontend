@@ -1,0 +1,396 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="large"
+color="#FC4E34"
+type="ball-clip-rotate-multiple"
+>
+<p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/settings/gym-list" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            /> </a
+          >{{editId ? 'Edit Gym' : 'Add Gym'}}</h4>
+      </div>
+    </div>
+    <div class="main__wrapper">
+      <div class="form__wrapper">
+        <div class="container">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                data-toggle="tab"
+                class="nav-link nav-link-width active"
+              >
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Gym/Fitness Center Information</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                data-toggle="tab"
+                class="nav-link nav-link-width"
+              >
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Services / Facilities</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                data-toggle="tab"
+                class="nav-link nav-link-width"
+              >
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Batch Timing</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                data-toggle="tab"
+                class="nav-link nav-link-width"
+              >
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Other Information</span>
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active">
+              <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+                <div class="form-group double">
+                  <div class="d-inline-block">
+                    <label class="input__profileBlock">
+                      <input type="file" class="input__file" />
+                      <img
+                        src="assets/images/input-file.svg"
+                        alt=""
+                        class="input__fileIcon"
+                      />
+                    </label>
+                    <p
+                      class="text-sm text-gray text-center mb-0 input__profileLabel"
+                    >
+                      Gym Logo
+                    </p>
+                  </div>
+                </div>
+                <div class="row row-lg">
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="text"
+                          class="form-control floating__input"
+                          placeholder="Gym Name"
+                          [(ngModel)]="model.gym_name"
+                          name="gym_name"
+                          #gym_name="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_name.invalid
+                          }"
+                          required
+                        />
+                        <span class="floating__label">Gym Name *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_name.invalid"
+                      >
+                        <p *ngIf="gym_name.errors.required">
+                          Gym Name is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="text"
+                          class="form-control floating__input"
+                          placeholder="Gym Mobile"
+                          [(ngModel)]="model.gym_mobile_no"
+                          name="gym_mobile_no"
+                          #gym_mobile_no="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_mobile_no.invalid
+                          }"
+                          required
+                        />
+                        <span class="floating__label">Gym Mobile *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_mobile_no.invalid"
+                      >
+                        <p *ngIf="gym_mobile_no.errors.required">
+                          Mobile No is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="text"
+                          class="form-control floating__input"
+                          value="Lorem Agency"
+                          placeholder="Gym Phone"
+                          [(ngModel)]="model.gym_phone_no"
+                          name="gym_phone_no"
+                          #gym_phone_no="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_phone_no.invalid
+                          }"
+                          required
+                        />
+                        <span class="floating__label">Gym Phone *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_phone_no.invalid"
+                      >
+                        <p *ngIf="gym_phone_no.errors.required">
+                          Phone No is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="email"
+                          class="form-control floating__input"
+                          value="Lorem Agency"
+                          placeholder="Gym Email"
+                          [(ngModel)]="model.gym_email"
+                          name="gym_email"
+                          #gym_email="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_email.invalid
+                          }"
+                          required
+                        />
+                        <span class="floating__label">Gym Email *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_email.invalid"
+                      >
+                        <p *ngIf="gym_email.errors.required">
+                          Email is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="text"
+                          value="Lorem Agency"
+                          class="form-control floating__input floating__input--rightIcon"
+                          placeholder="Gym Address"
+                          [(ngModel)]="model.gym_address"
+                          name="gym_address"
+                          #gym_address="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_address.invalid
+                          }"
+                          required
+                        />
+                        <span class="floating__label">Gym Address *</span>
+                        <a
+                          href="#!"
+                          class="floating__icon floating__icon--right"
+                        >
+                          <img
+                            src="assets/images/location-mark.svg"
+                            alt=""
+                            class="floating__icon--img"
+                          />
+                        </a>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_address.invalid"
+                      >
+                        <p *ngIf="gym_address.errors.required">
+                          Address is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="text"
+                          class="form-control floating__input"
+                          value="Lorem Agency"
+                          placeholder="Pin Code"
+                          [(ngModel)]="model.gym_pincode"
+                          (change)="changePincode()"
+                          name="gym_pincode"
+                          #gym_pincode="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_pincode.invalid
+                          }"
+                          required
+                        />
+                        <span class="floating__label">Pin Code *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_pincode.invalid"
+                      >
+                        <p *ngIf="gym_pincode.errors.required">
+                          Pincode is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group double">
+                      <div class="floating__block">
+                        <ng-select
+                          class="form-control floating__input custom"
+                          id="custom-select"
+                          [items]="locality_array"
+                          bindLabel="name"
+                          bindValue="name"
+                          [(ngModel)]="model.gym_locality"
+                          name="gym_locality"
+                          #gym_locality="ngModel"
+                          [clearable]="true"
+                          loadingText="Loading...."
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_locality.invalid
+                          }"
+                          required
+                        ></ng-select>
+                        <span class="floating__label">Select Locality *</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group double">
+                      <div class="floating__block">
+                        <ng-select
+                          class="form-control floating__input custom"
+                          id="custom-select"
+                          [items]="country_array"
+                          bindLabel="name"
+                          bindValue="name"
+                          (change)="countryChange($event)"
+                          [(ngModel)]="model.gym_country"
+                          name="gym_country"
+                          #gym_country="ngModel"
+                          [clearable]="true"
+                          loadingText="Loading...."
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_country.invalid
+                          }"
+                          required
+                        ></ng-select>
+                        <span class="floating__label">Select Country *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_country.invalid"
+                      >
+                        <p *ngIf="gym_country.errors.required">
+                          Country is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <ng-select
+                          class="form-control floating__input custom"
+                          id="custom-select"
+                          [items]="state_array"
+                          bindLabel="name"
+                          bindValue="name"
+                          (change)="stateChange($event)"
+                          [(ngModel)]="model.gym_state"
+                          name="gym_state"
+                          [clearable]="true"
+                          #gym_state="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_state.invalid
+                          }"
+                          required
+                        ></ng-select>
+                        <span class="floating__label">Select State *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_state.invalid"
+                      >
+                        <p *ngIf="gym_state.errors.required">
+                          State is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <ng-select
+                          class="form-control floating__input custom"
+                          id="custom-select"
+                          [items]="city_array"
+                          bindLabel="name"
+                          bindValue="name"
+                          [(ngModel)]="model.gym_city"
+                          name="gym_city"
+                          [clearable]="true"
+                          #gym_city="ngModel"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && gym_city.invalid
+                          }"
+                          required
+                        ></ng-select>
+                        <span class="floating__label">Select City *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && gym_city.invalid"
+                      >
+                        <p *ngIf="gym_city.errors.required">City is required</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary btn-width">Next</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

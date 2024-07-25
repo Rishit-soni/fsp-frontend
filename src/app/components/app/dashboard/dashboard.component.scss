@@ -1,0 +1,43 @@
+.col-12 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f8f8f8;
+  padding: 10px 15px !important;
+  box-sizing: border-box;
+}
+
+.in-out-start {
+  color: #20c997;
+  border-radius: 5px;
+  border: 1px solid #20c997;
+  width: 50px;
+  background-color: transparent;
+}
+
+.in-out-stop {
+  color: red;
+  border-radius: 5px;
+  border: 1px solid red;
+  width: 50px;
+  background-color: transparent;
+}
+
+.in-out-detail {
+  color: blue;
+  border-radius: 5px;
+  border: 1px solid blue;
+  width: 55px;
+  background-color: transparent;
+}
+
+.custom-card-dashboard {
+  min-height: 560px;
+  overflow: auto;
+}
+
+.custom-cards {
+  .card-body {
+    height: 230px;
+  }
+}

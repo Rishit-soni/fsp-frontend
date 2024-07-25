@@ -1,0 +1,146 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="large"
+color="#FC4E34"
+type="ball-clip-rotate-multiple"
+>
+<p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header mb-2-sm">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">Member List</h4>
+      </div>
+    </div>
+    <div class="tab_header_row direction-column-md">
+      <div class="right_block">
+        <button
+          routerLink="/register/add-member/step-1"
+          class="btn btn-sm btn-primary btn-icon-item"
+        >
+          <img
+            src="assets/images/plus-white.svg"
+            alt=""
+            class="btn__icon__img"
+          />
+          <span class="btn__text">Add New</span>
+        </button>
+      </div>
+    </div>
+    <div class="tab-content tab-content-sm">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <div class="table-header">
+              <div class="button-row left">
+                <div class="input__control__block input__rightIcon btn-item">
+                  <input
+                    type="text"
+                    class="form-control form-control-light form-control-sm w-auto"
+                    placeholder="Search here"
+                    (keyup)="search($event)"
+                  />
+                  <img
+                    src="assets/images/search.svg"
+                    class="input__icon__block"
+                  />
+                </div>
+                <button
+                  class="btn btn-item btn-sm btn-rounded rounded-circle btn-light-hover"
+                >
+                  <img src="assets/images/filter.svg" alt="" class="btn-img" />
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th>Name/Mobile No</th>
+                    <th>Package Info</th>
+                    <th>Joining Date</th>
+                    <th>Expiry Date</th>
+                    <th>Active Days</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let member of members_list">
+                    <td>
+                      <div style="display: flex; flex-direction: column">
+                        <a [routerLink]="['/register/basic/'+ member.id]"
+                          >{{ member.first_name }} {{ member.last_name }}</a
+                        >
+                        <span>{{ member.mobile_no }}</span>
+                      </div>
+                    </td>
+                    <td>{{ member.package_name }}</td>
+                    <td>{{ member.package_start_date | date }}</td>
+                    <td>{{ member.package_end_date | date }}</td>
+                    <td>{{ member.active_days }}</td>
+                    <td>{{ member.status }}</td>
+                    <td class="py-2">
+                      <a
+                      class="action__item btn-rounded btn btn-sm rounded-circle btn-light-hover"
+                      id="dropaction"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                        
+                      >
+                        <img
+                          src="assets/images/three-dot-vertical.svg"
+                          alt=""
+                          class="btn-img"
+                        />
+                      </a>
+                      <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropaction"
+                    >
+                    <button
+                    class="dropdown-item"
+                    (click)="savePath()"
+                    [routerLink]="['/membership-package/assign-membership-package/member/'+ member.id]"
+                  >
+                    Assign Member Package
+                  </button>
+
+                      <button
+                      [disabled]="member.status == 'EXPIRED'"
+                      class="dropdown-item"
+                      (click)="savePath()"
+                      [routerLink]="['/workout/assign-workout/member/'+ member.id]"
+                    >
+                      Assign Workout
+                    </button>
+
+                    <button
+                    [disabled]="member.status == 'EXPIRED'"
+                    class="dropdown-item"
+                    (click)="savePath()"
+                    [routerLink]="['/diet-chart/assign-diet/member/'+ member.id]"
+                  >
+                    Assign Diet
+                  </button>
+                      <!-- <button
+                        class="dropdown-item"
+                      >
+                        Remove
+                      </button> -->
+                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

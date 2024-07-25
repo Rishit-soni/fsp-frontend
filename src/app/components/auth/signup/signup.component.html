@@ -1,0 +1,142 @@
+<div class="page__wrapper">
+  <div class="login__wrapper">
+    <div class="left__block">
+      <img
+        src="assets/images/signup-bg.png"
+        alt=""
+        class="left__blockImg left__blockImg--fixed"
+      />
+    </div>
+    <div class="right__block right__block--spacing right__block--center">
+      <div class="login__logo__block">
+        <img src="assets/images/logo.png" alt="" class="login__logo__img" />
+      </div>
+      <div class="form__group__block--width">
+        <div class="form-list form__group__block">
+          <h5 class="form__smallTitle text-center">Please select your role</h5>
+          <label class="radio__block__item">
+            <span class="radio__itemIcon__block">
+              <img
+                class="radio__itemIcon__img"
+                src="assets/images/gym__orange__icon.svg"
+              />
+            </span>
+            <span class="radio__detail">
+              <p class="text-lg text-black radio__title">
+                GYM/Fitness Studio Owner
+              </p>
+              <p class="mb-0 text-gray text-sm radio__desc">
+                want to operate my studio digitally!
+              </p>
+            </span>
+            <span class="radio__inputIcon__block">
+              <span class="custom-control custom-radio custom-control-only">
+                <input
+                  type="radio"
+                  (change)="changeRadio($event)"
+                  class="custom-control-input"
+                  name="userRole"
+                  value="owner"
+                  tabindex="1"
+                  checked
+                />
+                <span class="custom-control-label"></span>
+              </span>
+            </span>
+          </label>
+          <!-- <label class="radio__block__item">
+            <span class="radio__itemIcon__block">
+              <img
+                class="radio__itemIcon__img"
+                src="assets/images/gym__orange__icon.svg"
+              />
+            </span>
+            <span class="radio__detail">
+              <p class="text-lg text-black radio__title">Fitness Enthusiast</p>
+              <p class="mb-0 text-gray text-sm radio__desc">want to be fit!</p>
+            </span>
+            <span class="radio__inputIcon__block">
+              <span class="custom-control custom-radio custom-control-only">
+                <input
+                  type="radio"
+                  disabled="true"
+                  (change)="changeRadio($event)"
+                  class="custom-control-input"
+                  name="userRole"
+                  value="member"
+                  tabindex="2"
+                />
+                <span class="custom-control-label"></span>
+              </span>
+            </span>
+          </label>
+          <label class="radio__block__item">
+            <span class="radio__itemIcon__block">
+              <img
+                class="radio__itemIcon__img"
+                src="assets/images/gym__orange__icon.svg"
+              />
+            </span>
+            <span class="radio__detail">
+              <p class="text-lg text-black radio__title">Personal Trainer</p>
+              <p class="mb-0 text-gray text-sm radio__desc">
+                want to help people to be fit
+              </p>
+            </span>
+            <span class="radio__inputIcon__block">
+              <span class="custom-control custom-radio custom-control-only">
+                <input
+                  type="radio"
+                  disabled="true"
+                  (change)="changeRadio($event)"
+                  class="custom-control-input"
+                  name="userRole"
+                  value="personal_trainer"
+                  tabindex="3"
+                />
+                <span class="custom-control-label"></span>
+              </span>
+            </span>
+          </label>
+          <label class="radio__block__item">
+            <span class="radio__itemIcon__block">
+              <img
+                class="radio__itemIcon__img"
+                src="assets/images/gym__orange__icon.svg"
+              />
+            </span>
+            <span class="radio__detail">
+              <p class="text-lg text-black radio__title">Dietician</p>
+              <p class="mb-0 text-gray text-sm radio__desc">
+                your key for being fitter
+              </p>
+            </span>
+            <span class="radio__inputIcon__block">
+              <span class="custom-control custom-radio custom-control-only">
+                <input
+                  type="radio"
+                  disabled="true"
+                  (change)="changeRadio($event)"
+                  class="custom-control-input"
+                  name="userRole"
+                  value="dietician"
+                  tabindex="4"
+                />
+                <span class="custom-control-label"></span>
+              </span>
+            </span>
+          </label> -->
+        </div>
+        <button (click)="nextStep()" class="btn btn-primary btn-block">
+          Next
+        </button>
+      </div>
+      <div class="abs__bottom">
+        <p class="text-md text-center mb-0">
+          Already have an account?
+          <a [routerLink]="['/login']" class="text-primary">Sign In</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+@include screen-xxl-up {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1400px;
+  }
+}
+.page__wrapper {
+  min-height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+.main__wrapper {
+  background-color: $color-white;
+  flex: auto;
+  margin-top: 4.125rem;
+  &__grid {
+    display: flex;
+    background-color: transparent;
+  }
+}
+.sidebar {
+  &__wrapper {
+    flex: 0 0 auto;
+    width: 16.75rem;
+    @include screen-lg-down {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color-black, 0.7);
+      z-index: 999;
+      transition: 0.2s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+      .sidebar__block {
+        position: static;
+        width: 16.75rem;
+        height: 100%;
+        transform: translateX(-100%);
+      }
+      &.open {
+        visibility: visible;
+        opacity: 1;
+        .sidebar__block {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+  &__block {
+    position: fixed;
+    top: 4.125rem;
+    left: 0;
+    width: inherit;
+    transition: 0.2s ease-in-out;
+    bottom: 0;
+  }
+}
+.rightSide__wrapper {
+  flex: 1;
+  width: calc(100% - 16.75rem);
+  background-color: #f7f7f7;
+  &--spacing {
+    padding: 2.075rem 1.575rem;
+    @include screen-lg-down {
+      padding: 1.575rem 0.875rem;
+    }
+    @include screen-md-down {
+      padding: 1.575rem 0.575rem;
+    }
+    @include screen-sm-down {
+      padding: 1.475rem 0rem;
+    }
+    @include screen-xs-down {
+      padding: 1.275rem 0rem;
+    }
+  }
+}

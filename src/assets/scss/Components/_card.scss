@@ -1,0 +1,20 @@
+.card {
+  border: none;
+  border-radius: 0.1rem;
+  border-radius: 0.6rem;
+  &-header,
+  &-body {
+    padding: 2rem;
+    border-color: $color-light;
+    background-color: transparent;
+    @include screen-sm-down {
+      padding: 1.775rem;
+    }
+    @include screen-xs-down {
+      padding: 1.475rem;
+    }
+    @include screen-xxs-down {
+      padding: 1.075rem;
+    }
+  }
+}

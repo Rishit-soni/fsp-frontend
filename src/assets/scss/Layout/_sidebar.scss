@@ -1,0 +1,64 @@
+.sidebar {
+  &__block {
+    background-color: $color-white;
+    padding: 3rem 0.575rem;
+    overflow: auto;
+    @include scrollbars(0.5em, $color-graydark);
+  }
+}
+.sidebar {
+  &__menu {
+    &Item {
+      margin-bottom: 0.575rem;
+    }
+    &ItemLink {
+      cursor: pointer;
+      color: $color-black;
+      font-weight: $font-semibold;
+      padding: 0.775rem 1rem;
+      transition: 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      border-radius: 0.675rem;
+      font-size: 1rem;
+      .menuLink__icon__block {
+        text-align-last: left;
+        margin-right: 1rem;
+      }
+      .menuLink__iconSVG {
+        width: 1.475rem;
+        height: 1.475rem;
+        transition: 0.2s ease-in-out;
+      }
+      &.active,
+      &:hover {
+        background-color: darken($color-primarylight, 2%);
+        color: $color-primary;
+        .menuLink__iconSVG {
+          path {
+            stroke: $color-primary;
+          }
+        }
+      }
+    }
+  }
+}
+.sidebar__dropdown {
+  .sidebar__menu {
+    .sidebar {
+      &__menu {
+        &Item {
+          margin-bottom: 0;
+          &Link {
+            color: $color-graydark;
+            padding-left: 3.5rem;
+            &.active,
+            &:hover {
+              color: $color-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

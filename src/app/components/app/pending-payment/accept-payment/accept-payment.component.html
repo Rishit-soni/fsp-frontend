@@ -1,0 +1,235 @@
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/pending-payment" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            />
+          </a>
+          Accept Payment
+        </h4>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="tab-content">
+            <div class="tab-pane active">
+              <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="row row-lg">
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <div
+                          type="text"
+                          class="form-control form-control-primarylight"
+                        >
+                          <span class="fw-semibold text-gray"
+                            >Total Amount</span
+                          >
+                          <span class="fw-semibold text-primary ml-2"
+                            >₹ {{ model.total_amount | number: "1.2-2" }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <div
+                          type="text"
+                          class="form-control form-control-primarylight"
+                        >
+                          <span class="fw-semibold text-gray"
+                            >Already Paid</span
+                          >
+                          <span class="fw-semibold text-primary ml-2"
+                            >₹
+                            {{
+                              model.total_paid_amount | number: "1.2-2"
+                            }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <div
+                          type="text"
+                          class="form-control form-control-primarylight"
+                        >
+                          <span class="fw-semibold text-gray"
+                            >Pending Amount</span
+                          >
+                          <span class="fw-semibold text-primary ml-2"
+                            >₹
+                            {{ model.pending_amount | number: "1.2-2" }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group double">
+                      <div class="floating__block">
+                        <input
+                          bsDatepicker
+                          [bsConfig]="{
+                            containerClass: 'theme-red',
+                            isAnimated: true,
+                            dateInputFormat: 'DD-MM-YYYY',
+                            adaptivePosition: true
+                          }"
+                          placement="place"
+                          #np="bsDatepicker"
+                          class="form-control floating__input floating__input--rightIcon"
+                          placeholder="Payment Date"
+                          [(ngModel)]="model.payment_date"
+                          #payment_date="ngModel"
+                          name="payment_date"
+                          required
+                          [ngClass]="{
+                            'is-invalid': f.submitted && payment_date.invalid
+                          }"
+                        />
+                        <span class="floating__label"> Payment Date *</span>
+
+                        <a class="floating__icon floating__icon--right">
+                          <img
+                            src="assets/images/calendar.svg"
+                            alt=""
+                            class="floating__icon--img"
+                            (click)="np.toggle()"
+                            [attr.aria-expanded]="np.isOpen"
+                            type="button"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input
+                          type="number"
+                          numbersOnly
+                          class="form-control floating__input"
+                          placeholder="Paid Amount"
+                          [(ngModel)]="model.paid_amount"
+                          (change)="changePaidAmount()"
+                          name="paid_amount"
+                        />
+                        <span class="floating__label">Paid Amount *</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group double">
+                      <div class="floating__block">
+                        <input
+                          bsDatepicker
+                          [bsConfig]="{
+                            containerClass: 'theme-red',
+                            isAnimated: true,
+                            dateInputFormat: 'DD-MM-YYYY',
+                            adaptivePosition: true
+                          }"
+                          placement="place"
+                          #np="bsDatepicker"
+                          class="form-control floating__input floating__input--rightIcon"
+                          placeholder="Next Payment Date"
+                          [(ngModel)]="model.next_payment_date"
+                          #next_payment_date="ngModel"
+                          name="next_payment_date"
+                          [required]="model.pending_amount != 0"
+                          [ngClass]="{
+                            'is-invalid':
+                              f.submitted && next_payment_date.invalid
+                          }"
+                        />
+                        <span
+                          *ngIf="model.pending_amount == 0"
+                          class="floating__label"
+                          >Next Payment Date</span
+                        >
+                        <span
+                          *ngIf="model.pending_amount != 0"
+                          class="floating__label"
+                          >Next Payment Date *</span
+                        >
+                        <a class="floating__icon floating__icon--right">
+                          <img
+                            src="assets/images/calendar.svg"
+                            alt=""
+                            class="floating__icon--img"
+                            (click)="np.toggle()"
+                            [attr.aria-expanded]="np.isOpen"
+                            type="button"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <ng-select
+                          class="form-control floating__input custom"
+                          id="custom-select"
+                          [items]="payment_method_array"
+                          bindLabel="name"
+                          bindValue="value"
+                          [(ngModel)]="model.payment_method"
+                          name="payment_method"
+                          #payment_method="ngModel"
+                          [searchable]="false"
+                          [clearable]="false"
+                          loadingText="Loading...."
+                          [ngClass]="{
+                            'is-invalid': f.submitted && payment_method.invalid
+                          }"
+                          required
+                        ></ng-select>
+                        <span class="floating__label">Payment Method *</span>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="f.submitted && payment_method.invalid"
+                      >
+                        <p *ngIf="payment_method.errors.required">
+                          Payment Method is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="button-row left">
+                      <button
+                        class="btn-item btn btn-primary btn-width"
+                        type="submit"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,428 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a [routerLink]=" url ? url : '/workout'" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            /> </a
+          >{{
+            editId ? 'Edit Workout' : viewId ? 'Workout' : 'Add Workout'
+          }}
+        </h4>
+      </div>
+    </div>
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <fieldset [disabled]="viewId">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-6 col-lg-4">
+              <div class="form-group mt-2">
+                <div class="floating__block">
+                  <input
+                    type="text"
+                    class="form-control floating__input"
+                    placeholder="Workout Name"
+                    [(ngModel)]="model.workout_name"
+                    name="workout_name"
+                    required
+                  />
+                  <span class="floating__label">Workout Name *</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="form-group mt-2">
+                <div class="floating__block">
+                  <ng-select
+                    class="form-control floating__input custom"
+                    id="custom-select"
+                    [items]="categories"
+                    [disabled]="viewId"
+                    bindLabel="name"
+                    bindValue="value"
+                    [(ngModel)]="model.category"
+                    name="category"
+                    #category="ngModel"
+                    [searchable]="false"
+                    [clearable]="false"
+                    loadingText="Loading...."
+                    [ngClass]="{
+                      'is-invalid': f.submitted && category.invalid
+                    }"
+                    required
+                  ></ng-select>
+                  <span class="floating__label">Category *</span>
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="f.submitted && category.invalid"
+                >
+                  <p *ngIf="category.errors.required">Category is required</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="form-group mt-2">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="number"
+                      class="form-control floating__input floating__input"
+                      style="width: 30%"
+                      placeholder="Duration"
+                      [(ngModel)]="model.duration"
+                      name="duration"
+                      numbersOnly
+                      required
+                    />
+                    <span class="floating__label">Duration *</span>
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="durationSpec"
+                      [disabled]="viewId"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.duration_spec"
+                      name="duration_spec"
+                      #duration_spec="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      [ngClass]="{
+                        'is-invalid': f.submitted && duration_spec.invalid
+                      }"
+                      required
+                    ></ng-select>
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="f.submitted && duration_spec.invalid"
+                >
+                  <p *ngIf="duration_spec.errors.required"></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group mb-0 mt-2">
+                <div class="floating__block">
+                  <textarea
+                    type="text"
+                    class="form-control floating__input floating__input--rightIcon"
+                    placeholder="Workout Description"
+                    rows="3"
+                    [(ngModel)]="model.workout_desc"
+                    name="workout_desc"
+                  ></textarea>
+                  <span class="floating__label">Workout Description</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="h5 fw-semibold">Select your days</h5>
+          <div class="checkbox__list form-group">
+            <div
+              class="checkbox__item__main"
+              *ngFor="let item of model.exercise_array; let i = index"
+            >
+              <div class="checkbox__item">
+                <label class="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    (change)="changeTopDaysCheckbox(item.day, i, $event)"
+                    checked
+                  />
+                  <span
+                    class="custom-control-label fw-semibold"
+                    style="text-transform: capitalize"
+                    >{{ item.day }}</span
+                  >
+                </label>
+              </div>
+              <div class="checkbox__dropdown__menu">
+                <div
+                  class="checkbox__dropdown__item"
+                  *ngFor="let exer of item.value; let j = index;"
+                >
+                  <div class="row">
+                    <div class="col-sm-6 col-md-3 col-xxl-2">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <ng-select
+                            class="form-control floating__input custom"
+                            id="custom-select"
+                            [disabled]="viewId"
+                            [items]="bodyPart"
+                            bindLabel="name"
+                            bindValue="value"
+                            [(ngModel)]="
+                              model.exercise_array[i].value[j].body_part
+                            "
+                            [name]="'body_part' + i + '_' + j"
+                            #body_part="ngModel"
+                            [searchable]="false"
+                            [clearable]="false"
+                            loadingText="Loading...."
+                            (change)="changeBodyPart($event, i, j)"
+                            required
+                          ></ng-select>
+                          <span class="floating__label">Body Part</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-xxl-2">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <ng-select
+                            class="form-control floating__input custom"
+                            [id]="'target_area' + i + '_' + j"
+                            (click)="setTargetArea(i, j)"
+                            [items]="targetArea"
+                            [disabled]="viewId"
+                            bindLabel="name"
+                            bindValue="value"
+                            [(ngModel)]="
+                              model.exercise_array[i].value[j].target_area
+                            "
+                            [name]="'target_area' + i + '_' + j"
+                            #target_area="ngModel"
+                            [searchable]="false"
+                            [clearable]="false"
+                            loadingText="Loading...."
+                            (change)="changeTargetArea($event,i , j)"
+                            required
+                          ></ng-select>
+                          <span class="floating__label">Target Area</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6 col-xxl-4">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <ng-select
+                            class="form-control floating__input custom"
+                            id="custom-select"
+                            (click)="setExercise(i, j)"
+                            [items]="exercises"
+                            [disabled]="viewId"
+                            bindLabel="name"
+                            bindValue="value"
+                            [(ngModel)]="
+                              model.exercise_array[i].value[j].exercise_name
+                            "
+                            [name]="'exercise_name' + i + '_' + j"
+                            #exercise_name="ngModel"
+                            [searchable]="true"
+                            [clearable]="false"
+                            [multiple]="true"
+                            loadingText="Loading...."
+                            required
+                          ></ng-select>
+                          <span class="floating__label">Exercise</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6 col-xxl-4">
+                      <div class="row row-sm">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <div class="floating__block">
+                              <ng-select
+                                class="form-control floating__input custom"
+                                id="custom-select"
+                                [disabled]="viewId"
+                                [items]="sets"
+                                bindLabel="name"
+                                bindValue="value"
+                                [(ngModel)]="
+                                  model.exercise_array[i].value[j].sets_size
+                                "
+                                [name]="'sets_size' + i + '_' + j"
+                                #sets_size="ngModel"
+                                (change)="changeSets(i, j)"
+                                [searchable]="false"
+                                [clearable]="false"
+                                loadingText="Loading...."
+                                required
+                              ></ng-select>
+                              <span class="floating__label">Sets</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="col-md-2 col"
+                          *ngFor="let desc of exer.sets_desc; let k = index"
+                        >
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control text-center px-0"
+                              [(ngModel)]="desc.set"
+                              [name]="'sets_desc' + i + '_' + j + '_' + k"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-2 col-xxl-3">
+                      <div class="form-group">
+                        <div class="floating__block">
+                          <input
+                            class="form-control floating__input"
+                            aria-placeholder="Rest (Sec.)"
+                            [(ngModel)]="exer.rest"
+                            [name]="'rest' + i + '_' + j"
+                          />
+                          <span class="floating__label">Rest (Sec.)</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm col-xl-2 col-xxl-3 mt-sm-2">
+                      <div class="form-group d-flex">
+                        <button
+                          type="button"
+                          (click)="removeInnerRow(i, j)"
+                          class="btn btn-rounded btn-sm btn-lightdanger rounded-circle mr-3"
+                        >
+                          <img
+                            src="assets/images/cross-red.svg"
+                            alt=""
+                            class="btn-img"
+                          />
+                        </button>
+                        <button
+                          type="button"
+                          (click)="addInnerRow(i)"
+                          class="btn btn-rounded btn-sm btn-lightblue rounded-circle"
+                        >
+                          <img
+                            src="assets/images/plus-blue.svg"
+                            alt=""
+                            class="btn-img"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="checkbox__item__main"
+              *ngFor="let day of days; let daysIndex = index"
+            >
+              <div class="checkbox__item" *ngIf="!day.isUsed">
+                <label class="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    (change)="changeBottomDaysCheckbox(daysIndex, $event)"
+                  />
+                  <span class="custom-control-label fw-semibold">{{
+                    day.name
+                  }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-row left">
+            <button
+              type="button"
+              [routerLink]=" url ? url : '/workout'"
+              class="btn btn-sm btn-outline-primary btn-item btn-width"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-sm btn-primary btn-item btn-width"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+
+<!-- <div
+  id="modal-diet-add"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-footer">
+          <div class="row" *ngIf="showCheckbox">
+            <div
+              class="row row-sm row-sm-down form-group"
+              style="
+                margin-bottom: 35px;
+                display: flex;
+                justify-content: space-evenly !important;
+              "
+            >
+              <div class="col" *ngFor="let d of sort_days; let i = index">
+                <input
+                  type="checkbox"
+                  class="form-control form-control-lightblue px-0 text-center checkbox-input"
+                  (change)="changeCheckbox(i, $event)"
+                  [disabled]="tempDay == d"
+                  [checked]="tempDay == d"
+                  [name]="d"
+                />
+                <label class="checkbox-label">{{ d }}</label>
+              </div>
+
+              <div class="col" style="visibility: hidden">
+                <input
+                  type="text"
+                  class="form-control form-control-lightblue px-0 text-center"
+                  value="Sun"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+          <div class="button-row center w-100 m-0">
+            <button
+              type="button"
+              class="btn btn-sm btn-width btn-item btn-outline-primary"
+              data-dismiss="modal"
+              id="close-modal-button"
+            >
+              Close
+            </button>
+            <button
+              class="btn btn-sm btn-width btn-item btn-primary"
+              
+            >
+              Done
+            </button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div> -->

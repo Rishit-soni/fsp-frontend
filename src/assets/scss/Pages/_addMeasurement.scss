@@ -1,0 +1,108 @@
+.page__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.875rem;
+  @include screen-sm-down {
+    margin-bottom: 1.575rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  &__left {
+    @include screen-sm-up {
+      margin-right: auto;
+    }
+  }
+  &__right {
+    @include screen-sm-down {
+      margin-top: 1rem;
+    }
+  }
+  .form__title {
+    margin-bottom: 0;
+  }
+}
+.checkbox {
+  &__dropdown__menu {
+    margin-top: 2rem;
+    margin-bottom: 0.175rem;
+    border-bottom: 1px solid $color-light;
+  }
+  &__dropdown__item {
+    & + & {
+      margin-top: 3rem;
+    }
+  }
+  &__item {
+    padding: 1rem 0;
+    border-bottom: 1px solid $color-light;
+  }
+}
+.day {
+  &__dataItem {
+    border-radius: 0.5rem;
+    background-color: $color-graybg;
+    border: 1px solid transparent;
+    padding: 1rem;
+    padding-right: 3rem;
+    position: relative;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      border-color: darken($color-light, 8%);
+    }
+  }
+  &__title {
+    margin-bottom: 0.275rem;
+  }
+  &__time {
+    margin-bottom: 00;
+  }
+  &__edit {
+    transition: 0.2s ease-in-out;
+    &:hover {
+      background-color: darken($color-graybg, 5%);
+    }
+    &:active,
+    &:focus {
+      background-color: darken($color-graybg, 10%);
+      box-shadow: none;
+    }
+    &--top-right {
+      position: absolute;
+      top: 0.55rem;
+      right: 0.55rem;
+      z-index: 2;
+    }
+  }
+}
+.scale__btn {
+  &__parent {
+    transition: 0.2s ease-in-out;
+    &:hover {
+      .scale__btn__item {
+        transform: scale(1) translateZ(0);
+      }
+    }
+  }
+  &__item {
+    transform: scale(0) translateZ(0);
+    transition: 0.2s ease-in-out;
+    @include screen-md-down {
+      transform: scale(1) translateZ(0);
+    }
+  }
+}
+.day_content {
+  display: block;
+  min-width: 12rem;
+}
+.table-responsive {
+  @include scrollbars(0.575rem, $color-graydark, $color-graylight2);
+}
+.table-header {
+  margin-bottom: 1rem;
+  display: flex;
+  .button-row {
+    display: flex;
+    align-items: center;
+  }
+}

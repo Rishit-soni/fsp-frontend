@@ -1,0 +1,275 @@
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/register" class="form__title__icon__block">
+            <img src="assets/images/arrow-left.svg" alt="" class="form__title__icon" />
+          </a>
+          Add User/Customer</h4>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a (click)="back()" routerLink="/register/add-member/step-1" class="nav-link done">
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Basic Info</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a  (click)="back()" routerLink="/register/add-member/step-2" class="nav-link done">
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Package Detail</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link active">
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Workout</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Diet</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                <span class="checkbox__tick"></span>
+                <span class="nav-tab-text">Measurement</span>
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active">
+              <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="form-group double">
+                  <div class="row">
+                    <div class="col-sm-6 col-lg-4" *ngIf="!package">
+                      <div class="package__item package__item--border cursor-pointer" data-toggle="modal"
+                        data-target="#modal-select-package">
+                        <p class="text-gray mb-0 fw-semibold">
+                          Click here to select workout
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-xxl-4 col-lg-5" *ngIf="package">
+                      <div class="package__item package__item--border cursor-pointer package__item--orange">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <span class="d-block text-graydark text-sm">
+                                    Workout Name
+                                  </span>
+                                  <span class="d-block text-black text-md">
+                                    {{ selectedWorkout.workout_name }}
+                                  </span>
+                                </td>
+                                <td>
+                                  <span class="d-block text-graydark text-sm">
+                                    Category
+                                  </span>
+                                  <span class="d-block text-black text-md">
+                                    {{ getCategory(selectedWorkout.category) }}
+                                  </span>
+                                </td>
+                                <!--   <td>
+                                  <span class="d-block text-graydark text-sm">
+                                    Member Allowed
+                                  </span>
+                                  <span class="d-block text-black text-md">
+                                    01
+                                  </span>
+                                </td> -->
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span class="d-block text-graydark text-sm">
+                                    Duration
+                                  </span>
+                                  <span class="d-block text-black text-md">
+                                    {{ selectedWorkout.duration }}
+                                    {{ selectedWorkout.duration_spec }}
+                                  </span>
+                                </td>
+                                <!--       <td colspan="2">
+                                  <span class="d-block text-graydark text-sm">
+                                    Price
+                                  </span>
+                                  <span class="d-block text-black text-md">
+                                    ₹ 1,200.00
+                                  </span>
+                                </td> -->
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <a href="#modal-select-package" data-toggle="modal"
+                        class="text-primary select__packageLabel d-inline-block fw-semibold">
+                        <img src="assets/images/pencil-orange.svg" alt="" class="icon-sm mr-1" />
+                        <span class="text-md">Select Again</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-lg">
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group">
+                      <div class="floating__block">
+                        <input class="form-control floating__input floating__input--rightIcon"
+                          placeholder="Workout Start Date" [(ngModel)]="model.workout_start_date"
+                          (ngModelChange)="changeStartDate()" name="workout_start_date" bsDatepicker [bsConfig]="{
+                            containerClass: 'theme-red',
+                            isAnimated: true,
+                            dateInputFormat: 'DD-MM-YYYY',
+                            adaptivePosition: true
+                          }" placement="bottom" #ws="bsDatepicker" #workout_start_date="ngModel" [ngClass]="{
+                            'is-invalid':
+                              f.submitted && workout_start_date.invalid
+                          }" [required]="package" [disabled]="!package" />
+                        <span class="floating__label">Workout Start Date *</span>
+                        <span class="floating__icon floating__icon--right">
+                          <img src="assets/images/calendar.svg" alt="" class="floating__icon--img" (click)="ws.toggle()"
+                            [attr.aria-expanded]="ws.isOpen" type="button" />
+                        </span>
+                      </div>
+                      <div class="invalid-feedback" *ngIf="f.submitted && workout_start_date.invalid">
+                        <p *ngIf="workout_start_date.errors.required">
+                          Workout Start Date is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-4">
+                    <div class="form-group double">
+                      <div class="floating__block">
+                        <input class="form-control floating__input floating__input--rightIcon"
+                          placeholder="Workout End Date" [(ngModel)]="model.workout_end_date" name="workout_end_date"
+                          bsDatepicker [bsConfig]="{
+                            containerClass: 'theme-red',
+                            isAnimated: true,
+                            dateInputFormat: 'DD-MM-YYYY',
+                            adaptivePosition: true
+                          }" placement="bottom" #we="bsDatepicker" #workout_end_date="ngModel" [ngClass]="{
+                            'is-invalid':
+                              f.submitted && workout_end_date.invalid
+                          }" [required]="package" [disabled]="!package" />
+                        <span class="floating__label">Workout End Date *</span>
+                        <span class="floating__icon floating__icon--right">
+                          <img src="assets/images/calendar.svg" alt="" class="floating__icon--img" (click)="we.toggle()"
+                            [attr.aria-expanded]="we.isOpen" type="button" />
+                        </span>
+                      </div>
+                      <div class="invalid-feedback" *ngIf="f.submitted && workout_end_date.invalid">
+                        <p *ngIf="workout_end_date.errors.required">
+                          Workout End Date is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="button-row left">
+                      <a class="btn-item btn btn-light btn-width"  (click)="back()" routerLink="/register/add-member/step-2">Back</a>
+                      <button class="btn-item btn btn-primary btn-width" type="submit">
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-select-package" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-body pb-0">
+        <h6 style="display: flex;justify-content: space-between;align-items: center">
+          <span>
+            Select Workout
+          </span>
+
+          <button class="btn btn-sm btn-width btn-item btn-outline-primary" type="button" data-dismiss="modal" (click)="addWorkout()"
+          routerLink="/workout/add-workout">
+            Add Workout
+          </button>
+        </h6>
+
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <div *ngFor="let workout of workoutPlans; let i = index; let lst = last">
+                <tr>
+                  <td rowspan="2" class="px-2">
+                    <label class="custom-control custom-radio custom-control-only">
+                      <input type="radio" class="custom-control-input" [name]="'radio_'+i" [checked]="workout.id == session_id" tabindex="1"
+                        (change)="changeWorkoutRadio(i, $event)" />
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                  <td>
+                    <span class="d-block text-graydark text-sm">
+                      Workout Name
+                    </span>
+                    <span class="d-block text-black text-md">
+                      {{ workout.workout_name }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="d-block text-graydark text-sm">
+                      Category
+                    </span>
+                    <span class="d-block text-black text-md">
+                      {{ getCategory(workout.category) }}
+                    </span>
+                  </td>
+                  <!--     <td class="pr-0 text-width">
+                    <span class="d-block text-graydark text-sm">
+                      Member Allowed
+                    </span>
+                    <span class="d-block text-black text-md"> 01 </span>
+                  </td> -->
+                </tr>
+                <tr>
+                  <td>
+                    <span class="d-block text-graydark text-sm">
+                      Duration
+                    </span>
+                    <span class="d-block text-black text-md">
+                      {{ workout.duration }} {{ getDuration(workout.duration_spec) }}
+                    </span>
+                  </td>
+                  <!--    <td colspan="2" class="pr-0">
+                    <span class="d-block text-graydark text-sm"> Price </span>
+                    <span class="d-block text-black text-md"> ₹ 1,200.00 </span>
+                  </td> -->
+                </tr>
+                <hr *ngIf="!lst">
+              </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="button-row center w-100 m-0">
+          <button class="btn btn-sm btn-width btn-item btn-outline-primary" data-dismiss="modal">
+            Close
+          </button>
+          <a class="btn btn-sm btn-width btn-item btn-primary" (click)="selectWorkout()" data-dismiss="modal">Done</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#FC4E34" type="ball-clip-rotate-multiple">
+  <p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header mb-2-sm">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">Users</h4>
+      </div>
+    </div>
+    <div class="tab-content tab-content-sm">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <div class="table-header">
+              <div class="button-row left">
+                <div class="input__control__block input__rightIcon btn-item">
+                  <input type="text" class="form-control form-control-light form-control-sm w-auto"
+                    placeholder="Search here" (keyup)="search($event)" />
+                  <img src="assets/images/search.svg" class="input__icon__block" />
+                </div>
+                <button class="btn btn-item btn-sm btn-rounded rounded-circle btn-light-hover">
+                  <img src="assets/images/filter.svg" alt="" class="btn-img" />
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th>Role</th>
+                    <th>Account Created</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of users; let i = index">
+                    <td><a [routerLink]="['/gym-list/'+user.id]">{{ user.first_name }} {{ user.last_name }}</a></td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.mobile_no }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>{{ user.created_at | date }}</td>
+                    <td>{{ user.is_active ? 'Active' : 'Inactive' }}</td>
+
+                    <td>
+                      <div class="c-action">
+                        <div class="dropdown action-menu">
+                          <button class="btn" type="button" id="dropaction" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="19" fill="none"
+                              viewBox="0 0 6 19">
+                              <path stroke="#202020" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-miterlimit="10" stroke-width="2"
+                                d="M1 2.694c0 .935.759 1.694 1.694 1.694.935 0 1.694-.759 1.694-1.694C4.388 1.758 3.629 1 2.694 1 1.759 1 1 1.758 1 2.694zM1 16.244c0 .935.759 1.694 1.694 1.694.935 0 1.694-.759 1.694-1.694 0-.936-.759-1.694-1.694-1.694-.935 0-1.694.758-1.694 1.694zM1 9.469c0 .935.759 1.693 1.694 1.693.935 0 1.694-.758 1.694-1.693 0-.936-.759-1.694-1.694-1.694C1.759 7.775 1 8.533 1 9.469z" />
+                            </svg>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropaction">
+                            <button *ngIf="user.is_active" class="dropdown-item"
+                              (click)="changeUserStatus(user.id, 0, i)">
+                              Inactive
+                            </button>
+                            <button class="dropdown-item" *ngIf="!user.is_active"
+                              (click)="changeUserStatus(user.id, 1, i)">
+                              Active
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

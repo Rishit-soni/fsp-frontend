@@ -1,0 +1,228 @@
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/expense" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            />
+          </a>
+          Add Expense
+        </h4>
+      </div>
+      <div class="page__header__right">
+        <p class="text-sm text-gray text-center mb-0 input__profileLabel">
+          <a
+            data-toggle="modal"
+            data-target="#modal-expense-type"
+            style="color: #fc4e34 !important; cursor: pointer;"
+            >Add More Expense Type !!</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="row row-lg">
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="Bill No"
+                      [(ngModel)]="model.bill_no"
+                      name="first_name"
+                      #bill_no="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && bill_no.invalid
+                      }"
+                      required
+                    />
+                    <span class="floating__label">Bill No *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && bill_no.invalid"
+                  >
+                    <p *ngIf="bill_no.errors.required">Bill No is required</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="expense_type_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.expense_type"
+                      name="expense_type"
+                      #expense="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && expense.invalid
+                      }"
+                    ></ng-select>
+                    <span class="floating__label">Expense Type *</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Enter Date"
+                      bsDatepicker
+                      [bsConfig]="{
+                        containerClass: 'theme-red',
+                        isAnimated: true,
+                        dateInputFormat: 'DD-MM-YYYY',
+                        adaptivePosition: true
+                      }"
+                      placement="bottom"
+                      #dp="bsDatepicker"
+                      [(ngModel)]="model.invoice_date"
+                      name="invoice_date"
+                      #invoice_date="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && invoice_date.invalid
+                      }"
+                    />
+                    <span class="floating__label">Invoice Date *</span>
+                    <span class="floating__icon floating__icon--right">
+                      <img
+                        src="assets/images/calendar.svg"
+                        alt=""
+                        class="floating__icon--img"
+                        type="button"
+                        (click)="dp.toggle()"
+                        [attr.aria-expanded]="dp.isOpen"
+                        type="button"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <textarea
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Expense Description"
+                      rows="3"
+                      [(ngModel)]="model.expense_desc"
+                      name="expense_desc"
+                    ></textarea>
+                    <span class="floating__label">Expense Description</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      class="form-control floating__input"
+                      placeholder="Total Amount"
+                      [(ngModel)]="model.total_amount"
+                      name="total_amount"
+                      #total_amount="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && total_amount.invalid
+                      }"
+                      numbersOnly
+                      required
+                    />
+                    <span class="floating__label">Total Amount *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && total_amount.invalid"
+                  >
+                    <p *ngIf="total_amount.errors.required">
+                      Amount is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary btn-width" type="submit">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div
+  id="modal-expense-type"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body pb-1">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <div class="floating__block">
+                <input
+                  type="text"
+                  class="form-control floating__input"
+                  placeholder="Expense Type"
+                  [(ngModel)]="expense_type"
+                  name="expense_type_modal"
+                />
+                <span class="floating__label">Expense Type *</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="button-row center w-100 m-0">
+          <button
+            type="button"
+            id="modal-close-button"
+            class="btn btn-sm btn-width btn-item btn-outline-primary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-sm btn-width btn-item btn-primary"
+            (click)="addExpenseType()"
+            [disabled]="!expense_type"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

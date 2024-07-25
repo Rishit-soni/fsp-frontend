@@ -1,0 +1,552 @@
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/sales" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            />
+          </a>
+          Add Sales
+        </h4>
+      </div>
+    </div>
+
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="row row-lg">
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      numbersOnly
+                      class="form-control floating__input"
+                      placeholder="Bill No"
+                      [(ngModel)]="model.bill_no"
+                      name="first_name"
+                      #bill_no="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && bill_no.invalid
+                      }"
+                      required
+                      readonly
+                    />
+                    <span class="floating__label">Bill No *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && bill_no.invalid"
+                  >
+                    <p *ngIf="bill_no.errors.required">Bill No is required</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="member_list"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.member_id"
+                      (ngModelChange)="changeMember()"
+                      name="member_id"
+                      #member_id="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && member_id.invalid
+                      }"
+                    ></ng-select>
+                    <span class="floating__label">Select Member</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Enter Invoice Date"
+                      bsDatepicker
+                      [bsConfig]="{
+                        containerClass: 'theme-red',
+                        isAnimated: true,
+                        dateInputFormat: 'DD-MM-YYYY',
+                        adaptivePosition: true
+                      }"
+                      placement="bottom"
+                      #dp="bsDatepicker"
+                      [(ngModel)]="model.invoice_date"
+                      name="invoice_date"
+                      #invoice_date="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && invoice_date.invalid
+                      }"
+                    />
+                    <span class="floating__label">Invoice Date *</span>
+                    <span class="floating__icon floating__icon--right">
+                      <img
+                        src="assets/images/calendar.svg"
+                        alt=""
+                        class="floating__icon--img"
+                        type="button"
+                        (click)="dp.toggle()"
+                        [attr.aria-expanded]="dp.isOpen"
+                        type="button"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+       
+
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <textarea
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Sales Description"
+                      rows="3"
+                      [(ngModel)]="model.sales_desc"
+                      name="sales_desc"
+                    ></textarea>
+                    <span class="floating__label">Sales Description</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+<!--             <div class="row-lg">
+              <div class="p-radio d-flex align-items-center pb-4">
+                <p>
+                  <input
+                    type="radio"
+                    name="exclusive_tax"
+                    id="exclusive_tax"
+                    [(ngModel)]="model.tax_type"
+                    (click)="taxTypeChange('exclusive_tax')"
+                    value="exclusive_tax"
+                  />
+                  <label for="exclusive_tax">Exclusive of Tax</label>
+                </p>
+                <p>
+                  <input
+                    type="radio"
+                    name="inclusive_tax"
+                    id="inclusive_tax"
+                    [(ngModel)]="model.tax_type"
+                    (click)="taxTypeChange('inclusive_tax')"
+                    value="inclusive_tax"
+                  />
+                  <label for="inclusive_tax">Inclusive of Tax</label>
+                </p> 
+                <p>
+                  <input
+                    type="radio"
+                    name="out_of_tax"
+                    id="out_of_tax"
+                    [(ngModel)]="model.tax_type"
+                    (click)="taxTypeChange('out_of_tax')"
+                    value="out_of_tax"
+                  />
+                  <label for="out_of_tax">Out of Scope of Tax</label>
+                </p>
+              </div>
+            </div> -->
+            <div
+              class="table-responsive"
+              style="margin-bottom: 20px !important"
+            >
+              <table
+                class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap purchase-table"
+              >
+                <thead class="thead-light">
+                  <tr>
+                    <th>Sr No</th>
+                    <th style="width: 20%">Prouct Name</th>
+                    <th>HSN</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Rate</th>
+                    <th>Dis(%)</th>
+                    <!-- <th *ngIf="model.tax_type != 'out_of_tax'">
+                      Taxable Value
+                    </th>
+                    <th *ngIf="model.tax_type == 'out_of_tax'">Total Amount</th>
+                    <th *ngIf="model.tax_type != 'out_of_tax'">Tax</th> -->
+                    <th>
+                      Taxable Value
+                    </th>
+                    <th>Tax(%)</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of model.product_details; let i = index">
+                    <td width="5%">
+                      <div class="text-black">{{ i + 1 }}</div>
+                    </td>
+                    <td
+                      style="width: 20%; position: absolute"
+                      [style.z-index]="1000 - i"
+                    >
+                      <ng-select
+                        class="form-control floating__input custom"
+                        id="custom-select"
+                        [items]="product_list_array"
+                        bindLabel="name"
+                        bindValue="value"
+                        [(ngModel)]="item.product_id"
+                        [name]="'product_id' + i"
+                        #product_id="ngModel"
+                        (ngModelChange)="selectProduct(i)"
+                        [searchable]="false"
+                        [clearable]="false"
+                        loadingText="Loading...."
+                        readonly
+                      ></ng-select>
+                    </td>
+                    <td>
+                      <div class="code table-div">
+                        <h5 class="text-black qty-text">
+                          <input
+                            type="text"
+                            placeholder="HSN"
+                            [name]="'hsn_or_sac_code' + i"
+                            [(ngModel)]="item.hsn_code"
+                            #hsn_or_sac_code="ngModel"
+                          />
+                        </h5>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="qty">
+                        <h5 class="text-black qty-text">
+                          <input
+                            type="number"
+                            numbersOnly
+                            placeholder="Qty"
+                            [name]="'product_qty' + i"
+                            [(ngModel)]="item.product_qty"
+                            #product_qty="ngModel"
+                            (change)="calculate()"
+                          />
+                        </h5>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="unit">
+                        <h5 class="text-black unit-text">
+                          <input
+                            type="text"
+                            placeholder="Unit"
+                            [name]="'product_unit' + i"
+                            [(ngModel)]="item.product_unit"
+                            #product_unit="ngModel"
+                            readonly
+                          />
+                        </h5>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rate table-div">
+                        <h5 class="text-black table-div rate-text">
+                          <input
+                            type="number"
+                            numbersOnly
+                            placeholder="Rate"
+                            [name]="'product_rate' + i"
+                            [(ngModel)]="item.product_rate"
+                            #product_rate="ngModel"
+                            (change)="calculate()"
+                          />
+                        </h5>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="discount table-div">
+                        <h5 class="text-black table-div dis-text">
+                          <input
+                            type="number"
+                            numbersOnly
+                            placeholder="Discount"
+                            [name]="'product_discount' + i"
+                            [(ngModel)]="item.product_discount"
+                            #product_discount="ngModel"
+                            (change)="calculate()"
+                          />
+                        </h5>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="tax table-div">
+                        <h5 class="text-black table-div tax-val-text">
+                          <input
+                            type="number"
+                            numbersOnly
+                            placeholder="Taxable Value"
+                            [name]="'product_taxable_val' + i"
+                            [(ngModel)]="item.product_taxable_val"
+                            #product_taxable_val="ngModel"
+                            readonly
+                          />
+                        </h5>
+                      </div>
+                    </td>
+                    <td *ngIf="model.tax_type != 'out_of_tax'">
+                      <div class="tax table-div">
+                        <h5 class="text-black table-div tax-text">
+                          <input
+                            type="number"
+                            numbersOnly
+                            placeholder="Tax(%)"
+                            [name]="'product_tax' + i"
+                            [(ngModel)]="item.product_tax"
+                            #product_tax="ngModel"
+                            (change)="calculate()"
+                          />
+                        </h5>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="action-btn d-flex align-items-center">
+                        <button
+                          type="button"
+                          (click)="removeProductRow(i)"
+                          class="btn btn-rounded btn-sm btn-lightblue rounded-circle"
+                        >
+                          <img
+                            src="assets/images/cross-red.svg"
+                            class="btn-img"
+                          />
+                        </button>
+
+                        <button
+                          type="button"
+                          (click)="addProductRow()"
+                          class="btn btn-rounded btn-sm btn-lightblue rounded-circle"
+                        >
+                          <img
+                            src="assets/images/plus-blue.svg"
+                            alt=""
+                            class="btn-img"
+                          />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+              <div class="form-group">
+                <div class="floating__block">
+                  <input
+                    type="number"
+                    numbersOnly
+                    class="form-control floating__input"
+                    placeholder="Total Amount"
+                    [(ngModel)]="model.total_amount"
+                    name="total_amount"
+                    #total_amount="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && total_amount.invalid
+                    }"
+                    required
+                    readonly
+                  />
+                  <span class="floating__label">Total Amount *</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+              <div class="form-group">
+                <div class="floating__block">
+                  <input
+                    type="number"
+                    numbersOnly
+                    class="form-control floating__input"
+                    placeholder="Total Taxable Value"
+                    [(ngModel)]="model.taxable_value"
+                    name="taxable_value"
+                    #taxable_value="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && taxable_value.invalid
+                    }"
+                    required
+                    readonly
+                  />
+                  <span class="floating__label">Total Taxable Value *</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="form-group">
+                <div class="floating__block">
+                  <input
+                    type="number"
+                    numbersOnly
+                    class="form-control floating__input"
+                    placeholder="Total Tax"
+                    [(ngModel)]="model.total_tax"
+                    name="total_tax"
+                    #total_tax="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && total_tax.invalid
+                    }"
+                    required
+                    readonly
+                  />
+                  <span class="floating__label">Total Tax *</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="number"
+                      numbersOnly
+                      class="form-control floating__input"
+                      placeholder="Total Amount"
+                      [(ngModel)]="model.paid_amount"
+                      (change)="changePaidAmount()"
+                      name="paid_amount"
+                      #paid_amount="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && paid_amount.invalid
+                      }"
+                      required
+                  
+                    />
+                    <span class="floating__label">Paid Amount *</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                  <div class="form-group">
+                    <div class="floating__block">
+                      <input
+                        type="number"
+                        numbersOnly
+                        class="form-control floating__input"
+                        placeholder="Total Amount"
+                        [(ngModel)]="model.due_amount"
+                        name="due_amount"
+                        #due_amount="ngModel"
+                        [ngClass]="{
+                          'is-invalid': f.submitted && due_amount.invalid
+                        }"
+                        required
+                        readonly
+                      />
+                      <span class="floating__label">Due Amount *</span>
+                    </div>
+                  </div>
+                </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input floating__input--rightIcon"
+                      placeholder="Enter Due Date"
+                      bsDatepicker
+                      [bsConfig]="{
+                        containerClass: 'theme-red',
+                        isAnimated: true,
+                        dateInputFormat: 'DD-MM-YYYY',
+                        adaptivePosition: true
+                      }"
+                      placement="bottom"
+                      #dp="bsDatepicker"
+                      [(ngModel)]="model.due_date"
+                      name="due_date"
+                      #due_date="ngModel"
+                      [required]="model.due_amount != 0"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && due_date.invalid
+                      }"
+                    />
+                    <span class="floating__label">Due Date</span>
+                    <span class="floating__label" *ngIf="model.due_amount != 0">Due Date *</span>
+                    <span class="floating__icon floating__icon--right">
+                      <img
+                        src="assets/images/calendar.svg"
+                        alt=""
+                        class="floating__icon--img"
+                        type="button"
+                        (click)="dp.toggle()"
+                        [attr.aria-expanded]="dp.isOpen"
+                        type="button"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                      [items]="payment_method_array"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.payment_method"
+                      name="payment_method"
+                      #payment_method="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      [ngClass]="{
+                        'is-invalid': f.submitted && payment_method.invalid
+                      }"
+                      required
+                    ></ng-select>
+                    <span class="floating__label">Payment Method *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && payment_method.invalid"
+                  >
+                    <p *ngIf="payment_method.errors.required">
+                      Payment Method is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            <div class="col-12">
+              <button class="btn btn-primary btn-width" type="submit">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

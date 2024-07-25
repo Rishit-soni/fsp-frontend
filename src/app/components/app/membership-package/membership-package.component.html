@@ -1,0 +1,208 @@
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header mb-2-sm">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">Membership Package</h4>
+      </div>
+    </div>
+    <div class="tab_header_row direction-column-md">
+      <ul class="nav nav-tabs border-0 nav-tabs-space">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            data-toggle="tab"
+            routerLink="/membership-package"
+            >Membership Package</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="tab"
+            routerLink="/membership-package/expiration"
+            >Package Expiration</a
+          >
+        </li>
+      </ul>
+      <div class="right_block">
+        <button class="btn btn-sm btn-primary btn-icon-item" routerLink="add">
+          <img
+            src="assets/images/plus-white.svg"
+            alt=""
+            class="btn__icon__img"
+          />
+          <span class="btn__text">Add New</span>
+        </button>
+      </div>
+    </div>
+    <div class="tab-content tab-content-sm">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <div class="table-header">
+              <div class="button-row left">
+                <div class="input__control__block input__rightIcon btn-item">
+                  <input
+                    type="text"
+                    class="form-control form-control-light form-control-sm w-auto"
+                    placeholder="Search here"
+                    (keyup)="search($event)"
+                  />
+                  <img
+                    src="assets/images/search.svg"
+                    class="input__icon__block"
+                  />
+                </div>
+                <button
+                  class="btn btn-item btn-sm btn-rounded rounded-circle btn-light-hover"
+                >
+                  <img src="assets/images/filter.svg" alt="" class="btn-img" />
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th>Package Info</th>
+                    <th>Duration</th>
+                    <th>Total Revenue</th>
+                    <th>Total Sales</th>
+                    <th>Active Member</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of tempMemberShips">
+                    <td>
+                      <span class="d-block td-title"
+                        ><a
+                          [routerLink]="'/membership-package/view/' + item.id"
+                          >{{ item.package_name }}</a
+                        ></span
+                      >
+                      <span class="d-block td-desc text-sm text-secondary">{{
+                        getMembershipTypeName(item.membership_type)
+                      }}</span>
+                    </td>
+                 
+                    <td>
+                      <span class="d-block td-title" style="text-transform: capitalize">
+                        {{ item.total_duration }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <span class="d-block td-title">
+                        ₹
+                        {{
+                          item.total_revenue
+                            ? (item.total_revenue | number: '1.2-2')
+                            : (0 | number: '1.2-2')
+                        }}
+                      </span>
+                    </td>
+                    <td>{{ item.total_sales }}</td>
+                    <td>{{ item.active_member }}</td>
+                    <td>₹ {{ item.total_amount | number: '1.2-2' }}</td>
+                    <td class="py-2">
+                      <a
+                      class="action__item btn-rounded btn btn-sm rounded-circle btn-light-hover"
+                      id="dropaction"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                        
+                      >
+                        <img
+                          src="assets/images/three-dot-vertical.svg"
+                          alt=""
+                          class="btn-img"
+                        />
+                      </a>
+                      <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropaction"
+                    >
+                      <button
+                        class="dropdown-item"
+                        (click)="editMemberShip(item.id)"
+                      >
+                        Edit
+                      </button>
+                      <button
+                      class="dropdown-item"
+                      (click)="savePath()"
+                      [routerLink]="['/membership-package/assign-membership-package/member-package/'+ item.id]"
+                    >
+                      Assign Member Package To Member
+                    </button>
+                      <!-- <button
+                        class="dropdown-item"
+                      >
+                        Remove
+                      </button> -->
+                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="c-action">
+  <div class="dropdown action-menu">
+    <button
+      class="btn"
+      type="button"
+      id="dropaction"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="6"
+        height="19"
+        fill="none"
+        viewBox="0 0 6 19"
+      >
+        <path
+          stroke="#202020"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-miterlimit="10"
+          stroke-width="2"
+          d="M1 2.694c0 .935.759 1.694 1.694 1.694.935 0 1.694-.759 1.694-1.694C4.388 1.758 3.629 1 2.694 1 1.759 1 1 1.758 1 2.694zM1 16.244c0 .935.759 1.694 1.694 1.694.935 0 1.694-.759 1.694-1.694 0-.936-.759-1.694-1.694-1.694-.935 0-1.694.758-1.694 1.694zM1 9.469c0 .935.759 1.693 1.694 1.693.935 0 1.694-.758 1.694-1.693 0-.936-.759-1.694-1.694-1.694C1.759 7.775 1 8.533 1 9.469z"
+        />
+      </svg>
+    </button>
+    <div
+      class="dropdown-menu"
+      aria-labelledby="dropaction"
+    >
+      <button
+        *ngIf="user.is_active"
+        class="dropdown-item"
+        (click)="changeUserStatus(user.id, 0, i)"
+      >
+        Inactive
+      </button>
+      <button
+        class="dropdown-item"
+        *ngIf="!user.is_active"
+        (click)="changeUserStatus(user.id, 1, i)"
+      >
+        Active
+      </button>
+    </div>
+  </div>
+</div> -->

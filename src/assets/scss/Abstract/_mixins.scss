@@ -1,0 +1,133 @@
+$xxs-device: 360px;
+$xs-2-device: 375px;
+$xs-device: 414px;
+$sm-device: 575px;
+$md-device: 767px;
+$lg-device: 991px;
+$lg-xl-device: 1024px;
+$xl-device: 1199px;
+$xxl-device: 1399px;
+/* Min-screen-mixins-start*/
+@mixin screen-xxs-down {
+  @media (max-width: $xxs-device) {
+    @content;
+  }
+}
+@mixin screen-xs-down {
+  @media (max-width: $xs-device) {
+    @content;
+  }
+}
+@mixin screen-xs-2-down {
+  @media (max-width: $xs-2-device) {
+    @content;
+  }
+}
+@mixin screen-sm-down {
+  @media (max-width: $sm-device) {
+    @content;
+  }
+}
+@mixin screen-md-down {
+  @media (max-width: $md-device) {
+    @content;
+  }
+}
+@mixin screen-lg-down {
+  @media (max-width: $lg-device) {
+    @content;
+  }
+}
+@mixin screen-lg-xl-down {
+  @media (max-width: $lg-xl-device) {
+    @content;
+  }
+}
+@mixin screen-xl-down {
+  @media (max-width: $xl-device) {
+    @content;
+  }
+}
+@mixin screen-xxl-down {
+  @media (max-width: $xxl-device) {
+    @content;
+  }
+}
+/* Min-screen-mixins-End*/
+
+/* Max-screen-mixins-Start*/
+@mixin screen-xxs-up {
+  @media (min-width: $xxs-device+1) {
+    @content;
+  }
+}
+@mixin screen-xs-up {
+  @media (min-width: $xs-device+1) {
+    @content;
+  }
+}
+@mixin screen-xs-2-up {
+  @media (min-width: $xs-2-device+1) {
+    @content;
+  }
+}
+@mixin screen-sm-up {
+  @media (min-width: $sm-device+1) {
+    @content;
+  }
+}
+@mixin screen-md-up {
+  @media (min-width: $md-device+1) {
+    @content;
+  }
+}
+@mixin screen-lg-up {
+  @media (min-width: $lg-device+1) {
+    @content;
+  }
+}
+@mixin screen-lg-xl-up {
+  @media (min-width: $lg-xl-device+1) {
+    @content;
+  }
+}
+@mixin screen-xl-up {
+  @media (min-width: $xl-device+1) {
+    @content;
+  }
+}
+@mixin screen-xxl-up {
+  @media (min-width: $xxl-device + 1) {
+    @content;
+  }
+}
+/* Min-screen-mixins-End*/
+
+/* scrollbar__start*/
+@mixin scrollbars(
+  $size,
+  $foreground-color,
+  $background-color: mix($foreground-color, white, 50%)
+) {
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+    border-radius: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+  &:not(:hover) {
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+  }
+}
+
+/* scrollbar__end*/

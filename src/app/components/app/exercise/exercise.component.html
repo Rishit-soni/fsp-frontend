@@ -1,0 +1,99 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="large"
+color="#FC4E34"
+type="ball-clip-rotate-multiple"
+>
+<p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+    <div class="container-fluid">
+      <div class="page__header mb-2-sm">
+        <div class="page__header__left">
+          <h4 class="h4 form__title">Exercise</h4>
+        </div>
+        <!--        <div class="page__header__right">
+            <span class="text-md text-black fw-semibold"> (2019-2020) </span>
+          </div> -->
+      </div>
+      <div class="tab_header_row direction-column-md">
+        <div class="right_block">
+          <button
+            routerLink="/exercise/add"
+            class="btn btn-sm btn-primary btn-icon-item"
+          >
+            <img
+              src="assets/images/plus-white.svg"
+              alt=""
+              class="btn__icon__img"
+            />
+            <span class="btn__text">Add New</span>
+          </button>
+        </div>
+      </div>
+      <div class="tab-content tab-content-sm">
+        <div class="tab-pane active" id="membershipPackage">
+          <div class="card">
+            <div class="card-body pb-0">
+              <div class="table-header">
+                <div class="button-row left">
+                  <div class="input__control__block input__rightIcon btn-item">
+                    <input
+                      type="text"
+                      class="form-control form-control-light form-control-sm w-auto"
+                      placeholder="Search here"
+                      (keyup)="search($event.target.value)"
+                    />
+                    <img
+                      src="assets/images/search.svg"
+                      class="input__icon__block"
+                    />
+                  </div>
+                  <button
+                    class="btn btn-item btn-sm btn-rounded rounded-circle btn-light-hover"
+                  >
+                    <img src="assets/images/filter.svg" alt="" class="btn-img" />
+                  </button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table
+                  class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap"
+                >
+                  <thead>
+                    <tr>
+                      <th>Body Part</th>
+                      <th>Target Area</th>
+                      <th>Exercise</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let exer of tempExercise_list">
+                      <td>{{ getBodyPart(exer.body_part) }}</td>
+                      <td>{{ getTargetArea(exer.target_area) }}</td>
+                      <td>{{ exer.exercise_name }}</td>
+                      <td class="py-2">
+                        <a
+                          
+                          class="action__item btn-rounded btn btn-sm rounded-circle btn-light-hover"
+                        >
+                          <img
+                            src="assets/images/three-dot-vertical.svg"
+                            alt=""
+                            class="btn-img"
+                          />
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

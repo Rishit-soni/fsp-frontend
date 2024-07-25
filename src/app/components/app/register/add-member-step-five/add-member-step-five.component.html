@@ -1,0 +1,786 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/register" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            />
+          </a>
+          Add User/Customer</h4>
+      </div>
+    </div>
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a (click)="storeInLocalStorage()" routerLink="/register/add-member/step-1" class="nav-link done">
+                  <span class="checkbox__tick"></span>
+                  <span class="nav-tab-text">Basic Info</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a (click)="storeInLocalStorage()" routerLink="/register/add-member/step-2" class="nav-link done">
+                  <span class="checkbox__tick"></span>
+                  <span class="nav-tab-text">Package Detail</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a (click)="storeInLocalStorage()" routerLink="/register/add-member/step-3" class="nav-link done">
+                  <span class="checkbox__tick"></span>
+                  <span class="nav-tab-text">Workout</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a (click)="storeInLocalStorage()" routerLink="/register/add-member/step-4" class="nav-link done">
+                  <span class="checkbox__tick"></span>
+                  <span class="nav-tab-text">Diet</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link active">
+                  <span class="checkbox__tick"></span>
+                  <span class="nav-tab-text">Measurement</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="row" style="padding-top: 30px">
+            <div class="col-sm-6 col-lg-4">
+              <div class="form-group mb-0 mt-2">
+                <div class="floating__block">
+                  <input
+                    class="form-control floating__input floating__input--rightIcon"
+                    placeholder="Date"
+                    [(ngModel)]="model.date"
+                    name="date"
+                    bsDatepicker
+                    [bsConfig]="{
+                      containerClass: 'theme-red',
+                      isAnimated: true,
+                      dateInputFormat: 'DD-MM-YYYY',
+                      adaptivePosition: true
+                    }"
+                    placement="place"
+                    #md="bsDatepicker"
+                    #date="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && date.invalid
+                    }"
+                  />
+                  <span class="floating__label">Date</span>
+                  <span class="floating__icon floating__icon--right">
+                    <img
+                      src="assets/images/calendar.svg"
+                      alt=""
+                      class="floating__icon--img"
+                      (click)="md.toggle()"
+                      [attr.aria-expanded]="md.isOpen"
+                      type="button"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row row-lg">
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <input
+                    type="text" numbersOnly
+                    class="form-control floating__input"
+                    placeholder="BMI"
+                    [(ngModel)]="model.bmi"
+                    name="bmi"
+                  />
+                  <span class="floating__label">BMI</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <input
+                    type="text" numbersOnly
+                    class="form-control floating__input"
+                    placeholder="SMM"
+                    [(ngModel)]="model.smm"
+                    name="smm"
+                  />
+                  <span class="floating__label">SMM</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <input
+                    type="text" numbersOnly
+                    class="form-control floating__input"
+                    placeholder="BFP"
+                    [(ngModel)]="model.bfp"
+                    name="bfp"
+                  />
+                  <span class="floating__label">BFP</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <input
+                    type="text" numbersOnly
+                    class="form-control floating__input"
+                    placeholder="BFM"
+                    [(ngModel)]="model.bfm"
+                    name="bfm"
+                  />
+                  <span class="floating__label">BFM</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      value="65 kg"
+                      placeholder="Weight"
+                      [(ngModel)]="model.weight"
+                      name="weight"
+                    />
+                    <span class="floating__label">Weight</span>
+                    <input
+                      type="text" numbersOnly
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Kg"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.weight == 'kg' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.weight = 'kg'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Lb"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.weight == 'lb' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.weight = 'lb'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      value="65 kg"
+                      placeholder="Height"
+                      [(ngModel)]="model.height"
+                      name="height"
+                    />
+                    <span class="floating__label">Height</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.height == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.height = 'ft'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.height == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.height = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      value="xyz"
+                      placeholder="Shoulder"
+                      [(ngModel)]="model.shoulder"
+                      name="shoulder"
+                    />
+                    <span class="floating__label">Shoulder</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.shoulder == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.shoulder = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.shoulder == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.shoulder = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      placeholder="Chest"
+                      [(ngModel)]="model.chest"
+                      name="chest"
+                    />
+                    <span class="floating__label">Chest</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.chest == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.chest = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.chest == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.chest = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.bust"
+                      name="bust"
+                      placeholder="Bust"
+                      [(ngModel)]="model.bust"
+                      name="bust"
+                    />
+                    <span class="floating__label">Bust</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.bust == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.bust = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.bust == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.bust = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.midriff"
+                      name="midriff"
+                      placeholder="Mid Riff"
+                      [(ngModel)]="model.midriff"
+                      name="midriff"
+                    />
+                    <span class="floating__label">Mid Riff</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.midriff == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.midriff = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.midriff == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.midriff = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.waist"
+                      name="waist"
+                      placeholder="Waist"
+                    />
+                    <span class="floating__label">Waist</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.waist == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.waist = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.waist == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.waist = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.abdomen"
+                      name="abdomen"
+                      placeholder="Abdomen"
+                    />
+                    <span class="floating__label">Abdomen</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.abdomen == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.abdomen = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.abdomen == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.abdomen = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.upper_arm"
+                      name="upper_arm"
+                      placeholder="Upper Arm"
+                    />
+                    <span class="floating__label">Upper Arm</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.upper_arm == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.upper_arm = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.upper_arm == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.upper_arm = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.fore_arm"
+                      name="fore_arm"
+                      placeholder="Fore Arm"
+                    />
+                    <span class="floating__label">Fore Arm</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.fore_arm == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.fore_arm = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.fore_arm == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.fore_arm = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.hips"
+                      name="hips"
+                      placeholder="Hips"
+                    />
+                    <span class="floating__label">Hips</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.hips == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.hips = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.hips == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.hips = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.buttocks"
+                      name="buttocks_thigh"
+                      placeholder="Buttocks"
+                    />
+                    <span class="floating__label">Buttocks</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.buttocks == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.buttocks = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.buttocks == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.buttocks = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.upper_thigh"
+                      name="upper_thigh"
+                      placeholder="Upper Thigh"
+                    />
+                    <span class="floating__label">Upper Thigh</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.upper_thigh == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.upper_thigh = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.upper_thigh == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.upper_thigh = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.mid_thigh"
+                      name="mid_thigh"
+                      placeholder="Mid Thigh"
+                    />
+                    <span class="floating__label">Mid Thigh</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.mid_thigh == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.mid_thigh = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.mid_thigh == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.mid_thigh = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="form-group">
+                <div class="floating__block">
+                  <div style="display: flex">
+                    <input
+                      type="text" numbersOnly
+                      class="form-control floating__input"
+                      [(ngModel)]="model.lower_thigh"
+                      name="lower_thigh"
+                      placeholder="Lower Thign"
+                    />
+                    <span class="floating__label">Lower Thign</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="Cm"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.lower_thigh == 'cm' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.lower_thigh = 'cm'"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 45%; cursor: pointer; padding: 8px; text-align:center"
+                      value="In"
+                      readonly
+                      [ngStyle]="{
+                        'background-color':
+                          unitModel.lower_thigh == 'in' ? '#fc4e34' : 'initial'
+                      }"
+                      (click)="unitModel.lower_thigh = 'in'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="button-row left">
+                <a
+                  class="btn-item btn btn-light btn-width"
+                  (click)="storeInLocalStorage()"
+                  routerLink="/register/add-member/step-4"
+                  >Back</a
+                >
+                <button
+                  class="btn-item btn btn-primary btn-width"
+                  type="submit"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

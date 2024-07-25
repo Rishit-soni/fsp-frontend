@@ -1,0 +1,171 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#FC4E34" type="ball-clip-rotate-multiple">
+    <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+  </ngx-spinner>
+  <div class="rightSide__wrapper--spacing">
+    <div class="container-fluid">
+        <div class="page__header mb-2-sm">
+            <div class="page__header__left">
+                <h4 class="h4 form__title"> <a routerLink="/register" class="form__title__icon__block">
+                        <img src="assets/images/arrow-left.svg" alt="" class="form__title__icon" />
+                    </a>{{ member.first_name + ' ' +  member.last_name }}</h4>
+            </div>
+        </div>
+      <div class="tab_header_row direction-column-md">
+        <ul class="nav nav-tabs border-0 nav-tabs-space">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" [routerLink]="['/register/basic/'+ param.id]">Basic</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" [routerLink]="['/register/sales/'+ param.id]">Sales</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="tab" [routerLink]="['/register/workout/'+ param.id]">Workout</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="tab" [routerLink]="['/register/diet/'+ param.id]">Diet</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link active" data-toggle="tab" [routerLink]="['/register/measurement/'+ param.id]">Measurement</a>
+            </li>
+        </ul>
+    </div>
+      <div class="tab-content tab-content-sm">
+        <div class="tab-pane active" id="membershipPackage">
+          <div class="card">
+            <div class="card-body pb-0">
+              <div class="table-header" *ngIf="measurements.length > 0">
+                <div class="table-responsive">
+                  <table class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th *ngFor="let index of measurement_index">
+                          {{ measurements[index].date | date }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>BMI</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].bmi }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>SMM</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].smm }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>BFP</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].bfp }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>BFM</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].bfm }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Weight</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].weight }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Height</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].height }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Shoulder</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].shoulder }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Chest</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].chest }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Bust</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].bust }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Mid Riff</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].midriff }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Waist</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].waist }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Abdomen</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].abdomen }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Upper Arm</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].upper_arm }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Fore Arm</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].fore_arm }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Hips</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].hips }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Buttocks</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].buttocks }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Upper Thigh</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].upper_thigh }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Mid Thigh</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].mid_thigh }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Lower Thigh</td>
+                        <td *ngFor="let index of measurement_index">
+                          {{ measurements[index].lower_thigh }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

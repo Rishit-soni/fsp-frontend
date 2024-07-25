@@ -1,0 +1,203 @@
+.form__wrapper {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  @include screen-lg-down {
+    padding-top: 1.575rem;
+    padding-bottom: 1.575rem;
+  }
+}
+.form__title {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  &__icon__block {
+    margin-right: 0.9375rem;
+  }
+  &__icon {
+    width: auto;
+    height: 1.675rem;
+  }
+  @include screen-lg-down {
+    margin-bottom: 1.075rem;
+  }
+}
+.input {
+  &__profileBlock {
+    width: 8.75rem;
+    height: 8.75rem;
+    background-color: $color-primarylight;
+    border-radius: 50%;
+    @extend %basic-flex;
+    position: relative;
+  }
+  &__profileImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  &__file {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    cursor: pointer;
+  }
+  &__profileLabel {
+    margin-top: 0.875rem;
+    @include screen-lg-down {
+      margin-top: 0.675rem;
+    }
+    @include screen-md-down {
+      margin-top: 0.475rem;
+    }
+  }
+  &__fileIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+  }
+}
+.form__wrapper {
+  .form-group {
+    margin-bottom: 2.6em;
+    @include screen-lg-down {
+      margin-bottom: 2.2rem;
+    }
+    @include screen-md-down {
+      margin-bottom: 2rem;
+    }
+    @include screen-sm-down {
+      margin-bottom: 1.8rem;
+    }
+    &.double {
+      margin-bottom: 4rem;
+      @include screen-lg-down {
+        margin-bottom: 3.5rem;
+      }
+      @include screen-md-down {
+        margin-bottom: 3rem;
+      }
+      @include screen-sm-down {
+        margin-bottom: 2.2rem;
+      }
+    }
+  }
+}
+.image {
+  &__uploadGallery {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    @include screen-lg-down {
+      margin-left: -1rem;
+      margin-right: -1rem;
+    }
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  &__column {
+    width: 16.66%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-bottom: 2.5rem;
+    @include screen-lg-down {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      margin-bottom: 2rem;
+      width: 20%;
+    }
+    @include screen-lg-down {
+      width: 25%;
+    }
+    @include screen-md-down {
+      width: 33.33%;
+    }
+    @include screen-sm-down {
+      width: 50%;
+    }
+  }
+  &__item {
+    position: relative;
+    border-radius: 1rem;
+    &.add_img {
+      background-color: $color-primarylight;
+      width: 100%;
+      height: 7.875rem;
+      @include screen-lg-down {
+        height: 9rem;
+      }
+      @include screen-md-down {
+        height: 10rem;
+      }
+      @include screen-sm-down {
+        height: 36vw;
+      }
+      @extend %basic-flex;
+      position: relative;
+      border: 1px dashed lighten($color-blue, 30%);
+      .image__inputFile {
+        position: absolute;
+        opacity: 0;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 2;
+      }
+      .image__addItem {
+        width: 2.6rem;
+        height: 2.6rem;
+      }
+    }
+  }
+  &__itemImg {
+    border-radius: inherit;
+    width: 100%;
+    object-fit: cover;
+    height: 8rem;
+    @include screen-lg-down {
+      height: 9rem;
+    }
+    @include screen-md-down {
+      height: 10rem;
+    }
+    @include screen-sm-down {
+      height: 36vw;
+    }
+  }
+}
+.close__btn {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: lighten($color-primary, 30%);
+  transform: translate(30%, -30%);
+  font-size: 1.675rem;
+  font-weight: $font-semibold;
+  border: 2px solid $color-white;
+  &,
+  &:hover {
+    color: $color-primary;
+  }
+  @extend %basic-flex;
+  &--topRight {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
+}
+.profileBlock__row {
+  display: flex;
+  .button-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 1rem;
+  }
+}

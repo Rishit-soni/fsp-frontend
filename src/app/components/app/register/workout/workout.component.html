@@ -1,0 +1,79 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#FC4E34" type="ball-clip-rotate-multiple">
+    <p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+    <div class="container-fluid">
+        <div class="page__header mb-2-sm">
+            <div class="page__header__left">
+                <h4 class="h4 form__title">
+                    <a routerLink="/register" class="form__title__icon__block">
+                        <img src="assets/images/arrow-left.svg" alt="" class="form__title__icon" />
+                    </a>{{ member.first_name + ' ' +  member.last_name }}</h4>
+            </div>
+        </div>
+        <div class="tab_header_row direction-column-md">
+            <ul class="nav nav-tabs border-0 nav-tabs-space">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" [routerLink]="['/register/basic/'+ param.id]">Basic</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" [routerLink]="['/register/sales/'+ param.id]">Sales</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active" data-toggle="tab"
+                        [routerLink]="['/register/workout/'+ param.id]">Workout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" [routerLink]="['/register/diet/'+ param.id]">Diet</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" data-toggle="tab" [routerLink]="['/register/measurement/'+ param.id]">Measurement</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content tab-content-sm">
+            <div class="tab-pane active" id="membershipPackage">
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <div class="table-header">
+                            <div class="button-row left">
+                                <div class="input__control__block input__rightIcon btn-item">
+                                    <input type="text" class="form-control form-control-light form-control-sm w-auto"
+                                        placeholder="Search here" />
+                                    <img src="assets/images/search.svg" class="input__icon__block" />
+                                </div>
+                                <button class="btn btn-item btn-sm btn-rounded rounded-circle btn-light-hover">
+                                    <img src="assets/images/filter.svg" alt="" class="btn-img" />
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Workout Name</th>
+                                        <th>Assign Date</th>
+                                        <th>Expiry Date</th>
+                                        <th>Active Days</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let workout of workout_list">
+                                        <td>
+                                            {{ workout.workout_name }}
+                                        </td>
+                                        <td>{{ workout.workout_start_date | date }}</td>
+                                        <td>{{ workout.workout_end_date | date }}</td>
+                                        <td>{{ workout.attend_days + ' / ' + (workout.total_days + 1) }}</td>
+                                        <td>{{ workout.is_active ? 'Active' : 'Expired' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

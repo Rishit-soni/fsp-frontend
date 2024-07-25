@@ -1,0 +1,122 @@
+<div class="rightSide__wrapper--spacing">
+  <div class="container-fluid">
+    <div class="page__header">
+      <div class="page__header__left">
+        <h4 class="h4 form__title">
+          <a routerLink="/exercise" class="form__title__icon__block">
+            <img
+              src="assets/images/arrow-left.svg"
+              alt=""
+              class="form__title__icon"
+            />
+          </a>
+          Add Exercise
+        </h4>
+      </div>
+    </div>
+
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-6 col-lg-4">
+              <div class="form-group">
+                <div class="floating__block">
+                  <ng-select
+                    class="form-control floating__input custom"
+                    id="custom-select"
+                    (change)="changeBodyPart()"
+                    [items]="bodyPart"
+                    bindLabel="name"
+                    bindValue="value"
+                    [(ngModel)]="model.body_part"
+                    name="body_part"
+                    #body_part="ngModel"
+                    [searchable]="false"
+                    [clearable]="false"
+                    loadingText="Loading...."
+                    [ngClass]="{
+                      'is-invalid': f.submitted && body_part.invalid
+                    }"
+                    required
+                  ></ng-select>
+                  <span class="floating__label">Body Part *</span>
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="f.submitted && body_part.invalid"
+                >
+                  <p *ngIf="body_part.errors.required">Body Part is required</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <ng-select
+                      class="form-control floating__input custom"
+                      id="custom-select"
+                     
+                      [items]="targetArea"
+                      bindLabel="name"
+                      bindValue="value"
+                      [(ngModel)]="model.target_area"
+                      name="target_area"
+                      #target_area="ngModel"
+                      [searchable]="false"
+                      [clearable]="false"
+                      loadingText="Loading...."
+                      [ngClass]="{
+                        'is-invalid': f.submitted && target_area.invalid
+                      }"
+                      required
+                    ></ng-select>
+                    <span class="floating__label">Target Area *</span>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="f.submitted && target_area.invalid"
+                  >
+                    <p *ngIf="target_area.errors.required">Target Area is required</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <div class="floating__block">
+                    <input
+                      type="text"
+                      class="form-control floating__input"
+                      placeholder="Workout Name"
+                      [(ngModel)]="model.exercise_name"
+                      name="exercise_name"
+                      #exercise_name="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && exercise_name.invalid
+                      }"
+                      required
+                    />
+                    <span class="floating__label">Exercise Name *</span>
+                  </div>
+                  <div
+                  class="invalid-feedback"
+                  *ngIf="f.submitted && target_area.invalid"
+                >
+                  <p *ngIf="target_area.errors.required">Target Area is required</p>
+                </div>
+                </div>
+              </div>
+
+            <div class="col-12">
+              <button class="btn btn-primary btn-width" type="submit">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,343 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="large"
+  color="#FC4E34"
+  type="ball-clip-rotate-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 10px">Loading...</p>
+</ngx-spinner>
+
+<div class="rightSide__wrapper--spacing" *ngIf="this.currentUser.is_active">
+  <div class="row">
+    <div class="tab-content col-md-3 col-sm-2 col-xs-1 custom-cards">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <p style="color: #fc4e34 !important">Profit & Loss</p>
+            <h3>₹ {{ revenue - expense | number: "1.2-2" }}</h3>
+            <p>
+              Revenue: <strong>₹ {{ revenue | number: "1.2-2" }}</strong>
+            </p>
+            <p>
+              Expenses: <strong>₹ {{ expense | number: "1.2-2" }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content col-md-3 col-sm-2 col-xs-1 custom-cards">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <p style="color: #fc4e34 !important">Payment</p>
+            <h3>₹ {{ pending_amount + receival_amount | number: "1.2-2" }}</h3>
+            <p>
+              Pending: <strong>₹ {{ pending_amount | number: "1.2-2" }}</strong>
+            </p>
+            <p>
+              Received:
+              <strong>₹ {{ receival_amount | number: "1.2-2" }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content col-md-3 col-sm-2 col-xs-1 custom-cards">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <p style="color: #fc4e34 !important">Total Membership</p>
+            <h3>{{ new_members + renew_members }}</h3>
+            <p>
+              New: <strong>{{ new_members }}</strong>
+            </p>
+            <p>
+              Renewal: <strong>{{ renew_members }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content col-md-3 col-sm-2 col-xs-1 custom-cards">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <p style="color: #fc4e34 !important">Members</p>
+            <h3>{{ active_members + inactive_members + expired_members}}</h3>
+            <p>
+              Active: <strong>{{ active_members }}</strong>
+            </p>
+            <p>
+              Inactive: <strong>{{ inactive_members }}</strong>
+            </p>
+            <p>
+              Expired: <strong>{{ expired_members }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content tab-content-sm col-7">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0 custom-card-dashboard">
+            <div
+              class="table-header"
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center !important;
+              "
+            >
+              <h6 style="margin: 0">Today's Task</h6>
+              <div class="button-row">
+                <div class="input__control__block input__rightIcon btn-item">
+                  <input
+                    type="text"
+                    class="form-control form-control-light form-control-sm w-auto"
+                    placeholder="Search here"
+                    (keyup)="searchTask($event)"
+                  />
+                  <img
+                    src="assets/images/search.svg"
+                    class="input__icon__block"
+                  />
+                </div>
+                <button
+                  class="btn btn-item btn-sm btn-rounded rounded-circle btn-light-hover"
+                >
+                  <img src="assets/images/filter.svg" alt="" class="btn-img" />
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Task</th>
+                    <th>Created Date</th>
+                    <th>Assign To</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody style="height: 335px">
+                  <tr *ngFor="let member of task_list">
+                    <td style="display: flex; flex-direction: column">
+                      {{ member.member_name }}
+                      <span>{{ member.mobile_no }}</span>
+                    </td>
+                    <td>{{ member.task_name }}</td>
+                    <td>{{ member.created_date | date }}</td>
+                    <td></td>
+                    <td class="py-2">
+                      <a
+                        class="action__item btn-rounded btn btn-sm rounded-circle btn-light-hover"
+                      >
+                        <img
+                          src="assets/images/three-dot-vertical.svg"
+                          alt=""
+                          class="btn-img"
+                        />
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content tab-content-sm col-5">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0 custom-card-dashboard">
+            <div
+              class="table-header"
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center !important;
+              "
+            >
+              <h6 style="margin: 0">Attendance</h6>
+              <div class="button-row">
+                <div class="input__control__block input__rightIcon btn-item">
+                  <input
+                    type="text"
+                    class="form-control form-control-light form-control-sm w-auto"
+                    placeholder="Search here"
+                    (keyup)="searchAttendance($event)"
+                  />
+                  <img
+                    src="assets/images/search.svg"
+                    class="input__icon__block"
+                  />
+                </div>
+                <button
+                  class="btn btn-item btn-sm btn-rounded rounded-circle btn-light-hover"
+                >
+                  <img src="assets/images/filter.svg" alt="" class="btn-img" />
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table table-gray text-sm table-bordered border-x-0 mb-0 text-nowrap"
+              >
+                <tbody>
+                  <div
+                    class="row"
+                    *ngFor="let member of attendance_list; let i = index"
+                  >
+                    <div class="col-12">
+                      <div
+                        class="left_part"
+                        style="display: flex; flex-direction: column"
+                      >
+                        <span
+                          >{{ member.first_name }} {{ member.last_name }}</span
+                        >
+                        <span *ngIf="member.start_time && !member.end_time">
+                          <app-timer [time]="member.start_time"></app-timer>
+                        </span>
+                        <span *ngIf="!member.start_time && !member.end_time">
+                          00:00:00
+                        </span>
+                        <span *ngIf="member.start_time && member.end_time">
+                          {{ member.diff_time }}
+                        </span>
+                      </div>
+                      <div class="right_part" *ngIf="!member.start_time">
+                        <button
+                          class="in-out-start"
+                          type="button"
+                          (click)="startTimer(i, member.role)"
+                          [disabled]="member.role == 'employee'"
+                        >
+                          In
+                        </button>
+                        
+                      </div>
+                      <div
+                        class="right_part"
+                        *ngIf="member.start_time && !member.end_time"
+                      >
+                        <button
+                          class="in-out-stop"
+                          type="button"
+                          (click)="endTimer(i, member.role)"
+                        >
+                          Out
+                        </button>
+                      </div>
+                      <div
+                        class="right_part"
+                        *ngIf="member.start_time && member.end_time"
+                      >
+                        <button
+                          class="in-out-detail"
+                          type="button"
+                          disabled
+                          (click)="endTimer(i)"
+                        >
+                          Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content col-md-12 col-sm-12 col-xs-12">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <p style="color: #fc4e34 !important">Expense & Revenue</p>
+            <div style="margin-bottom: 20px">
+              <canvas
+                height="100"
+                baseChart
+                chartType="line"
+                [datasets]="chartData"
+                [labels]="chartLabels"
+                [options]="chartOptions"
+                [colors]="chartColors"
+                [legend]="chartLegend"
+                [plugins]="chartPlugins"
+              >
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content col-md-6 col-sm-12 col-xs-12">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <p style="color: #fc4e34 !important">Product Selling</p>
+            <div style="margin-bottom: 20px">
+              <canvas baseChart 
+                chartType="bar"
+                [datasets]="chartDataPS"
+                [labels]="chartLabelsPS"
+                [options]="chartOptionsPS"
+                [plugins]="chartPluginsPS"
+                [legend]="chartLegendPS">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content col-md-6 col-sm-12 col-xs-12">
+      <div class="tab-pane active" id="membershipPackage">
+        <div class="card">
+          <div class="card-body pb-0">
+            <p style="color: #fc4e34 !important">Promotional</p>
+            <div style="margin-bottom: 20px">
+              <canvas baseChart
+                chartType="pie"
+                [data]="chartDataPromotional"
+                [colors]="chartColorsPromotional"
+                [labels]="chartLabelsPromotional"
+                [options]="chartOptions"
+                [plugins]="chartPlugins"
+                [legend]="chartLegend">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rightSide__wrapper--spacing" *ngIf="!this.currentUser.is_active">
+  <div class="container h-100">
+    <div class="row align-items-center h-100">
+      <div class="col-6 mx-auto">
+        <div class="jumbotron">
+          <p style="text-align: center">
+            Your account is currently not active. Please contact FSP Media to
+            active your account.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,525 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#FC4E34" type="ball-clip-rotate-multiple">
+    <p style="font-size: 20px; color: white;margin-top: 10px;">Loading...</p>
+</ngx-spinner>
+<div class="rightSide__wrapper--spacing">
+    <div class="container-fluid">
+        <div class="page__header mb-2-sm">
+            <div class="page__header__left">
+                <h4 class="h4 form__title">    
+                    <a routerLink="/register" class="form__title__icon__block">
+                    <img
+                      src="assets/images/arrow-left.svg"
+                      alt=""
+                      class="form__title__icon"
+                    /> </a
+                  >{{ model.first_name + ' ' +  model.last_name }}</h4>
+            </div>
+        </div>
+        <div class="tab_header_row direction-column-md">
+            <ul class="nav nav-tabs border-0 nav-tabs-space">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" [routerLink]="['/register/basic/'+ param.id]">Basic</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" [routerLink]="['/register/sales/'+ param.id]">Sales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" [routerLink]="['/register/workout/'+ param.id]">Workout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab"  [routerLink]="['/register/diet/'+ param.id]">Diet</a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" data-toggle="tab" [routerLink]="['/register/measurement/'+ param.id]">Measurement</a>
+              </li>
+            </ul>
+        </div>
+        <div class="tab-content tab-content-sm">
+            <div class="tab-pane active" id="membershipPackage">
+                <form  #f="ngForm">
+                    <div class="form-group double">
+                      <div class="d-inline-block">
+                        <label class="input__profileBlock">
+                          <input type="file" class="input__file" />
+                          <img
+                            src="assets/images/input-file.svg"
+                            alt=""
+                            class="input__fileIcon"
+                          />
+                        </label>
+                        <p
+                          class="text-sm text-gray text-center mb-0 input__profileLabel"
+                        >
+                          Photo Here
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row row-lg">
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="First Name"
+                              [(ngModel)]="model.first_name"
+                              name="first_name"
+                              #first_name="ngModel"
+                              placeholder="First Name"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && first_name.invalid
+                              }"
+                              required
+                              readonly
+                            />
+                            <span class="floating__label">First Name *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && first_name.invalid"
+                          >
+                            <p *ngIf="first_name.errors.required">
+                              First Name is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="Last Name"
+                              [(ngModel)]="model.last_name"
+                              name="last_name"
+                              #last_name="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && last_name.invalid
+                              }"
+                              required
+                              readonly
+                            />
+                            <span class="floating__label">Last Name *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && last_name.invalid"
+                          >
+                            <p *ngIf="last_name.errors.required">
+                              Last Name is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="Mobile No."
+                              [(ngModel)]="model.mobile_no"
+                              name="mobile_no"
+                              #mobile_no="ngModel"
+                              maxlength="10"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && mobile_no.invalid
+                              }"
+                              required
+                              readonly
+                            />
+                            <span class="floating__label">Mobile No. *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && mobile_no.invalid"
+                          >
+                            <p *ngIf="mobile_no.errors.required">
+                              Mobile No is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="Email Id"
+                              [(ngModel)]="model.email"
+                              pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                              name="email"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && email.invalid
+                              }"
+                              #email="ngModel"
+                              required
+                              readonly
+                            />
+                            <span class="floating__label">Email Id *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && email.invalid"
+                          >
+                            <p *ngIf="email.errors.required">Email is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <ng-select
+                              class="form-control floating__input custom"
+                              id="custom-select"
+                              [items]="gender_array"
+                              bindLabel="name"
+                              bindValue="value"
+                              [(ngModel)]="model.gender"
+                              name="gender"
+                              #gender="ngModel"
+                              [searchable]="false"
+                              [clearable]="false"
+                              loadingText="Loading...."
+                              [ngClass]="{
+                                'is-invalid': f.submitted && gender.invalid
+                              }"
+                              required
+                              readonly
+                            ></ng-select>
+                            <span class="floating__label">Gender *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && gender.invalid"
+                          >
+                            <p *ngIf="gender.errors.required">Gender is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input floating__input--rightIcon"
+                              placeholder="Gym Address"
+                              [(ngModel)]="model.address"
+                              name="address"
+                              #address="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && address.invalid
+                              }"
+                              required
+                              readonly
+                            />
+                            <span class="floating__label">Address *</span>
+                            <a class="floating__icon floating__icon--right">
+                              <img
+                                src="assets/images/location-mark.svg"
+                                alt=""
+                                class="floating__icon--img"
+                              />
+                            </a>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && address.invalid"
+                          >
+                            <p *ngIf="address.errors.required">
+                              Address is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="Pin Code"
+                              [(ngModel)]="model.pincode"
+                              name="pincode"
+                              #pincode="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && pincode.invalid
+                              }"
+                              required
+                              readonly
+                            />
+                            <span class="floating__label">Pin Code *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && pincode.invalid"
+                          >
+                            <p *ngIf="pincode.errors.required">
+                              Pincode is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group double">
+                          <div class="floating__block">
+                            <ng-select
+                              class="form-control floating__input custom"
+                              id="custom-select"
+                              [items]="country_array"
+                              bindLabel="name"
+                              bindValue="name"
+                              (change)="countryChange($event)"
+                              [(ngModel)]="model.country"
+                              name="country"
+                              #country="ngModel"
+                              [clearable]="false"
+                              loadingText="Loading...."
+                              [ngClass]="{
+                                'is-invalid': f.submitted && country.invalid
+                              }"
+                              required
+                              readonly
+                            ></ng-select>
+                            <span class="floating__label">Select Country *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && country.invalid"
+                          >
+                            <p *ngIf="country.errors.required">
+                              Country is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <ng-select
+                              class="form-control floating__input custom"
+                              id="custom-select"
+                              [items]="state_array"
+                              bindLabel="name"
+                              bindValue="name"
+                              (change)="stateChange($event)"
+                              [(ngModel)]="model.state"
+                              name="state"
+                              [clearable]="false"
+                              #state="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && state.invalid
+                              }"
+                              required
+                              readonly
+                            ></ng-select>
+                            <span class="floating__label">Select State *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && state.invalid"
+                          >
+                            <p *ngIf="state.errors.required">State is required</p>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <ng-select
+                              class="form-control floating__input custom"
+                              id="custom-select"
+                              [items]="city_array"
+                              bindLabel="name"
+                              bindValue="name"
+                              [(ngModel)]="model.city"
+                              name="city"
+                              [clearable]="false"
+                              #city="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && city.invalid
+                              }"
+                              required
+                              readonly
+                            ></ng-select>
+                            <span class="floating__label">Select City *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && city.invalid"
+                          >
+                            <p *ngIf="city.errors.required">City is required</p>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input floating__input--rightIcon"
+                              placeholder="Birth Date"
+                              bsDatepicker
+                              [bsConfig]="{
+                                containerClass: 'theme-red',
+                                isAnimated: true,
+                                dateInputFormat: 'DD-MM-YYYY',
+                                adaptivePosition: true
+                              }"
+                              placement="bottom"
+                              #dp="bsDatepicker"
+                              [(ngModel)]="model.birth_date"
+                              name="birth_date"
+                              #birth_date="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && birth_date.invalid
+                              }"
+                              disabled
+                            />
+                            <span class="floating__label">Birth Date</span>
+                            <span class="floating__icon floating__icon--right">
+                              <img
+                                src="assets/images/calendar.svg"
+                                alt=""
+                                class="floating__icon--img"
+                                type="button"
+                                (click)="dp.toggle()"
+                                [attr.aria-expanded]="dp.isOpen"
+                                type="button"
+                             
+                              />
+                            </span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && birth_date.invalid"
+                          >
+                            <p *ngIf="birth_date.errors.required">
+                              Birth Date is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group double">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="Age"
+                              [(ngModel)]="model.age"
+                              name="blood_group"
+                              #age="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && age.invalid
+                              }"
+                              readonly
+                            />
+                            <span class="floating__label">Age</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group double">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="Blood Group"
+                              [(ngModel)]="model.blood_group"
+                              name="blood_group"
+                              #blood_group="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && blood_group.invalid
+                              }"
+                              readonly
+                            />
+                            <span class="floating__label">Blood Group</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && blood_group.invalid"
+                          >
+                            <p *ngIf="blood_group.errors.required">
+                              Blood Group is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <ng-select
+                              class="form-control floating__input custom"
+                              id="custom-select"
+                              [items]="fitness_goal_array"
+                              bindLabel="name"
+                              bindValue="value"
+                              [(ngModel)]="model.fitness_goal"
+                              name="fitness_goal"
+                              #fitness_goal="ngModel"
+                              [searchable]="false"
+                              [clearable]="false"
+                              loadingText="Loading...."
+                              [multiple]="true"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && fitness_goal.invalid
+                              }"
+                              required
+                              readonly
+                            ></ng-select>
+                            <span class="floating__label">Fitness Goal *</span>
+                          </div>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="f.submitted && fitness_goal.invalid"
+                          >
+                            <p *ngIf="fitness_goal.errors.required">
+                              Fitness Goal is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="Emergency No"
+                              [(ngModel)]="model.emergency_no"
+                              name="emergency_no"
+                              readonly
+                            />
+                            <span class="floating__label">Emergency No</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                          <div class="floating__block">
+                            <input
+                              type="text"
+                              class="form-control floating__input"
+                              placeholder="Occupation"
+                              [(ngModel)]="model.occupation"
+                              name="occupation"
+                              readonly
+                            />
+                            <span class="floating__label">Occupation</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>

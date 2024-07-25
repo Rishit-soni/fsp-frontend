@@ -1,0 +1,15 @@
+<div>
+  <div class="page__wrapper">
+    <div
+      [class]="showMain ? 'header__wrapper header__wrapper--fixedTop' : null"
+    >
+      <app-navbar *ngIf="showMain"></app-navbar>
+    </div>
+    <div [class]="showMain ? 'main__wrapper main__wrapper__grid' : null">
+      <app-sidebar *ngIf="showMain"></app-sidebar>
+      <div [class]="showMain ? 'rightSide__wrapper' : null">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

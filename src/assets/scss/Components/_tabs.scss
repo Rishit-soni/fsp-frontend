@@ -1,0 +1,152 @@
+.nav-tabs {
+  border-color: darken($color-graylight, 10%);
+  flex-wrap: nowrap;
+  overflow: auto;
+  padding-bottom: 1px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-item {
+    flex: 0 0 auto;
+    margin-right: 1.5rem;
+  }
+  .nav-link {
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: $color-graydark;
+    font-weight: $font-semibold;
+    font-size: 1.125rem;
+    transition: 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    padding: 0.775rem 0.675rem;
+    &-width {
+      min-width: 12rem;
+    }
+    &.done,
+    &.active {
+      background-color: transparent;
+      border-color: $color-primary;
+      color: $color-primary;
+      font-weight: $font-semibold;
+      .checkbox__tick {
+        background-color: lighten($color-primary, 36%);
+        border-color: lighten($color-primary, 26%);
+        &:before {
+          border-color: $color-primary;
+        }
+      }
+    }
+    &.done {
+      border-bottom-color: transparent;
+      .checkbox__tick {
+        background-color: $color-primary;
+        &:before {
+          border-color: $color-white;
+        }
+      }
+    }
+  }
+  &.nav-blue {
+    .nav-link {
+      &.active {
+        border-bottom-color: $color-blue;
+        color: $color-blue;
+        .checkbox__tick {
+          background-color: lighten($color-blue, 36%);
+          border-color: lighten($color-blue, 26%);
+          &:before {
+            border-color: $color-blue;
+          }
+        }
+      }
+    }
+  }
+  &.nav-tabs-space {
+    .nav-item {
+      margin-right: 0;
+    }
+    .nav-link {
+      padding-left: 1.875rem;
+      padding-right: 1.875rem;
+      @include screen-lg-down {
+        padding-left: 1.575rem;
+        padding-right: 1.575rem;
+      }
+      @include screen-md-down {
+        padding-left: 1.275rem;
+        padding-right: 1.275rem;
+      }
+      @include screen-xs-down {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  }
+}
+.tab_header_row {
+  border-bottom: 1px solid darken($color-graylight, 10%);
+  display: flex;
+  align-items: flex-end;
+  &.direction-column-md {
+    @include screen-md-down {
+      flex-direction: column-reverse;
+    }
+  }
+  .nav-tabs {
+    padding-bottom: 0;
+    margin-bottom: -1px;
+    width: 100%;
+    .nav-item {
+      margin-bottom: 0;
+    }
+  }
+  .right_block {
+    padding-bottom: 0.575rem;
+    margin-left: auto;
+  }
+}
+.checkbox__tick {
+  display: inline-block;
+  width: 1.6rem;
+  transition: 0.2s ease-in-out;
+  height: 1.6rem;
+  border-radius: 50%;
+  background-color: $color-graylight;
+  border: 1px solid darken($color-graylight2, 8%);
+  position: relative;
+  &:before {
+    position: absolute;
+    top: 0.3rem;
+    left: 0.54rem;
+    transition: 0.2s ease-in-out;
+    content: "";
+    width: 0.4rem;
+    height: 0.7rem;
+    border: 2px solid darken($color-graylight2, 8%);
+    transform: rotate(45deg);
+    border-left: none;
+    border-top: none;
+  }
+}
+.nav-tab-text {
+  margin-left: 0.575rem;
+}
+.tab-content {
+  padding-top: 2.8rem;
+  padding-bottom: 2.8rem;
+  &-sm {
+    padding-top: 1.675rem;
+    padding-bottom: 1.675rem;
+  }
+  @include screen-lg-down {
+    padding-top: 1.575rem;
+    padding-bottom: 1.575rem;
+    &-sm {
+      padding-top: 1.275rem;
+      padding-bottom: 1.275rem;
+    }
+  }
+}

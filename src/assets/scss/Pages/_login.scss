@@ -1,0 +1,185 @@
+.login__wrapper {
+  flex: auto;
+  .form-group {
+    margin-bottom: 0;
+    + .form-group {
+      margin-top: 2rem;
+    }
+  }
+  @extend %flex-block;
+  .login__logo {
+    &__img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      height: 2.4rem;
+    }
+  }
+  .left {
+    &__block {
+      flex: auto;
+      position: relative;
+      background-color: $color-primarylight;
+      @include screen-md-down {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &__blockImg {
+      width: 100%;
+      object-fit: contain;
+      height: 100%;
+      padding: 2rem;
+      @include screen-md-down {
+        opacity: 0;
+      }
+    }
+    &__blockImg--fixed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      @include screen-md-down {
+        position: static;
+      }
+    }
+  }
+  .right {
+    &__block {
+      background-color: $color-white;
+      position: relative;
+      flex-shrink: 0;
+      @include screen-md-down {
+        background-color: $color-white;
+        margin: 3rem auto;
+        border-radius: 0.875rem;
+        width: calc(100% - 4rem);
+        max-width: 35rem;
+      }
+      @include screen-sm-down {
+        width: calc(100% - 3rem);
+        margin: 2rem auto;
+      }
+      @include screen-sm-down {
+        width: calc(100% - 2rem);
+      }
+      &--spacing {
+        padding: 3rem 5rem;
+        @include screen-xl-down {
+          padding: 3rem 4rem;
+        }
+        @include screen-md-down {
+          padding: 2.2rem 3.2rem;
+        }
+        @include screen-sm-down {
+          padding: 2rem 2.5rem;
+        }
+        @include screen-xs-down {
+          padding: 1.875rem 1.5rem;
+        }
+        @include screen-xxs-down {
+          padding: 1.675rem 1rem;
+        }
+      }
+      &--center {
+        @extend %basic-flex;
+        flex-direction: column;
+        > div {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+.abs__bottom {
+  position: absolute;
+  bottom: 1rem;
+  font-weight: $font-semibold;
+  @include screen-xl-down {
+    position: static;
+    margin-top: 1rem;
+  }
+}
+.form__group__block {
+  padding: 2rem 0;
+  @include screen-xl-down {
+    padding: 1.375rem 0;
+  }
+  &--width {
+    min-width: 26rem;
+    @include screen-xl-down {
+      min-width: 20rem;
+    }
+    @include screen-md-down {
+      min-width: unset;
+    }
+  }
+}
+.form__smallTitle {
+  margin-bottom: 1.8rem;
+  @include screen-xl-down {
+    margin-bottom: 1rem;
+  }
+}
+.radio {
+  &__block__item {
+    @extend %basic-flex;
+    border: 1px solid $color-graylight;
+    border-radius: 0.4rem;
+    padding: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0px 4px 18px 2px rgba($color-black, 0.02);
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+    @include screen-lg-down {
+      padding: 1.2rem;
+    }
+    @include screen-md-down {
+      padding: 1rem;
+    }
+    @include screen-sm-down {
+      padding: 1rem 0.875rem;
+    }
+  }
+  &__itemIcon {
+    &__block {
+      width: 3.5rem;
+      height: 3.5rem;
+      flex-shrink: 0;
+      @extend %basic-flex;
+      border-radius: 50%;
+      background-color: rgba($color-primary, 0.1);
+      @include screen-lg-down {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+    &__img {
+      width: 2.2rem;
+      height: 2.2rem;
+      object-fit: contain;
+      @include screen-lg-down {
+        width: 1.875rem;
+        height: 1.875rem;
+      }
+    }
+  }
+  &__detail {
+    flex: auto;
+    padding: 0 1rem;
+    .radio__title {
+      margin-bottom: 0.175rem;
+      font-weight: $font-semibold;
+    }
+  }
+  &__inputIcon__block {
+    flex-shrink: 0;
+  }
+}
